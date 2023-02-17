@@ -8,7 +8,7 @@ namespace Sorting
 		private static void Swap(ref int First, ref int Second)
 		{
 			(First, Second) = (Second, First);
-        }
+		}
 
 		// ShellSort function with Knuth Sequence
 		public static int[] Sort(int[] array)
@@ -37,6 +37,18 @@ namespace Sorting
 
 			return array;
 		}
+	}
+
+	static public class Utils
+	{
+		public static void PrintArray(int[] ints)
+		{
+			foreach(int item in ints)
+			{
+				Console.Write($"{item} ");
+			}
+
+        }
 	}
 }
 

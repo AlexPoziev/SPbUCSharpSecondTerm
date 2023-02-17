@@ -1,9 +1,28 @@
-﻿int[] test = { 3, 2, 1 };
+﻿using System;
 
-test = Sorting.ShellSort.Sort(test);
+Console.WriteLine("Input numbers separated by space: ");
 
-Console.WriteLine(test);
-foreach(var item in test)
+// nullable
+string? sequence = Console.ReadLine();
+if (sequence == null)
 {
-    System.Console.WriteLine(item);
+    Console.WriteLine("Reading Error");
+    return;
 }
+
+var stringArray = sequence.Trim().Split(' ');
+var intArray = new int[stringArray.Length];
+
+for (int i = 0; i < stringArray.Length; ++i)
+{
+    if (!int.TryParse(stringArray[i], out intArray[i]))
+    {
+        Console.WriteLine("Invalid input data");
+        return;
+    }
+}
+
+intArray = Sorting.ShellSort.Sort(intArray);
+
+Console.WriteLine("Sorted array: ");
+Sorting.Utils.PrintArray(intArray);
