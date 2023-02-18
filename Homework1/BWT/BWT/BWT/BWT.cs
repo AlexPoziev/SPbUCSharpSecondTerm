@@ -22,7 +22,7 @@ namespace Algorithms
 			return (bwtString, lastElement);
 		}
 
-		public static string inverseBWT(string transformedString, int lastElementIndex)
+		public static string InverseBWT(string transformedString, int lastElementIndex)
 		{
 			var shiftArray = new int[transformedString.Length];
 			BWTSort.FillArrayBySequence(shiftArray);

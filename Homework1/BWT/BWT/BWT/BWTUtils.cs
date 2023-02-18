@@ -72,7 +72,7 @@ namespace Algorithms
             return lastElement;
         }
 
-        // sort of ints by word values. Mutate ints
+        // sort of ints by word values. Mutate ints. Sorting must be stable
         public static void InverseBWTSort(string word, int[] ints)
         {
             for (int i = 0; i < word.Length - 1; ++i)
