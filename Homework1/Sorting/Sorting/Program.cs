@@ -3,7 +3,7 @@
 Console.WriteLine("Input numbers separated by space: ");
 
 // nullable
-string? sequence = Console.ReadLine();
+var sequence = Console.ReadLine();
 if (sequence == null)
 {
     Console.WriteLine("Reading Error");
@@ -13,7 +13,7 @@ if (sequence == null)
 var stringArray = sequence.Trim().Split(' ');
 var intArray = new int[stringArray.Length];
 
-for (int i = 0; i < stringArray.Length; ++i)
+for (var i = 0; i < stringArray.Length; ++i)
 {
     if (!int.TryParse(stringArray[i], out intArray[i]))
     {

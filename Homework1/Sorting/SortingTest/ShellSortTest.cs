@@ -68,7 +68,7 @@ public class ShellSortTest
             Assert.Fail("Values lost");
         }
 
-        Assert.IsTrue(IsArraySorted(sortedArray));
+        Assert.That(IsArraySorted(sortedArray), Is.True);
           
     }
 
