@@ -52,14 +52,24 @@ public class ShellSortTest
     }
 
     [Test]
-    public void OnlyCaseTest()
+    public void RandomNumberTest()
     {
-        int[] array = { 0 };
-        int[] expected = { 0 };
+        Random randomNums = new Random();
+        int[] array = new int[500];
 
-        var actual = Sorting.ShellSort.Sort(array);
+        for (int i = 0; i < array.Length; ++i)
+        {
+            array[i] = randomNums.Next();
+        }
 
-        Assert.That(expected, Is.EqualTo(actual));
+        var sortedArray = Sorting.ShellSort.Sort(array);
+        if (!IsArrayFull(sortedArray, array))
+        {
+            Assert.Fail("Values lost");
+        }
+
+        Assert.IsTrue(IsArraySorted(sortedArray));
+          
     }
 
 }
