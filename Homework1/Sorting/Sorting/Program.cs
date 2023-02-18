@@ -22,7 +22,7 @@ for (var i = 0; i < stringArray.Length; ++i)
     }
 }
 
-intArray = Sorting.ShellSort.Sort(intArray);
+Sorting.ShellSort.Sort(intArray);
 
 Console.WriteLine("Sorted array: ");
 Sorting.Utils.PrintArray(intArray);

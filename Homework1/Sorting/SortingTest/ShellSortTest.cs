@@ -46,29 +46,31 @@ public class ShellSortTest
     [TestCase(new int[] {  }, new int[] {  })]
     public void SimpleSortTest(int[] array, int[] expected)
     {
-        var actual = Sorting.ShellSort.Sort(array);
+        Sorting.ShellSort.Sort(array);
 
-        Assert.That(expected, Is.EqualTo(actual));
+        Assert.That(expected, Is.EqualTo(array));
     }
 
     [Test]
     public void RandomNumberTest()
     {
         Random randomNums = new Random();
-        int[] array = new int[500];
+        int[] array = new int[100];
+        int[] nativeArray = new int[100];
 
         for (int i = 0; i < array.Length; ++i)
         {
             array[i] = randomNums.Next();
+            nativeArray[i] = array[i];
         }
 
-        var sortedArray = Sorting.ShellSort.Sort(array);
-        if (!IsArrayFull(sortedArray, array))
+        Sorting.ShellSort.Sort(array);
+        if (!IsArrayFull(nativeArray, array))
         {
             Assert.Fail("Values lost");
         }
 
-        Assert.That(IsArraySorted(sortedArray), Is.True);
+        Assert.That(IsArraySorted(array), Is.True);
           
     }
 

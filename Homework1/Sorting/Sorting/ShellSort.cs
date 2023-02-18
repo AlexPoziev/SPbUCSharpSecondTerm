@@ -11,7 +11,7 @@ namespace Sorting
 		}
 
 		// ShellSort function with Knuth Sequence
-		public static int[] Sort(int[] array)
+		public static void Sort(int[] array)
 		{
 			var gap = 1;
 
@@ -34,8 +34,6 @@ namespace Sorting
 
 				gap /= 3;
 			}
-
-			return array;
 		}
 	}
 
