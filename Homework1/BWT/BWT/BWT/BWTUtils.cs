@@ -1,9 +1,24 @@
 ﻿using System;
 
-namespace BWTUtils
+namespace Algorithms
 {
     public static class BWTSort
     {
+        // function to swap values of two variables
+        private static void Swap(ref int First, ref int Second)
+        {
+            (First, Second) = (Second, First);
+        }
+
+        // Fill array by range 0..array.Length - 1
+        public static void FillArrayBySequence(int[] array)
+        {
+            for (int i = 0; i < array.Length; ++i)
+            {
+                array[i] = i;
+            }
+        }
+
         // function to compare two suffix of <word>, takes two suffix indexes
         // returns true if the first suffix more than the second
         public static bool IsSuffixMore(string word, int firstSuffixIndex, int secondSuffixIndex)
@@ -19,16 +34,10 @@ namespace BWTUtils
             return false;
         }
 
-        // function to swap values of two variables
-        private static void Swap(ref int First, ref int Second)
-        {
-            (First, Second) = (Second, First);
-        }
-
         // ShellSort function with Knuth Sequence
         // BWT interpretation, return position of the last element
         // word immutable
-        public static int Sort(string word, int[] array)
+        public static int DirectBWTSort(string word, int[] array)
         {
             var lastElement = 0;
             var gap = 1;
@@ -61,6 +70,21 @@ namespace BWTUtils
             }
 
             return lastElement;
+        }
+
+        // sort of ints by word values. Mutate ints
+        public static void InverseBWTSort(string word, int[] ints)
+        {
+            for (int i = 0; i < word.Length - 1; ++i)
+            {
+                for (int j = 0; j < word.Length - 1 - i; ++j)
+                {
+                    if (word[ints[j]] > word[ints[j + 1]])
+                    {
+                        Swap(ref ints[j], ref ints[j + 1]);
+                    }
+                }
+            }
         }
     }
 }

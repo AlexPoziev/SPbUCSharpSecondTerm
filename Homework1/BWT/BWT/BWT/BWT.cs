@@ -4,15 +4,14 @@ namespace Algorithms
 {
 	public static class BWT
 	{
-		public static (string, int) DirectBWT(string word)
+        // Direct Burrows–Wheeler transform
+        // returns transformed string and index of last element
+        public static (string, int) DirectBWT(string word)
 		{
 			var suffixIndexArray = new int[word.Length];
-			for (int i = 0; i < suffixIndexArray.Length; ++i)
-			{
-				suffixIndexArray[i] = i;
-			}
+			BWTSort.FillArrayBySequence(suffixIndexArray);
 
-			var lastElement = BWTUtils.BWTSort.Sort(word, suffixIndexArray);
+			var lastElement = BWTSort.DirectBWTSort(word, suffixIndexArray);
 
 			string bwtString = "";
 			for (int i = 0; i < word.Length; ++i)
@@ -22,6 +21,22 @@ namespace Algorithms
 
 			return (bwtString, lastElement);
 		}
+
+		public static string inverseBWT(string transformedString, int lastElementIndex)
+		{
+			var shiftArray = new int[transformedString.Length];
+			BWTSort.FillArrayBySequence(shiftArray);
+			BWTSort.InverseBWTSort(transformedString, shiftArray);
+
+			var originString = "";  
+
+			for (int i = 0; i < transformedString.Length; ++i)
+			{
+				originString += transformedString[shiftArray[lastElementIndex]];
+				lastElementIndex = shiftArray[lastElementIndex];
+			}
+
+			return originString;
+		}
 	}
 }
-
