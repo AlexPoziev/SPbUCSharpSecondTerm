@@ -2,7 +2,7 @@
 
 namespace Sorting
 {
-	static class ShellSort
+	public static class ShellSort
 	{
 		// function to swap values of two varriables
 		private static void Swap(ref int First, ref int Second)
@@ -39,7 +39,7 @@ namespace Sorting
 		}
 	}
 
-	static public class Utils
+    public static class Utils
 	{
 		public static void PrintArray(int[] ints)
 		{

@@ -1,15 +1,65 @@
 ﻿namespace SortingTest;
 
-public class Tests
+public class ShellSortTest
 {
-    [SetUp]
-    public void Setup()
+    private static bool IsArrayFull(int[] oldArray, int[] newArray)
     {
+        if (oldArray.Length != newArray.Length)
+        {
+            return false;
+        }
+
+        Array.Sort(oldArray);
+
+        for (int i = 0; i < oldArray.Length; ++i)
+        {
+            if (oldArray[i] != newArray[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool IsArraySorted(int[] array)
+    {
+        for (int i = 0; i < array.Length - 1; ++i)
+        {
+            if (array[i] > array[i + 1])
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     [Test]
-    public void Test1()
+    [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+    [TestCase(new int[] { 1, 4, 2, 3, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+    [TestCase(new int[] { 5, 4, 3, 2, 1 }, new int[] { 1, 2, 3, 4, 5 })]
+    [TestCase(new int[] { 5, 4, 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5 })]
+    [TestCase(new int[] { 1 }, new int[] { 1 })]
+    [TestCase(new int[] { int.MaxValue, 1, int.MinValue }, new int[] { int.MinValue, 1, int.MaxValue })]
+    [TestCase(new int[] { 1, 2, 1, 3, 4, 3}, new int[] { 1, 1, 2, 3, 3, 4 })]
+    [TestCase(new int[] {  }, new int[] {  })]
+    public void SimpleSortTest(int[] array, int[] expected)
     {
-        Assert.Pass();
+        var actual = Sorting.ShellSort.Sort(array);
+
+        Assert.That(expected, Is.EqualTo(actual));
     }
+
+    [Test]
+    public void OnlyCaseTest()
+    {
+        int[] array = { 0 };
+        int[] expected = { 0 };
+
+        var actual = Sorting.ShellSort.Sort(array);
+
+        Assert.That(expected, Is.EqualTo(actual));
+    }
+
 }
