@@ -6,7 +6,7 @@ namespace Algorithms
 	{
         // Direct Burrows–Wheeler transform
         // returns transformed string and index of last element
-        public static (string, int) DirectBWT(string word)
+        public static (string, int) DirectBWT(in string word)
 		{
 			var suffixIndexArray = new int[word.Length];
 			BWTSort.FillArrayBySequence(suffixIndexArray);
@@ -22,7 +22,9 @@ namespace Algorithms
 			return (bwtString, lastElement);
 		}
 
-		public static string InverseBWT(string transformedString, int lastElementIndex)
+        // Inverse Burrows–Wheeler transform
+        // returns origin string
+        public static string InverseBWT(in string transformedString, int lastElementIndex)
 		{
 			var shiftArray = new int[transformedString.Length];
 			BWTSort.FillArrayBySequence(shiftArray);

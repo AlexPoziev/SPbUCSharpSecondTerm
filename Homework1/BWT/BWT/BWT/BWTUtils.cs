@@ -21,7 +21,7 @@ namespace Algorithms
 
         // function to compare two suffix of <word>, takes two suffix indexes
         // returns true if the first suffix more than the second
-        public static bool IsSuffixMore(string word, int firstSuffixIndex, int secondSuffixIndex)
+        public static bool IsSuffixMore(in string word, int firstSuffixIndex, int secondSuffixIndex)
         {
             for (int i = 0; i < word.Length; ++i)
             {
@@ -37,7 +37,7 @@ namespace Algorithms
         // ShellSort function with Knuth Sequence
         // BWT interpretation, return position of the last element
         // word immutable
-        public static int DirectBWTSort(string word, int[] array)
+        public static int DirectBWTSort(in string word, int[] array)
         {
             var lastElement = 0;
             var gap = 1;
@@ -73,7 +73,7 @@ namespace Algorithms
         }
 
         // sort of ints by word values. Mutate ints. Sorting must be stable
-        public static void InverseBWTSort(string word, int[] ints)
+        public static void InverseBWTSort(in string word, int[] ints)
         {
             for (int i = 0; i < word.Length - 1; ++i)
             {
