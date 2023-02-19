@@ -42,4 +42,27 @@ public class Tests
 
         Assert.That(Enumerable.SequenceEqual(expected, actual));
     }
+
+    [TestCase("banana", "nnbaaa", 3)]
+    [TestCase("mississippi", "pssmipissii", 4)]
+    [TestCase("a", "a", 0)]
+    public void DirectBWTTest(string word, string expectedWord, int expectedIndex)
+    {
+        var actualIndex = 0;
+
+        (word, actualIndex) = Algorithms.BWT.DirectBWT(word);
+
+        Assert.That(actualIndex == expectedIndex && expectedWord == word);
+    }
+
+    [TestCase("nnbaaa", 3, "banana")]
+    [TestCase("pssmipissii", 4, "mississippi")]
+    [TestCase("a", 0, "a")]
+    [TestCase("nuuffye", 5, "ufufney")]
+    public void InverseBWTTest(string word, int lastIndex, string expecterWord)
+    {
+        word = Algorithms.BWT.InverseBWT(word, lastIndex);
+
+        Assert.That(Enumerable.SequenceEqual(word, expecterWord));
+    }
 }
