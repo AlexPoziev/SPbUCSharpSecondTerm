@@ -1,6 +1,5 @@
 ﻿namespace Algorithms;
 using System;
-{
     // class that contains sorts for direct and inverse BWT
     public static class BWTSort
     {
@@ -87,4 +86,3 @@ using System;
             }
         }
     }
-}
