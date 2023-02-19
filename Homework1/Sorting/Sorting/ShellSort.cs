@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Sorting
-{
+﻿namespace Sorting;
+using System;
+	// sort by shellsort
 	public static class ShellSort
 	{
 		// function to swap values of two varriables
@@ -37,6 +36,7 @@ namespace Sorting
 		}
 	}
 
+	// class for utils to work with arrays
     public static class Utils
 	{
 		public static void PrintArray(int[] ints)
@@ -48,5 +48,4 @@ namespace Sorting
 
         }
 	}
-}
 
