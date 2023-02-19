@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Algorithms
+﻿namespace Algorithms;
+using System;
 {
+	// class that contain direct and inverse BWT
 	public static class BWT
 	{
         // Direct Burrows–Wheeler transform

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Algorithms
+﻿namespace Algorithms;
+using System;
 {
+    // class that contains sorts for direct and inverse BWT
     public static class BWTSort
     {
         // function to swap values of two variables
