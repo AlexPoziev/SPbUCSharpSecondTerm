@@ -2,7 +2,6 @@
 
 Console.WriteLine("Input numbers separated by space: ");
 
-// nullable
 var sequence = Console.ReadLine();
 if (sequence == null)
 {
@@ -25,4 +24,4 @@ for (var i = 0; i < stringArray.Length; ++i)
 Sorting.ShellSort.Sort(intArray);
 
 Console.WriteLine("Sorted array: ");
-Sorting.Utils.PrintArray(intArray);
+Sorting.ArrayUtils.PrintArray(intArray);

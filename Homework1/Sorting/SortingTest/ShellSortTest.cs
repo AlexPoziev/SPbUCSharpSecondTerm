@@ -2,7 +2,23 @@
 
 public class ShellSortTest
 {
-    private static bool IsArrayFull(int[] oldArray, int[] newArray)
+    // method checks if all values and their position same
+    private static bool AreArraysTheSame(int[] firstArray, int[] secondArray)
+    {
+        for (int i = 0; i < firstArray.Length; ++i)
+        {
+            if (firstArray[i] != secondArray[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // method checks if all values of one array are contained in another
+    // up to the arrangement of numbers
+    private static bool AreArraysContainSameValues(int[] oldArray, int[] newArray)
     {
         if (oldArray.Length != newArray.Length)
         {
@@ -11,15 +27,7 @@ public class ShellSortTest
 
         Array.Sort(oldArray);
 
-        for (int i = 0; i < oldArray.Length; ++i)
-        {
-            if (oldArray[i] != newArray[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return AreArraysTheSame(oldArray, newArray);
     }
 
     private static bool IsArraySorted(int[] array)
@@ -54,9 +62,10 @@ public class ShellSortTest
     [Test]
     public void RandomNumberTest()
     {
+        const int testArraySize = 100;
         Random randomNums = new Random();
-        int[] array = new int[100];
-        int[] nativeArray = new int[100];
+        int[] array = new int[testArraySize];
+        int[] nativeArray = new int[testArraySize];
 
         for (int i = 0; i < array.Length; ++i)
         {
@@ -65,12 +74,12 @@ public class ShellSortTest
         }
 
         Sorting.ShellSort.Sort(array);
-        if (!IsArrayFull(nativeArray, array))
+        if (!AreArraysContainSameValues(nativeArray, array))
         {
             Assert.Fail("Values lost");
         }
 
-        Assert.That(IsArraySorted(array), Is.True);
+        Assert.IsTrue(IsArraySorted(array));
           
     }
 

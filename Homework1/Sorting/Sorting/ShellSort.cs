@@ -4,16 +4,16 @@ using System;
 	public static class ShellSort
 	{
 		// function to swap values of two varriables
-		private static void Swap(ref int First, ref int Second)
+		private static void Swap(ref int first, ref int second)
 		{
-			(First, Second) = (Second, First);
+			(first, second) = (second, first);
 		}
 
 		// ShellSort function with Knuth Sequence
 		public static void Sort(int[] array)
 		{
 			var gap = 1;
-
+		
 			while (gap < array.Length)
 			{
 				gap = gap * 3 + 1;
@@ -35,17 +35,3 @@ using System;
 			}
 		}
 	}
-
-	// class for utils to work with arrays
-    public static class Utils
-	{
-		public static void PrintArray(int[] ints)
-		{
-			foreach(int item in ints)
-			{
-				Console.Write($"{item} ");
-			}
-
-        }
-	}
-
