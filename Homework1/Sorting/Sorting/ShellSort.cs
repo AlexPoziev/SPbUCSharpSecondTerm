@@ -27,7 +27,7 @@ using System;
 				{
 					for (var j = i; j - gap >= 0 && array[j - gap] > array[j]; j -= gap)
 					{
-						ShellSort.Swap(ref array[j], ref array[j - gap]);
+						Swap(ref array[j], ref array[j - gap]);
 					}
 				}
 
