@@ -66,7 +66,5 @@ public class ShellSortTest
         }
 
         Assert.That(IsArraySorted(array), Is.True);
-          
     }
-
 }
