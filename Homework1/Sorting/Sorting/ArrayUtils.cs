@@ -1,5 +1,5 @@
 ﻿namespace Sorting;
-using System;
+
 // class for utils to work with arrays
     public static class ArrayUtils
     {

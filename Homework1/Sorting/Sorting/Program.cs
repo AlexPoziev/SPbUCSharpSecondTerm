@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Sorting;
 
 Console.WriteLine("Input numbers separated by space: ");
 
@@ -21,7 +21,7 @@ for (var i = 0; i < stringArray.Length; ++i)
     }
 }
 
-Sorting.ShellSort.Sort(intArray);
+ShellSort.Sort(intArray);
 
 Console.WriteLine("Sorted array: ");
-Sorting.ArrayUtils.PrintArray(intArray);
+ArrayUtils.PrintArray(intArray);
