@@ -5,6 +5,11 @@ public class ShellSortTest
     // method checks if all values and their position same
     private static bool AreArraysTheSame(int[] firstArray, int[] secondArray)
     {
+        if (firstArray.Length != secondArray.Length)
+        {
+            return false;
+        }
+
         for (int i = 0; i < firstArray.Length; ++i)
         {
             if (firstArray[i] != secondArray[i])
