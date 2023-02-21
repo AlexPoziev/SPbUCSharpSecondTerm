@@ -9,7 +9,7 @@ if (sequence == null)
     return;
 }
 
-var stringArray = sequence.Trim().Split(' ');
+var stringArray = sequence.Trim().Split();
 var intArray = new int[stringArray.Length];
 
 for (var i = 0; i < stringArray.Length; ++i)
