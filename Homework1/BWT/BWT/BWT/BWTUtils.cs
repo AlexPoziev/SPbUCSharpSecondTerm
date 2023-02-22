@@ -11,6 +11,7 @@ public static class BWTSort
 
     // function to compare two suffix of <word>, takes two suffix indexes
     // returns true if the first suffix more than the second
+    // throw exception if word == null
     private static bool IsSuffixMore(in string word, int firstSuffixIndex, int secondSuffixIndex)
     {
         if (word == null)
@@ -32,6 +33,7 @@ public static class BWTSort
     // ShellSort function with Knuth Sequence
     // BWT interpretation, return position of the last element
     // word immutable
+    // throw exception if wrod == null
     public static int DirectBWTSort(in string word, int[] array)
     {
         if (word == null)
@@ -73,9 +75,9 @@ public static class BWTSort
     }
 
     // sort of ints by word values. Mutate ints. Sorting must be stable
+    // throw exception if word == null
     public static void InverseBWTSort(in string word, int[] ints)
     {
-
         if (word == null)
         {
             throw new ArgumentNullException(word, "can't be null");
