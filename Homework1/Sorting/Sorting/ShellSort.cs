@@ -12,6 +12,11 @@ public static class ShellSort
     // ShellSort function with Knuth Sequence
     public static void Sort(int[] array)
     {
+        if (array == null)
+        {
+            throw new ArgumentNullException(nameof(array), "array can't be null");
+        }
+
         var gap = 1;
 
         while (gap < array.Length)

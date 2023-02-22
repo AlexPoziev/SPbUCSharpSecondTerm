@@ -2,33 +2,6 @@
 
 public class ShellSortTest
 {
-    // method checks if all values of one array are contained in another
-    // up to the arrangement of numbers
-    private static bool AreArraysContainSameValues(int[] oldArray, int[] newArray)
-    {
-        if (oldArray.Length != newArray.Length)
-        {
-            return false;
-        }
-
-        Array.Sort(oldArray);
-
-        return Enumerable.SequenceEqual(oldArray, newArray);
-    }
-
-    private static bool IsArraySorted(int[] array)
-    {
-        for (int i = 0; i < array.Length - 1; ++i)
-        {
-            if (array[i] > array[i + 1])
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     [Test]
     [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
     [TestCase(new int[] { 1, 4, 2, 3, 5 }, new int[] { 1, 2, 3, 4, 5 })]
@@ -60,11 +33,9 @@ public class ShellSortTest
         }
 
         Sorting.ShellSort.Sort(array);
-        if (!AreArraysContainSameValues(nativeArray, array))
-        {
-            Assert.Fail("Values lost");
-        }
+        Array.Sort(nativeArray);
 
-        Assert.That(IsArraySorted(array), Is.True);
+        // at the same time check that no values lost and that array is sorted
+        Assert.That(Enumerable.SequenceEqual(nativeArray, array), Is.True);
     }
 }
