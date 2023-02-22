@@ -13,6 +13,11 @@ public static class BWT
             throw new ArgumentNullException(word, "null can't be parameter");
         }
 
+        if (word == "")
+        {
+            throw new ArgumentException("Empty string can't be transformed", word);
+        }
+
         var suffixIndexArray = new int[word.Length];
         ArrayUtils.FillArrayBySequence(suffixIndexArray);
 
@@ -35,6 +40,16 @@ public static class BWT
         if (transformedString == null)
         {
             throw new ArgumentNullException(transformedString, "null can't be parameter");
+        }
+
+        if (lastElementIndex < 0 || lastElementIndex > transformedString.Length - 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(lastElementIndex), "last element index can't be less than zero and more than string length - 1");
+        }
+
+        if (transformedString == "")
+        {
+            throw new ArgumentException("Empty string can't be transformed back", transformedString);
         }
 
         var shiftArray = new int[transformedString.Length];

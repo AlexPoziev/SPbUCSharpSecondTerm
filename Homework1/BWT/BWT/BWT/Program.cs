@@ -13,9 +13,16 @@ switch (Console.ReadLine())
             Console.WriteLine("Please, input string to transform it: ");
 
             var inputString = Console.ReadLine();
+
             if (inputString == null)
             {
                 Console.WriteLine("Reading Failed");
+                return;
+            }
+
+            if (inputString == "")
+            {
+                Console.WriteLine("Empty string can't be transformed");
                 return;
             }
 
@@ -29,17 +36,36 @@ switch (Console.ReadLine())
             Console.WriteLine("Input string and index of the last character, separated by space: ");
 
             var parameters = Console.ReadLine();
+
             if (parameters == null)
             {
                 Console.WriteLine("Incorrect input");
                 return;
             }
 
-            var stringArray = parameters.Split();            
+            if (parameters == "")
+            {
+                Console.WriteLine("Parameters string can't be empty");
+                return;
+            }
 
-            if(!Int32.TryParse(stringArray[1], out var lastIndex))
+            var stringArray = parameters.Split();
+
+            if (parameters.Length < 2)
+            {
+                Console.WriteLine("Not enough parameters");
+                return;
+            }
+
+            if (!Int32.TryParse(stringArray[1], out var lastIndex))
             {
                 Console.WriteLine("Invalid number input");
+                return;
+            }
+
+            if (lastIndex < 0 || lastIndex > stringArray[0].Length - 1)
+            {
+                Console.WriteLine("Last index can't be less than zero or more than length of array - 1");
                 return;
             }
             

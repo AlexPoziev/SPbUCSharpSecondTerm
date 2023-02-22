@@ -16,8 +16,24 @@ public static class BWTSort
     {
         if (word == null)
         {
-            throw new ArgumentNullException(word, "can't be null");
+            throw new ArgumentNullException(word, "Can't be null");
         }
+
+        if (word == "")
+        {
+            throw new ArgumentException("Empty string doesn't have suffixes", word);
+        }
+
+        if (firstSuffixIndex < 0 || firstSuffixIndex > word.Length - 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(firstSuffixIndex), "Last element index can't be less than zero and more than string length - 1");
+        }
+
+        if (secondSuffixIndex < 0 || secondSuffixIndex > word.Length - 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(secondSuffixIndex), "Last element index can't be less than zero and more than string length - 1");
+        }
+
 
         for (int i = 0; i < word.Length; ++i)
         {
@@ -38,7 +54,22 @@ public static class BWTSort
     {
         if (word == null)
         {
-            throw new ArgumentNullException(word, "can't be null");
+            throw new ArgumentNullException(word, "Can't be null");
+        }
+
+        if (array == null)
+        {
+            throw new ArgumentNullException(nameof(array), "Can't be null");
+        }
+
+        if (word == "")
+        {
+            throw new ArgumentException("Can't to sort empty string", word);
+        }
+
+        if (!ArrayUtils.IsArrayFilledBySequenceRight(word.Length, array))
+        {
+            throw new ArgumentException("Array filled not right(not range 0..word.Length - 1", nameof(array));
         }
 
         var lastElement = 0;
@@ -81,6 +112,21 @@ public static class BWTSort
         if (word == null)
         {
             throw new ArgumentNullException(word, "can't be null");
+        }
+
+        if (ints == null)
+        {
+            throw new ArgumentNullException(nameof(ints), "Can't be null");
+        }
+
+        if (word == "")
+        {
+            throw new ArgumentException("Can't sort empty string", word);
+        }
+
+        if (!ArrayUtils.IsArrayFilledBySequenceRight(word.Length, ints))
+        {
+            throw new ArgumentException("Array filled not right(not range 0..word.Length - 1", nameof(ints));
         }
 
         for (int i = 0; i < word.Length - 1; ++i)
