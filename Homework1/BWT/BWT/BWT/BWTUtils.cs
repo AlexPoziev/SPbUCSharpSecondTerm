@@ -50,6 +50,7 @@ public static class BWTSort
     // BWT interpretation, return position of the last element
     // word immutable
     // throw exception if wrod == null
+    // int array must contains array with numbers in range 0..word.Length - 1. They must not to stay in a row
     public static int DirectBWTSort(in string word, int[] array)
     {
         if (word == null)
@@ -69,7 +70,7 @@ public static class BWTSort
 
         if (!ArrayUtils.IsArrayFilledBySequenceRight(word.Length, array))
         {
-            throw new ArgumentException("Array filled not right(not range 0..word.Length - 1", nameof(array));
+            throw new ArgumentException("Array filled not right(not range 0..word.Length - 1)", nameof(array));
         }
 
         var lastElement = 0;
@@ -107,6 +108,7 @@ public static class BWTSort
 
     // sort of ints by word values. Mutate ints. Sorting must be stable
     // throw exception if word == null
+    // ints array must contains array with numbers in range 0..word.Length - 1. They must not to stay in a row
     public static void InverseBWTSort(in string word, int[] ints)
     {
         if (word == null)
@@ -126,7 +128,7 @@ public static class BWTSort
 
         if (!ArrayUtils.IsArrayFilledBySequenceRight(word.Length, ints))
         {
-            throw new ArgumentException("Array filled not right(not range 0..word.Length - 1", nameof(ints));
+            throw new ArgumentException("Array filled not right(not range 0..word.Length - 1)", nameof(ints));
         }
 
         for (int i = 0; i < word.Length - 1; ++i)

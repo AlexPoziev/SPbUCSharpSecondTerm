@@ -22,7 +22,7 @@ public class ArrayUtils
         }
     }
 
-    // Check that array-sequence 0..expectedLength - 1 filled right
+    // Check that array filled by 0..expectedLength - 1 numbers
     public static bool IsArrayFilledBySequenceRight(int expectedLength, in int[] array)
     {
         if (array == null)
@@ -35,15 +35,23 @@ public class ArrayUtils
             return false;
         }
 
+        var bitMask = new int[expectedLength];
+        var currentBitMaskFilling = 0;
+
         for (int i = 0; i < expectedLength; ++i)
         {
-            if (array[i] != i)
+            if (bitMask[array[i]] == 0)
+            {
+                ++bitMask[array[i]];
+                ++currentBitMaskFilling;
+            }
+            else
             {
                 return false;
             }
         }
 
-        return true;
+        return currentBitMaskFilling == expectedLength;
     }
 }
 
