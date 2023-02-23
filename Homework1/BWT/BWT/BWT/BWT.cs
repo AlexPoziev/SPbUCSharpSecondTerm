@@ -1,5 +1,7 @@
 ﻿namespace Algorithms;
 
+using System.Text;
+
 // class that contain direct and inverse BWT
 public static class BWT
 {
@@ -23,13 +25,14 @@ public static class BWT
 
         var lastElement = BWTSort.DirectBWTSort(word, suffixIndexArray);
 
-        string bwtString = "";
+        var bwtString = new StringBuilder();
+
         for (int i = 0; i < word.Length; ++i)
         {
-            bwtString += word[(suffixIndexArray[i] + word.Length - 1) % word.Length];
+            bwtString.Append(word[(suffixIndexArray[i] + word.Length - 1) % word.Length]);
         }
 
-        return (bwtString, lastElement);
+        return (bwtString.ToString(), lastElement);
     }
 
     // Inverse Burrows–Wheeler transform
@@ -56,14 +59,14 @@ public static class BWT
         ArrayUtils.FillArrayBySequence(shiftArray);
         BWTSort.InverseBWTSort(transformedString, shiftArray);
 
-        var originString = "";
+        var originString = new StringBuilder();
 
         for (int i = 0; i < transformedString.Length; ++i)
         {
-            originString += transformedString[shiftArray[lastElementIndex]];
+            originString.Append(transformedString[shiftArray[lastElementIndex]]);
             lastElementIndex = shiftArray[lastElementIndex];
         }
 
-        return originString;
+        return originString.ToString();
     }
 }
