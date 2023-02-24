@@ -68,7 +68,7 @@ public static class BWTSort
             throw new ArgumentException("Can't to sort empty string", word);
         }
 
-        if (!ArrayUtils.IsArrayFilledBySequenceRight(word.Length, array))
+        if (!IsArrayFilledBySequenceRight(word.Length, array))
         {
             throw new ArgumentException("Array filled not right(not range 0..word.Length - 1)", nameof(array));
         }
@@ -113,7 +113,7 @@ public static class BWTSort
     {
         if (word == null)
         {
-            throw new ArgumentNullException(word, "can't be null");
+            throw new ArgumentNullException(word, "Can't be null");
         }
 
         if (ints == null)
@@ -126,7 +126,7 @@ public static class BWTSort
             throw new ArgumentException("Can't sort empty string", word);
         }
 
-        if (!ArrayUtils.IsArrayFilledBySequenceRight(word.Length, ints))
+        if (!IsArrayFilledBySequenceRight(word.Length, ints))
         {
             throw new ArgumentException("Array filled not right(not range 0..word.Length - 1)", nameof(ints));
         }
@@ -141,5 +141,37 @@ public static class BWTSort
                 }
             }
         }
+    }
+
+    // Check that array filled by 0..expectedLength - 1 numbers
+    private static bool IsArrayFilledBySequenceRight(int expectedLength, in int[] array)
+    {
+        if (array == null)
+        {
+            throw new ArgumentNullException(nameof(array), "Array can't be null");
+        }
+
+        if (array.Length != expectedLength)
+        {
+            return false;
+        }
+
+        var bitMask = new int[expectedLength];
+        var currentBitMaskFilling = 0;
+
+        for (int i = 0; i < expectedLength; ++i)
+        {
+            if (bitMask[array[i]] == 0)
+            {
+                ++bitMask[array[i]];
+                ++currentBitMaskFilling;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return currentBitMaskFilling == expectedLength;
     }
 }

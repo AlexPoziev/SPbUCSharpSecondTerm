@@ -57,6 +57,11 @@ switch (Console.ReadLine())
                 return;
             }
 
+            if (parameters.Length > 2)
+            {
+                Console.WriteLine("!!Warning!! Parameters count more than 2, so were used only first two, it's can lead to unexpected result");
+            }
+
             if (!Int32.TryParse(stringArray[1], out var lastIndex))
             {
                 Console.WriteLine("Invalid number input");

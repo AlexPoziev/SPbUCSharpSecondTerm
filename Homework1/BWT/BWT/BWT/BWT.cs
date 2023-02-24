@@ -47,7 +47,7 @@ public static class BWT
 
         if (lastElementIndex < 0 || lastElementIndex > transformedString.Length - 1)
         {
-            throw new ArgumentOutOfRangeException(nameof(lastElementIndex), "last element index can't be less than zero and more than string length - 1");
+            throw new ArgumentOutOfRangeException(nameof(lastElementIndex), "Last element index can't be less than zero and more than string length - 1");
         }
 
         if (transformedString == "")

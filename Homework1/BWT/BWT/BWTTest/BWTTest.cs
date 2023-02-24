@@ -22,20 +22,6 @@ public class Tests
         Assert.That(Enumerable.SequenceEqual(actual, expected));
     }
 
-    [TestCase(true, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 7)]
-    [TestCase(false, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 5)]
-    [TestCase(false, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 8)]
-    [TestCase(false, new int[] { 0, 1, 2, 3, 2, 5, 6 }, 7)]
-    [TestCase(true, new int[] { 0, 2, 1, 3, 4, 6, 5 }, 7)]
-    public void IsArrayFilledBySequenceRight(bool expected, int[] array, int expectedLength)
-    {
-        bool actual;
-
-        actual = Algorithms.ArrayUtils.IsArrayFilledBySequenceRight(expectedLength, array);
-
-        Assert.That(actual, Is.EqualTo(expected: expected));
-    }
-
     [TestCase("banana", new int[] { 1, 3, 5, 0, 2, 4 })]
     [TestCase("mississippi", new int[] { 1, 4, 7, 10, 0, 8, 9, 2, 3, 5, 6 })]
     public void InverseBWTSortTest(string word, int[] expected)
