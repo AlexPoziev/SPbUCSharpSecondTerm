@@ -3,7 +3,6 @@
 /// <summary>
 /// Class that implement stack by list and interface IStack
 /// </summary>
-/// <typeparam name="T">Generic type</typeparam>
 public class StackList: IStack
 {
     /// <summary>
@@ -12,12 +11,12 @@ public class StackList: IStack
     private readonly List<float> stack = new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StackList{T}"/> class.
+    /// Initializes a new instance of the <see cref="StackList"/> class.
     /// </summary>
     public StackList() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StackList{T}"/> class.
+    /// Initializes a new instance of the <see cref="StackList"/> class.
     /// </summary>
     public StackList(params float[] objects)
     {

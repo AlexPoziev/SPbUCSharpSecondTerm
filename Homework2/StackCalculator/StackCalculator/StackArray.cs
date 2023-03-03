@@ -1,59 +1,94 @@
-﻿//namespace StackCalculator;
+﻿namespace StackCalculator;
 
-///// <summary>
-///// Class that implement stack by array and interface IStack
-///// </summary>
-///// <typeparam name="T">Generic type</typeparam>
-//public class StackList<T> : IStack<T>
-//{
-//    private int topIndex;
+/// <summary>
+/// Class that implement stack by array and interface IStack
+/// </summary>
+public class StackArray : IStack
+{
+    /// <summary>
+    /// Index of first element in stack, can't be less than 0
+    /// </summary>
+    private int topIndex;
 
-//    /// <summary>
-//    /// List that implement stack
-//    /// </summary>
-//    private Array stack = new();
+    /// <summary>
+    /// Current size of stack, mutable
+    /// Change when stack overflows
+    /// </summary>
+    private int currentArraySize = 2;
 
-//    /// <summary>
-//    /// Initializes a new instance of the <see cref="StackList{T}"/> class.
-//    /// </summary>
-//    public StackList() { }
+    /// <summary>
+    /// List that implement stack
+    /// </summary>
+    private float[] stack;
 
-//    /// <summary>
-//    /// Initializes a new instance of the <see cref="StackList{T}"/> class.
-//    /// Works only with objects that implement IEnumerable
-//    /// </summary>
-//    public StackList(params T[] objects)
-//    {
-//        foreach (var item in objects)
-//        {
-//            Push(item);
-//        }
-//    }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StackArray"/> class.
+    /// </summary>
+    public StackArray()
+    {
+        stack = new float[currentArraySize];
+    }
 
-//    /// <inheritdoc />
-//    public void Push(T newElement)
-//    {
-//        stack.Insert(0, newElement);
-//    }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StackArray"/> class by multible arguments.
+    /// </summary>
+    /// <param name="numbers">Mutiple arguments float type</param>
+    public StackArray(params float[] numbers)
+    {
+        stack = new float[currentArraySize];
 
-//    /// <inheritdoc />
-//    public bool IsEmpty()
-//        => !stack.Any();
+        foreach (var number in numbers)
+        {
+            Push(number);
+        }
+    }
 
-//    /// <inheritdoc />
-//    public T Pop()
-//    {
-//        if (IsEmpty())
-//        {
-//            throw new InvalidOperationException("Can't to Pop() from empty stack");
-//        }
+    /// <summary>
+    /// Method to resize stack to size * 2.
+    /// Use when stack overflow
+    /// </summary>
+    private void ResizeStack()
+    {
+        currentArraySize *= 2;
 
-//        var temp = stack[0];
+        var tempArray = new float[currentArraySize];
+        stack.CopyTo(tempArray, 0);
 
-//        stack.RemoveAt(0);
+        stack = tempArray;
+    }
 
-//        return temp;
-//    }
-//}
+    /// <inheritdoc />
+    public void Push(float newElement)
+    {
+        topIndex += 1;
+        if (topIndex == currentArraySize)
+        {
+            ResizeStack();
+        }
+
+
+        stack[topIndex] = newElement;
+    }
+
+    /// <inheritdoc />
+    public bool IsEmpty()
+        => !stack.Any();
+
+    /// <inheritdoc />
+    public float Pop()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("Can't to Pop() from empty stack");
+        }
+
+        var temp = stack[topIndex];
+        stack[topIndex] = 0;
+
+        --topIndex;
+
+        return temp;
+    }
+}
 
 

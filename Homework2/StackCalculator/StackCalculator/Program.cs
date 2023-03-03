@@ -1,6 +1,6 @@
 ﻿using StackCalculator;
 
-var temp = new StackList(1, 2, 3, 4);
+var temp = new StackArray();
 
 temp.Push(5);
 temp.Push(6);
@@ -12,14 +12,5 @@ Console.WriteLine(firstTest);
 firstTest = temp.Pop();
 Console.WriteLine(firstTest);
 
-firstTest = temp.Pop();
-Console.WriteLine(firstTest);
-
-firstTest = temp.Pop();
-Console.WriteLine(firstTest);
-firstTest = temp.Pop();
-Console.WriteLine(firstTest);
-firstTest = temp.Pop();
-Console.WriteLine(firstTest);
 firstTest = temp.Pop();
 Console.WriteLine(firstTest);
