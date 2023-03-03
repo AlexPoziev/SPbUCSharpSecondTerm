@@ -4,12 +4,12 @@
 /// Class that implement stack by list and interface IStack
 /// </summary>
 /// <typeparam name="T">Generic type</typeparam>
-public class StackList<T> : IStack<T>
+public class StackList: IStack
 {
     /// <summary>
     /// List that implement stack
     /// </summary>
-    private readonly List<T> stack = new();
+    private readonly List<float> stack = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StackList{T}"/> class.
@@ -18,9 +18,8 @@ public class StackList<T> : IStack<T>
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StackList{T}"/> class.
-    /// Works only with objects that implement IEnumerable
     /// </summary>
-    public StackList(params T[] objects)
+    public StackList(params float[] objects)
     {
         foreach (var item in objects)
         {
@@ -29,7 +28,7 @@ public class StackList<T> : IStack<T>
     }
 
     /// <inheritdoc />
-    public void Push(T newElement)
+    public void Push(float newElement)
     {
         stack.Insert(0, newElement);
     }
@@ -39,7 +38,7 @@ public class StackList<T> : IStack<T>
         => !stack.Any();
 
     /// <inheritdoc />
-    public T Pop()
+    public float Pop()
     {
         if (IsEmpty())
         {
