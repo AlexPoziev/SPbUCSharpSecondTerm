@@ -6,16 +6,16 @@
 public interface IStack<T>
 {
     /// <summary>
-    /// Add new element in stack
+    /// Add new object to Stack
     /// </summary>
     /// <param name="newElement">New element that will be added to stack</param>
     void Push(T newElement);
 
     /// <summary>
-    /// Take first element from stack (by rule: first in -- first out)
-    /// If try to Pop() empty Stack -- throw 
+    /// Remove and return first object from Stack (by rule: first in -- first out)
     /// </summary>
     /// <returns>First element from stack</returns>
+    /// <exception cref="InvalidOperationException">Pop from empty Stack</exception>
     T Pop();
 
     /// <summary>
