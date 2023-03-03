@@ -1,23 +1,23 @@
 ﻿namespace StackCalculator;
 
 /// <summary>
-/// Class that implement stack by array and interface IStack
+/// Class that implement stack by array and interface IStack.
 /// </summary>
 public class StackArray : IStack
 {
     /// <summary>
-    /// Index of first element in stack, can't be less than 0
+    /// Index of first element in stack, can't be less than 0.
     /// </summary>
     private int topIndex;
 
     /// <summary>
     /// Current size of stack, mutable
-    /// Change when stack overflows
+    /// Change when stack overflows.
     /// </summary>
     private int currentArraySize = 2;
 
     /// <summary>
-    /// List that implement stack
+    /// List that implement stack.
     /// </summary>
     private float[] stack;
 
@@ -26,13 +26,13 @@ public class StackArray : IStack
     /// </summary>
     public StackArray()
     {
-        stack = new float[currentArraySize];
+        this.stack = new float[this.currentArraySize];
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StackArray"/> class by multible arguments.
     /// </summary>
-    /// <param name="numbers">Mutiple arguments float type</param>
+    /// <param name="numbers">Mutiple arguments float type.</param>
     public StackArray(params float[] numbers)
     {
         stack = new float[currentArraySize];
@@ -45,7 +45,7 @@ public class StackArray : IStack
 
     /// <summary>
     /// Method to resize stack to size * 2.
-    /// Use when stack overflow
+    /// Use when stack overflow.
     /// </summary>
     private void ResizeStack()
     {
@@ -65,7 +65,6 @@ public class StackArray : IStack
         {
             ResizeStack();
         }
-
 
         stack[topIndex] = newElement;
     }
@@ -90,5 +89,3 @@ public class StackArray : IStack
         return temp;
     }
 }
-
-

@@ -1,23 +1,26 @@
 ﻿namespace StackCalculator;
 
 /// <summary>
-/// Class that implement stack by list and interface IStack
+/// Class that implement stack by list and interface IStack.
 /// </summary>
-public class StackList: IStack
+public class StackList : IStack
 {
     /// <summary>
-    /// List that implement stack
+    /// List that implement stack.
     /// </summary>
-    private readonly List<float> stack = new();
+    private readonly List<float> stack = new ();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StackList"/> class.
     /// </summary>
-    public StackList() { }
+    public StackList()
+    {
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StackList"/> class.
     /// </summary>
+    /// <param name="objects">Any number of float numbers will be put to stack.</param>
     public StackList(params float[] objects)
     {
         foreach (var item in objects)
