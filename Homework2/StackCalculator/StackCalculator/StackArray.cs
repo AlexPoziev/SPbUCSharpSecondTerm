@@ -7,8 +7,9 @@ public class StackArray : IStack
 {
     /// <summary>
     /// Index of first element in stack, can't be less than 0.
+    /// If array empty, holds -1 value.
     /// </summary>
-    private int topIndex;
+    private int topIndex = -1;
 
     /// <summary>
     /// Current size of stack, mutable
@@ -60,7 +61,8 @@ public class StackArray : IStack
     /// <inheritdoc />
     public void Push(float newElement)
     {
-        topIndex += 1;
+        ++topIndex;
+
         if (topIndex == currentArraySize)
         {
             ResizeStack();
@@ -71,7 +73,7 @@ public class StackArray : IStack
 
     /// <inheritdoc />
     public bool IsEmpty()
-        => !stack.Any();
+        => topIndex == -1;
 
     /// <inheritdoc />
     public float Pop()
