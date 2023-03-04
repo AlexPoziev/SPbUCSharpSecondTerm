@@ -1,48 +1,55 @@
-﻿namespace Trie;
+﻿namespace Trees;
 
+/// <summary>
+/// Class implements Trie structure.
+/// </summary>
 public class Trie
 {
+
+    /// <summary>
+    /// main node of Trie, all methods start from it.
+    /// </summary>
+    private readonly Node head;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Trie"/> class.
+    /// </summary>
+    public Trie()
+    {
+        head = new Node();
+    }
+
+    /// <summary>
+    /// Gets size of Trie, count of nodes in Trie, includes head node.
+    /// </summary>
+    public int Size { get; private set; } = 1;
+
+    /// <summary>
+    /// Class implement Node for Trie structure.
+    /// </summary>
     private class Node
     {
         /// <summary>
-        /// Initialize class <see cref="Node"/>.
-        /// </summary>
-        public Node()
-        {
-            next = new Dictionary<Char, Node>();
-        }
-
-        /// <summary>
-        /// Collection of next nodes.
-        /// </summary>
-        public Dictionary<Char, Node> next;
-        /// <summary>
         /// Is this element terminal for word.
         /// </summary>
-        public bool isTerminal;
+        public bool isTerminal = false;
+
         /// <summary>
         /// number of words that contain this element.
         /// </summary>
         public int wordsCount;
 
-    }
+        /// <summary>
+        /// Collection of next nodes.
+        /// </summary>
+        public Dictionary<char, Node> next;
 
-    private Trie()
-    {
-        head = new Node();
-    }
-
-    private Node head;
-
-    private int _size = 1;
-    public int Size {
-        get
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Node"/> class.
+        /// </summary>
+        public Node()
         {
-            return _size;
-        }
-        private set
-        {
-            _size = value;
+            next = new Dictionary<char, Node>();
         }
     }
 
@@ -61,7 +68,7 @@ public class Trie
 
         Node currentNode = head;
 
-        foreach(var symbol in element)
+        foreach (var symbol in element)
         {
             if (!currentNode.next.ContainsKey(symbol))
             {
@@ -77,9 +84,9 @@ public class Trie
     /// <summary>
     /// Method for adding an element to a Trie.
     /// </summary>
-    /// <param name="element">element, that need to be added to Trie</param>
-    /// <returns>true -- it successfully added the element, false -- the element is already contained (Empty string contains in the Trie)</returns>
-    /// <exception cref="ArgumentNullException">element can't be null</exception>
+    /// <param name="element">element, that need to be added to Trie.</param>
+    /// <returns>true -- it successfully added the element, false -- the element is already contained (Empty string contains in the Trie).</returns>
+    /// <exception cref="ArgumentNullException">element can't be null.</exception>
     public bool Add(string element)
     {
         if (element == null)
@@ -94,14 +101,14 @@ public class Trie
 
         var currentNode = head;
 
-        foreach(var symbol in element)
+        foreach (var symbol in element)
         {
             ++currentNode.wordsCount;
 
             if (!currentNode.next.ContainsKey(symbol))
             {
                 currentNode.next.Add(symbol, new Node());
-                ++_size;
+                ++Size;
             }
 
             currentNode = currentNode.next[symbol];
@@ -112,6 +119,13 @@ public class Trie
         return currentNode.isTerminal = true;
     }
 
+    /// <summary>
+    /// Method to remove element from Trie.
+    /// </summary>
+    /// <param name="element">element that will be deleted.</param>
+    /// <returns>true -- if <see cref="element"/> really was in Trie, false -- if Trie doesn't contain <see cref="element"/> .</returns>
+    /// <exception cref="ArgumentNullException">element can't be null.</exception>
+    /// <exception cref="ArgumentException">can't delete empty string.</exception>
     public bool Remove(string element)
     {
         if (element == null)
@@ -119,7 +133,7 @@ public class Trie
             throw new ArgumentNullException(nameof(element), "Can't be null");
         }
 
-        if (element == "")
+        if (element == string.Empty)
         {
             throw new ArgumentException("Can't to remove empty string", nameof(element));
         }
@@ -138,6 +152,7 @@ public class Trie
             if (currentNode.next[element[i]].wordsCount == 1)
             {
                 currentNode.next.Remove(element[i]);
+                Size -= element.Length - i;
                 return true;
             }
 
@@ -148,5 +163,33 @@ public class Trie
         currentNode.isTerminal = false;
 
         return true;
+    }
+
+    /// <summary>
+    /// Method that returns how many elements of Trie starts with prefix.
+    /// </summary>
+    /// <param name="prefix">prefix with which the number should start.</param>
+    /// <returns>Count of elements Trie which start with prefix. Empty string will return count of all words in Trie.</returns>
+    /// <exception cref="ArgumentNullException">prefix can't be null.</exception>
+    public int HowManyStartsWithPrefix(string prefix)
+    {
+        if (prefix == null)
+        {
+            throw new ArgumentNullException(nameof(prefix), "Can't be null");
+        }
+
+        Node currentNode = head;
+
+        foreach (var symbol in prefix)
+        {
+            if (!currentNode.next.ContainsKey(symbol))
+            {
+                return 0;
+            }
+
+            currentNode = currentNode.next[symbol];
+        }
+
+        return currentNode.wordsCount;
     }
 }
