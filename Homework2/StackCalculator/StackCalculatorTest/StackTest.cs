@@ -2,7 +2,7 @@
 
 using StackCalculator;
 
-public class Tests
+public class StackTests
 {
     private static IEnumerable<TestCaseData> Stack()
     {
