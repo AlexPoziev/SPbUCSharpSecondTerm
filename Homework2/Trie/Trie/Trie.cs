@@ -57,7 +57,7 @@ public class Trie
     /// Method to check is element contained in Trie.
     /// </summary>
     /// <param name="element">Еhe string to be checked to see if it is contained in.</param>
-    /// <returns>true -- if Trie contains element, false -- if it doesn't.</returns>
+    /// <returns>true -- if Trie contains element, false -- if it doesn't (Empty string contained in the Trie) .</returns>
     /// <exception cref="ArgumentNullException">element variable can't be null.</exception>
     public bool Contains(string element)
     {
@@ -78,20 +78,25 @@ public class Trie
             currentNode = currentNode.next[symbol];
         }
 
-        return currentNode.isTerminal;
+        return currentNode.isTerminal || element == string.Empty;
     }
 
     /// <summary>
     /// Method for adding an element to a Trie.
     /// </summary>
     /// <param name="element">element, that need to be added to Trie.</param>
-    /// <returns>true -- it successfully added the element, false -- the element is already contained (Empty string contains in the Trie).</returns>
+    /// <returns>true -- it successfully added the element, false -- the element is already contained (Empty string contained in the Trie).</returns>
     /// <exception cref="ArgumentNullException">element can't be null.</exception>
     public bool Add(string element)
     {
         if (element == null)
         {
             throw new ArgumentNullException(nameof(element), "Can't be null");
+        }
+
+        if (element == string.Empty)
+        {
+            return false;
         }
 
         if (Contains(element))
