@@ -19,6 +19,7 @@ public class Tests
     public void SuccessAddAndSizeTest(int expectedSize, params string[] words)
     {
         var actualAddSuccess = true;
+
         foreach (var element in words)
         {
             actualAddSuccess = trie.Add(element) && actualAddSuccess;
@@ -34,6 +35,7 @@ public class Tests
     public void FailAddAndSizeTest(int expectedSize, params string[] words)
     {
         var actualAddSuccess = true;
+
         foreach (var element in words)
         {
             actualAddSuccess = trie.Add(element) && actualAddSuccess;
@@ -80,14 +82,12 @@ public class Tests
     [TestCase("e", 1, "e")]
     public void SuccessRemoveElementTest(string word, int expectedSize, params string[] trieElements)
     {
-        var actualRemoveResult = false;
-
         foreach (var element in trieElements)
         {
             trie.Add(element);
         }
 
-        actualRemoveResult = trie.Remove(word);
+        var actualRemoveResult = trie.Remove(word);
 
         Assert.That(actualRemoveResult && !trie.Contains(word) && expectedSize == trie.Size);
     }
@@ -96,14 +96,12 @@ public class Tests
     [TestCase("f", 4, "e", " e")]
     public void FailRemoveElementTest(string word, int expectedSize, params string[] trieElements)
     {
-        bool actualRemoveResult;
-
         foreach (var element in trieElements)
         {
             trie.Add(element);
         }
 
-        actualRemoveResult = trie.Remove(word);
+        var actualRemoveResult = trie.Remove(word);
 
         Assert.That(!actualRemoveResult && !trie.Contains(word) && expectedSize == trie.Size);
     }
@@ -115,14 +113,12 @@ public class Tests
     [TestCase("", 6, "train", "trains", "trailer", "hammer", "hamon", "test")]
     public void HowManyStartsWithPrefixWithoutRemoveTest(string prefix, int expectedResult, params string[] trieElements)
     {
-        int actualResult;
-
         foreach (var element in trieElements)
         {
             trie.Add(element);
         }
 
-        actualResult = trie.HowManyStartsWithPrefix(prefix);
+        var actualResult = trie.HowManyStartsWithPrefix(prefix);
 
         Assert.That(actualResult, Is.EqualTo(expectedResult));
     }
@@ -132,15 +128,14 @@ public class Tests
     [TestCase("trains", "hammer", 1, "train", "trains", "trailer", "hammer", "hamon", "test")]
     public void HowManyStartsWithPrefixWithRemoveTest(string prefix, string deleteWord, int expectedResult, params string[] trieElements)
     {
-        int actualResult;
-
         foreach (var element in trieElements)
         {
             trie.Add(element);
         }
 
         trie.Remove(deleteWord);
-        actualResult = trie.HowManyStartsWithPrefix(prefix);
+
+        var actualResult = trie.HowManyStartsWithPrefix(prefix);
 
         Assert.That(actualResult, Is.EqualTo(expectedResult));
     }
