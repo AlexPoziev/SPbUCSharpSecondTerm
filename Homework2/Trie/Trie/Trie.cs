@@ -20,9 +20,16 @@ public class Trie
     }
 
     /// <summary>
-    /// Gets size of Trie, count of nodes in Trie, includes head node.
+    /// Gets size of Trie, count of elements in Trie, doesn't include empty string.
     /// </summary>
-    public int Size { get; private set; } = 1;
+    public int Size
+    {
+        get
+        {
+            return head.wordsCount;
+        }
+        private set { }
+    }
 
     /// <summary>
     /// Class implement Node for Trie structure.
@@ -113,7 +120,6 @@ public class Trie
             if (!currentNode.next.ContainsKey(symbol))
             {
                 currentNode.next.Add(symbol, new Node());
-                ++Size;
             }
 
             currentNode = currentNode.next[symbol];
@@ -157,7 +163,6 @@ public class Trie
             if (currentNode.next[element[i]].wordsCount == 1)
             {
                 currentNode.next.Remove(element[i]);
-                Size -= element.Length - i;
                 return true;
             }
 

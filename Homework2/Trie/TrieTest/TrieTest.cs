@@ -12,10 +12,10 @@ public class Tests
         trie = new Trie();
     }
 
-    [TestCase(20, "train", "trailer", "hammer", "hamon", "test")]
-    [TestCase(4, "e", " e")]
-    [TestCase(2, "e")]
-    [TestCase(5, "etet", "ete")]
+    [TestCase(5, "train", "trailer", "hammer", "hamon", "test")]
+    [TestCase(2, "e", " e")]
+    [TestCase(1, "e")]
+    [TestCase(2, "etet", "ete")]
     public void SuccessAddAndSizeTest(int expectedSize, params string[] words)
     {
         var actualAddSuccess = true;
@@ -30,8 +30,8 @@ public class Tests
         Assert.That(actualAddSuccess && actualSize == expectedSize);
     }
 
-    [TestCase(6, "train", "train")]
-    [TestCase(1, "")]
+    [TestCase(1, "train", "train")]
+    [TestCase(0, "")]
     public void FailAddAndSizeTest(int expectedSize, params string[] words)
     {
         var actualAddSuccess = true;
@@ -75,11 +75,11 @@ public class Tests
         Assert.That(!trie.Contains(word));
     }
 
-    [TestCase("train", 21, "train", "trains", "trailer", "hammer", "hamon", "test")]
-    [TestCase("trains", 20, "train", "trains", "trailer", "hammer", "hamon", "test")]
-    [TestCase("trailer", 18, "train", "trains", "trailer", "hammer", "hamon", "test")]
-    [TestCase("e", 21, "train", "trains", "trailer", "hammer", "hamon", "test", "e")]
-    [TestCase("e", 1, "e")]
+    [TestCase("train", 5, "train", "trains", "trailer", "hammer", "hamon", "test")]
+    [TestCase("trains", 5, "train", "trains", "trailer", "hammer", "hamon", "test")]
+    [TestCase("trailer", 4, "train", "trains", "trailer", "hamon", "test")]
+    [TestCase("e", 6, "train", "trains", "trailer", "hammer", "hamon", "test", "e")]
+    [TestCase("e", 0, "e")]
     public void SuccessRemoveElementTest(string word, int expectedSize, params string[] trieElements)
     {
         foreach (var element in trieElements)
@@ -92,8 +92,8 @@ public class Tests
         Assert.That(actualRemoveResult && !trie.Contains(word) && expectedSize == trie.Size);
     }
 
-    [TestCase("coach", 20, "train", "trailer", "hammer", "hamon", "test")]
-    [TestCase("f", 4, "e", " e")]
+    [TestCase("coach", 5, "train", "trailer", "hammer", "hamon", "test")]
+    [TestCase("f", 2, "e", " e")]
     public void FailRemoveElementTest(string word, int expectedSize, params string[] trieElements)
     {
         foreach (var element in trieElements)
