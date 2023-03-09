@@ -24,10 +24,7 @@ public class Trie
     /// </summary>
     public int Size
     {
-        get
-        {
-            return head.wordsCount;
-        }
+        get { return head.wordsCount; }
         private set { }
     }
 
