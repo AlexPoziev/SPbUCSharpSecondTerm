@@ -13,7 +13,7 @@ public class StackCalculatorTest
     }
 
     [TestCaseSource(nameof(StackCalculator))]
-    public void CorrectPostfixExpressionTest(PostfixCalculator postfixCalculator)
+    public void CorrectPostfixExpressionShouldReturnTrueAndExpectedValue(PostfixCalculator postfixCalculator)
     {
         var expression = "1 2 + 3 4 - +";
         var expectedValue = 2F;
@@ -24,7 +24,7 @@ public class StackCalculatorTest
     }
 
     [TestCaseSource(nameof(StackCalculator))]
-    public void IncorrectSignsCountPostfixExpressionTest(PostfixCalculator postfixCalculator)
+    public void ExpressionWithIncorrectNumberOfSignsShouldThrowsException(PostfixCalculator postfixCalculator)
     {
         var expression = "1 2 + 3 4 -";
 
@@ -32,7 +32,7 @@ public class StackCalculatorTest
     }
 
     [TestCaseSource(nameof(StackCalculator))]
-    public void IncorrectNumbersCountPostfixExpressionTest(PostfixCalculator postfixCalculator)
+    public void ExpressionWithIncorrectCountOfNumbersShouldThrowsException(PostfixCalculator postfixCalculator)
     {
         var expression = "1 2 + 3 4 - + 5";
 
@@ -40,7 +40,7 @@ public class StackCalculatorTest
     }
 
     [TestCaseSource(nameof(StackCalculator))]
-    public void IncorrectZeroDivideExpressionTest(PostfixCalculator postfixCalculator)
+    public void IncorrectZeroDivideExpressionShouldReturnFalse(PostfixCalculator postfixCalculator)
     {
         var expression = "1 2 + 3 0 / +";
 

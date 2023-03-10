@@ -11,7 +11,7 @@ public class StackTests
     }
 
     [TestCaseSource(nameof(Stack))]
-    public void StackRandomPushAndPopTest(IStack stack)
+    public void PushAndPopShouldReturnSameValues(IStack stack)
     {
         var random = new Random();
         var inputStackArray = new float[random.Next(50)];
@@ -31,7 +31,7 @@ public class StackTests
     }
 
     [TestCaseSource(nameof(Stack))]
-    public void StackIsEmptyTest(IStack stack)
+    public void IsEmptyShouldReturnExpecterValue(IStack stack)
     {
         var isNewStackEmpty = stack.IsEmpty();
 
@@ -47,7 +47,7 @@ public class StackTests
     }
 
     [TestCaseSource(nameof(Stack))]
-    public void PopEmptyStackTest(IStack stack)
+    public void PopEmptyStackShouldThrowsException(IStack stack)
     {
         Assert.Throws<InvalidOperationException>(() => stack.Pop());
     }
