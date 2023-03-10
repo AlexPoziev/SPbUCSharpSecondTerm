@@ -1,7 +1,7 @@
 ﻿namespace StackCalculator;
 
 /// <summary>
-/// Interface for stack implementations
+/// Stack, a first-in-first-out container for integer values.
 /// only for float type.
 /// </summary>
 public interface IStack
