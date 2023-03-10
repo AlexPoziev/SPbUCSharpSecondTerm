@@ -22,11 +22,7 @@ public class Trie
     /// <summary>
     /// Gets size of Trie, count of elements in Trie, doesn't include empty string.
     /// </summary>
-    public int Size
-    {
-        get { return head.wordsCount; }
-        private set { }
-    }
+    public int Size { get { return head.wordsCount; } }
 
     /// <summary>
     /// Class implement Node for Trie structure.
@@ -36,17 +32,17 @@ public class Trie
         /// <summary>
         /// Is this element terminal for word.
         /// </summary>
-        public bool isTerminal = false;
+        public bool isTerminal { get; set; } = false;
 
         /// <summary>
         /// number of words that contain this element.
         /// </summary>
-        public int wordsCount;
+        public int wordsCount { get; set; }
 
         /// <summary>
         /// Collection of next nodes.
         /// </summary>
-        public Dictionary<char, Node> next;
+        public Dictionary<char, Node> next { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Node"/> class.
