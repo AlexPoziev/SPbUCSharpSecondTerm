@@ -16,7 +16,7 @@ public class Tests
     [TestCase(2, "e", " e")]
     [TestCase(1, "e")]
     [TestCase(2, "etet", "ete")]
-    public void SuccessAddAndSizeTest(int expectedSize, params string[] words)
+    public void AddShouldCorrectChangeSize(int expectedSize, params string[] words)
     {
         var actualAddSuccess = true;
 
@@ -32,7 +32,7 @@ public class Tests
 
     [TestCase(1, "train", "train")]
     [TestCase(0, "")]
-    public void FailAddAndSizeTest(int expectedSize, params string[] words)
+    public void AddExistsElementShouldReturnFalse(int expectedSize, params string[] words)
     {
         var actualAddSuccess = true;
 
@@ -50,7 +50,7 @@ public class Tests
     [TestCase("", true, "literature", "toast", "tes", "test", "lost")]
     [TestCase("tests", false, "literature", "toast", "tes", "test", "lost")]
     [TestCase("spoiler", false, "literature", "toast", "tes", "test", "lost")]
-    public void ContainsElementAfterAddingTest(string word, bool expectedResult, params string[] trieElements)
+    public void ContainsAfterAddShouldReturnTrue(string word, bool expectedResult, params string[] trieElements)
     {
         foreach (var element in trieElements)
         {
@@ -63,7 +63,7 @@ public class Tests
     [TestCase("test", "literature", "toast", "tes", "test", "lost")]
     [TestCase("e", "e")]
     [TestCase("spoiler", "literature", "toast", "tes", "test", "lost")]
-    public void FailContainsElementAfterRemovingTest(string word, params string[] trieElements)
+    public void ContainsAfterRemoveShouldReturnFalse(string word, params string[] trieElements)
     {
         foreach (var element in trieElements)
         {
@@ -80,7 +80,7 @@ public class Tests
     [TestCase("trailer", 4, "train", "trains", "trailer", "hamon", "test")]
     [TestCase("e", 6, "train", "trains", "trailer", "hammer", "hamon", "test", "e")]
     [TestCase("e", 0, "e")]
-    public void SuccessRemoveElementTest(string word, int expectedSize, params string[] trieElements)
+    public void RemoveShouldReturnExpectedResult(string word, int expectedSize, params string[] trieElements)
     {
         foreach (var element in trieElements)
         {
@@ -94,7 +94,7 @@ public class Tests
 
     [TestCase("coach", 5, "train", "trailer", "hammer", "hamon", "test")]
     [TestCase("f", 2, "e", " e")]
-    public void FailRemoveElementTest(string word, int expectedSize, params string[] trieElements)
+    public void RemoveNotExistsElementShouldReturnFalse(string word, int expectedSize, params string[] trieElements)
     {
         foreach (var element in trieElements)
         {
@@ -111,7 +111,7 @@ public class Tests
     [TestCase("trains", 1, "train", "trains", "trailer", "hammer", "hamon", "test")]
     [TestCase("trainse", 0, "train", "trains", "trailer", "hammer", "hamon", "test")]
     [TestCase("", 6, "train", "trains", "trailer", "hammer", "hamon", "test")]
-    public void HowManyStartsWithPrefixWithoutRemoveTest(string prefix, int expectedResult, params string[] trieElements)
+    public void HowManyStartsWithPrefixShouldReturnExpectedResult(string prefix, int expectedResult, params string[] trieElements)
     {
         foreach (var element in trieElements)
         {
@@ -126,7 +126,7 @@ public class Tests
     [TestCase("t", "train", 3, "train", "trains", "trailer", "hammer", "hamon", "test")]
     [TestCase("tr", "train", 2, "train", "trains", "trailer", "hammer", "hamon", "test")]
     [TestCase("trains", "hammer", 1, "train", "trains", "trailer", "hammer", "hamon", "test")]
-    public void HowManyStartsWithPrefixWithRemoveTest(string prefix, string deleteWord, int expectedResult, params string[] trieElements)
+    public void HowManyStartsWithPrefixWithAfterRemoveShouldReturnExpectedResult(string prefix, string deleteWord, int expectedResult, params string[] trieElements)
     {
         foreach (var element in trieElements)
         {

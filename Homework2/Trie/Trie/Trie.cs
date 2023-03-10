@@ -5,7 +5,6 @@
 /// </summary>
 public class Trie
 {
-
     /// <summary>
     /// main node of Trie, all methods start from it.
     /// </summary>
@@ -22,36 +21,7 @@ public class Trie
     /// <summary>
     /// Gets size of Trie, count of elements in Trie, doesn't include empty string.
     /// </summary>
-    public int Size { get { return head.wordsCount; } }
-
-    /// <summary>
-    /// Class implement Node for Trie structure.
-    /// </summary>
-    private class Node
-    {
-        /// <summary>
-        /// Is this element terminal for word.
-        /// </summary>
-        public bool isTerminal { get; set; } = false;
-
-        /// <summary>
-        /// number of words that contain this element.
-        /// </summary>
-        public int wordsCount { get; set; }
-
-        /// <summary>
-        /// Collection of next nodes.
-        /// </summary>
-        public Dictionary<char, Node> next { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Node"/> class.
-        /// </summary>
-        public Node()
-        {
-            next = new Dictionary<char, Node>();
-        }
-    }
+    public int Size { get { return head.WordsCount; } }
 
     /// <summary>
     /// Method to check is element contained in Trie.
@@ -70,15 +40,15 @@ public class Trie
 
         foreach (var symbol in element)
         {
-            if (!currentNode.next.ContainsKey(symbol))
+            if (!currentNode.Next.ContainsKey(symbol))
             {
                 return false;
             }
 
-            currentNode = currentNode.next[symbol];
+            currentNode = currentNode.Next[symbol];
         }
 
-        return currentNode.isTerminal || element == string.Empty;
+        return currentNode.IsTerminal || element == string.Empty;
     }
 
     /// <summary>
@@ -108,19 +78,19 @@ public class Trie
 
         foreach (var symbol in element)
         {
-            ++currentNode.wordsCount;
+            ++currentNode.WordsCount;
 
-            if (!currentNode.next.ContainsKey(symbol))
+            if (!currentNode.Next.ContainsKey(symbol))
             {
-                currentNode.next.Add(symbol, new Node());
+                currentNode.Next.Add(symbol, new Node());
             }
 
-            currentNode = currentNode.next[symbol];
+            currentNode = currentNode.Next[symbol];
         }
 
-        ++currentNode.wordsCount;
+        ++currentNode.WordsCount;
 
-        return currentNode.isTerminal = true;
+        return currentNode.IsTerminal = true;
     }
 
     /// <summary>
@@ -151,19 +121,19 @@ public class Trie
 
         for (int i = 0; i < element.Length; ++i)
         {
-            --currentNode.wordsCount;
+            --currentNode.WordsCount;
 
-            if (currentNode.next[element[i]].wordsCount == 1)
+            if (currentNode.Next[element[i]].WordsCount == 1)
             {
-                currentNode.next.Remove(element[i]);
+                currentNode.Next.Remove(element[i]);
                 return true;
             }
 
-            currentNode = currentNode.next[element[i]];
+            currentNode = currentNode.Next[element[i]];
         }
 
-        --currentNode.wordsCount;
-        currentNode.isTerminal = false;
+        --currentNode.WordsCount;
+        currentNode.IsTerminal = false;
 
         return true;
     }
@@ -185,14 +155,43 @@ public class Trie
 
         foreach (var symbol in prefix)
         {
-            if (!currentNode.next.ContainsKey(symbol))
+            if (!currentNode.Next.ContainsKey(symbol))
             {
                 return 0;
             }
 
-            currentNode = currentNode.next[symbol];
+            currentNode = currentNode.Next[symbol];
         }
 
-        return currentNode.wordsCount;
+        return currentNode.WordsCount;
+    }
+
+    /// <summary>
+    /// Class implement Node for Trie structure.
+    /// </summary>
+    private class Node
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Node"/> class.
+        /// </summary>
+        public Node()
+        {
+            Next = new Dictionary<char, Node>();
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is this element terminal for word.
+        /// </summary>
+        public bool IsTerminal { get; set; }
+
+        /// <summary>
+        /// Gets or sets number of words that contain this element.
+        /// </summary>
+        public int WordsCount { get; set; }
+
+        /// <summary>
+        /// Gets collection of next nodes.
+        /// </summary>
+        public Dictionary<char, Node> Next { get; }
     }
 }
