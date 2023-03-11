@@ -1,6 +1,7 @@
 ﻿using Trees;
 using Algorithms;
 using System.Linq;
+using LZW;
 
 //var trie = new Trie();
 
@@ -16,14 +17,49 @@ using System.Linq;
 //    Console.WriteLine(element);
 //}
 
+
+// BWT FROM FILE 
 var filePath = args[0];
 var useKey = args[1];
 
-var lastElementIndex = 0;
 var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipped";
 string fileContent = File.ReadAllText(filePath);
 File.Create(newFilePath).Close();
 
-(fileContent, var result) = BWT.DirectBWT(fileContent);
+var encoder = new LZWEncode();
+encoder.Encode(filePath, newFilePath);
 
-File.WriteAllText(newFilePath, fileContent + $"${result}");
+//(fileContent, var lastElementIndex) = BWT.DirectBWT(fileContent);
+
+//File.WriteAllText(newFilePath, fileContent + $"${lastElementIndex}");
+
+
+
+//byte[] arrayOfBytes = File.ReadAllBytes(filePath);
+//var newTrie = new Trie();
+//for (var i = 0; i < 256; ++i)
+//{
+//    newTrie.Add(Char.ToString((char)i), i);
+//}
+
+//var ewkere = 1;
+
+//var result = new List<byte>();
+//var listOfCurrentBits = new List<bool>() {true, true, false, false, true};
+//var bitsToAdd = new List<bool>() { true, false, true, false, false, false, false, true};
+
+//var length = listOfCurrentBits.Count();
+
+//for (var i = 0; i + length < 8; ++i)
+//{
+//    listOfCurrentBits.Add(bitsToAdd[i]);
+//}
+
+//result.Add(LZWUtils.ConvertBitsToByte(listOfCurrentBits));
+//listOfCurrentBits.Clear();
+
+//listOfCurrentBits = bitsToAdd;
+
+//var ewkere = 1;
+
+var ewkere = 1;

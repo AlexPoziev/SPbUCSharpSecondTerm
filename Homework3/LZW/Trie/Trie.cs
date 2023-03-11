@@ -167,12 +167,11 @@ public class Trie
     }
 
     /// <summary>
-    /// Method to get sequence of all values that prefix of word, except empty string
+    /// Method to get value of word
     /// </summary>
-    /// <returns>returns null if no word in Trie, else sequence of
-    /// all values that prefix of word </returns>
+    /// <returns>returns -1 if no word in Trie, else value of word </returns>
     /// <exception cref="ArgumentNullException">word can't be null</exception>
-    public int[]? GetAllValuesOfElement(string word)
+    public int GetValueOfElement(string word)
     {
         if (word == null)
         {
@@ -180,20 +179,18 @@ public class Trie
         }
 
         Node currentNode = head;
-        var result = new int[word.Length];
 
         for (var i = 0; i < word.Length; ++i)
         {
             if (!currentNode.Next.ContainsKey(word[i]))
             {
-                return null;
+                return -1;
             }
 
             currentNode = currentNode.Next[word[i]];
-            result[i] = currentNode.Value;
         }
 
-        return result;
+        return currentNode.Value;
     }
 
     /// <summary>
