@@ -43,10 +43,17 @@ public class LZWEncode
                     currentMaxNumberOfElementsInTrie *= 2 + 2;
                 }
 
-                trie.Add(elementToAdd, trie.Size + 1);
+                trie.Add(elementToAdd, trie.Size);
                 newChars = ((char)arrayOfBytes[i]).ToString();
             }
         }
+
+        while (listOfCurrentBits.Count < currentPowerOfTwo)
+        {
+            listOfCurrentBits.Add(false);
+        }
+
+        result.Add(LZWUtils.ConvertBitsToByte(listOfCurrentBits));
 
         File.WriteAllBytes(newFilePath, result.ToArray());
     }
@@ -55,9 +62,11 @@ public class LZWEncode
     {
         while (bitsToAdd.Count + listOfCurrentBits.Count >= byteSize)
         {
-            for (var i = 0; i + listOfCurrentBits.Count < byteSize; ++i)
+            for (var i = 0; listOfCurrentBits.Count < byteSize; ++i)
             {
-                listOfCurrentBits.Add(bitsToAdd[i]);
+                var firstElement = bitsToAdd.First();
+                bitsToAdd.RemoveAt(0);
+                listOfCurrentBits.Add(firstElement);
             }
 
             result.Add(LZWUtils.ConvertBitsToByte(listOfCurrentBits));

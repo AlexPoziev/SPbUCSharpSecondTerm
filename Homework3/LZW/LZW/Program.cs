@@ -29,6 +29,8 @@ File.Create(newFilePath).Close();
 var encoder = new LZWEncode();
 encoder.Encode(filePath, newFilePath);
 
+var test = File.ReadAllBytes(newFilePath);
+
 //(fileContent, var lastElementIndex) = BWT.DirectBWT(fileContent);
 
 //File.WriteAllText(newFilePath, fileContent + $"${lastElementIndex}");
