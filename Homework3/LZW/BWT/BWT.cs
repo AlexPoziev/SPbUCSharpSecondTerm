@@ -38,7 +38,7 @@ public static class BWT
     // Inverse Burrows–Wheeler transform
     // returns origin string
     // throw exception if transformedString == null
-    public static string InverseBWT(in byte[] tranformedByteArray, int lastElementIndex)
+    public static byte[] InverseBWT(in byte[] tranformedByteArray, int lastElementIndex)
     {
         if (tranformedByteArray == null)
         {
