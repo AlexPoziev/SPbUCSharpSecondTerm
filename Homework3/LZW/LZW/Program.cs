@@ -22,38 +22,32 @@ using LZW;
 var filePath = args[0];
 var useKey = args[1];
 
-var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipped";
-var testFirst = File.ReadAllBytes(filePath);
+//var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipped";
 
-//string fileContent = Convert.ToBase64String(testFirst);
+//string fileContent = Convert.ToBase64String(File.ReadAllBytes(filePath));
 
 //(fileContent, var lastElementIndex) = BWT.DirectBWT(fileContent);
 
 //File.WriteAllText(filePath, fileContent + $"{lastElementIndex}");
 
-File.Create(newFilePath).Close();
+//File.Create(newFilePath).Close();
 
+//FileInfo first = new FileInfo(filePath);
+//double firstSize = first.Length;
 
+//var encoder = new LZWEncode();
+//encoder.Encode(filePath, newFilePath);
 
-FileInfo first = new FileInfo(filePath);
-double firstSize = first.Length;
+//FileInfo second = new FileInfo(newFilePath);
+//double secondSize = second.Length;
 
-var encoder = new LZWEncode();
-encoder.Encode(filePath, newFilePath);
+//var testSecond = File.ReadAllBytes(newFilePath);
 
-FileInfo second = new FileInfo(newFilePath);
-double secondSize = second.Length;
+//var decoder = new LZWDecode();
 
-var testSecond = File.ReadAllBytes(newFilePath);
+//decoder.Decode(newFilePath, filePath);
 
-var decoder = new LZWDecode();
-
-decoder.Decode(newFilePath, filePath);
-
-double check = secondSize / firstSize;
-Console.WriteLine(check);
-
-
+//double check = secondSize / firstSize;
 
 //byte[] arrayOfBytes = File.ReadAllBytes(filePath);
 //var newTrie = new Trie();
@@ -82,4 +76,10 @@ Console.WriteLine(check);
 
 //var ewkere = 1;
 
-var ewkere = 1;
+//var ewkere = 1;
+
+var result = LZWZip.Compress(filePath);
+Console.WriteLine(result);
+
+var test = new LZWDecode();
+test.Decode("./test.zipped", "test");

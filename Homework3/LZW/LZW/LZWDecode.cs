@@ -70,21 +70,7 @@ public class LZWDecode
         }
 
         string answer = result.ToString();
-        File.WriteAllText("", answer);
-        var ewkere = 123;
+        File.WriteAllText(newFilePath, answer);
     }
-
-    //private bool transferBits(List<bool> getter, List<bool> setter, IsTrue function)
-    //{
-    //    while (function(gette))
-    //    {
-    //        getter.Add(setter.ElementAt(0));
-    //        setter.RemoveAt(0);
-    //    }
-
-    //    return true;
-    //}
-
-    //delegate bool IsTrue(List<bool> list);
 }
 
