@@ -23,17 +23,35 @@ var filePath = args[0];
 var useKey = args[1];
 
 var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipped";
-string fileContent = File.ReadAllText(filePath);
+var testFirst = File.ReadAllBytes(filePath);
+
+//string fileContent = Convert.ToBase64String(testFirst);
+
+//(fileContent, var lastElementIndex) = BWT.DirectBWT(fileContent);
+
+//File.WriteAllText(filePath, fileContent + $"{lastElementIndex}");
+
 File.Create(newFilePath).Close();
+
+
+
+FileInfo first = new FileInfo(filePath);
+double firstSize = first.Length;
 
 var encoder = new LZWEncode();
 encoder.Encode(filePath, newFilePath);
 
-var test = File.ReadAllBytes(newFilePath);
+FileInfo second = new FileInfo(newFilePath);
+double secondSize = second.Length;
 
-//(fileContent, var lastElementIndex) = BWT.DirectBWT(fileContent);
+var testSecond = File.ReadAllBytes(newFilePath);
 
-//File.WriteAllText(newFilePath, fileContent + $"${lastElementIndex}");
+var decoder = new LZWDecode();
+
+decoder.Decode(newFilePath, filePath);
+
+double check = secondSize / firstSize;
+Console.WriteLine(check);
 
 
 

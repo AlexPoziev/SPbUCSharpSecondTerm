@@ -2,7 +2,7 @@
 
 public static class LZWUtils
 {
-    public static byte ConvertBitsToByte(List<bool> bits)
+    public static int ConvertBitsToInt(List<bool> bits)
     {
         int result = 0;
         var index = 0;
@@ -17,7 +17,7 @@ public static class LZWUtils
             ++index;
         }
 
-        return (byte)result;
+        return result;
     }
 
     public static List<bool> ConvertIntToBits(int bitsCount, int number)
