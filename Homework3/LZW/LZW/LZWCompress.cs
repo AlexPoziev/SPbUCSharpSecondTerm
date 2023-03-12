@@ -6,16 +6,25 @@ public static class LZWZip
 {
     public static double Compress(string filePath)
     {
-        string fileContent = Convert.ToBase64String(File.ReadAllBytes(filePath));
+        var testik = File.ReadAllBytes(filePath);
+        File.WriteAllBytes("./test.zip", testik);
+        testik = File.ReadAllBytes(filePath);
+
+        string fileContent = Convert.ToHexString(File.ReadAllBytes(filePath));
 
         (fileContent, var lastElementIndex) = BWT.DirectBWT(fileContent);
 
-        var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipped";
+        var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipka";
         File.Create(newFilePath).Close();
+
+        fileContent = fileContent.Replace('-', '+');
+        fileContent = fileContent.Replace('_', '/');
 
         var test = new FileInfo(filePath);
         var tempFilePath = "./tempZipFile";
-        File.WriteAllText(tempFilePath, fileContent);
+        var lengthTest = fileContent.Length;
+        File.WriteAllBytes(tempFilePath, Convert.FromHexString(fileContent));
+
 
         var bytes = File.ReadAllBytes(tempFilePath).ToList<byte>();
 
@@ -41,7 +50,7 @@ public static class LZWZip
         File.WriteAllBytes(tempFilePath, bytes.ToArray());
 
         var encoder = new LZWEncode();
-        encoder.Encode(filePath, newFilePath);
+        encoder.Encode(tempFilePath, newFilePath);
 
         var firstFileSize = (new FileInfo(filePath)).Length;
         var secondFileSize = (new FileInfo(newFilePath)).Length;

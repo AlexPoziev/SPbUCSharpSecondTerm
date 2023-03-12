@@ -22,7 +22,7 @@ using LZW;
 var filePath = args[0];
 var useKey = args[1];
 
-//var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipped";
+var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.')) + ".zipped";
 
 //string fileContent = Convert.ToBase64String(File.ReadAllBytes(filePath));
 
@@ -78,8 +78,18 @@ var useKey = args[1];
 
 //var ewkere = 1;
 
-var result = LZWZip.Compress(filePath);
-Console.WriteLine(result);
+//var result = LZWZip.Compress(filePath);
+//Console.WriteLine(result);
+
+var encoder = new LZWEncode();
+encoder.Encode(filePath, newFilePath);
+
+var firstFileSize = (new FileInfo(filePath)).Length;
+var secondFileSize = (new FileInfo(newFilePath)).Length;
+
+Console.WriteLine((double)secondFileSize / (double)firstFileSize);
+
+Console.WriteLine(LZWZip.Compress(filePath));
 
 var test = new LZWDecode();
-test.Decode("./test.zipped", "test");
+test.Decode("./test.zipka", "./test");
