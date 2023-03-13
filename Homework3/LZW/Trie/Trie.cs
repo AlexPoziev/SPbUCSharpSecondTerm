@@ -21,7 +21,7 @@ public class Trie
     /// <summary>
     /// Gets size of Trie, count of elements in Trie, doesn't include empty string.
     /// </summary>
-    public int Size { get { return head.WordsCount; } }
+    public int Size { get { return head.BytesCount; } }
 
     /// <summary>
     /// Method to check is element contained in Trie.
@@ -29,7 +29,7 @@ public class Trie
     /// <param name="element">Еhe string to be checked to see if it is contained in.</param>
     /// <returns>true -- if Trie contains element, false -- if it doesn't (Empty string contained in the Trie) .</returns>
     /// <exception cref="ArgumentNullException">element variable can't be null.</exception>
-    public bool Contains(string element)
+    public bool Contains(List<byte> element)
     {
         if (element == null)
         {
@@ -38,17 +38,17 @@ public class Trie
 
         Node currentNode = head;
 
-        foreach (var symbol in element)
+        foreach (var bytes in element)
         {
-            if (!currentNode.Next.ContainsKey(symbol))
+            if (!currentNode.Next.ContainsKey(bytes))
             {
                 return false;
             }
 
-            currentNode = currentNode.Next[symbol];
+            currentNode = currentNode.Next[bytes];
         }
 
-        return currentNode.IsTerminal || element == string.Empty;
+        return currentNode.IsTerminal || !element.Any();
     }
 
     /// <summary>
@@ -57,14 +57,14 @@ public class Trie
     /// <param name="element">element, that need to be added to Trie.</param>
     /// <returns>true -- it successfully added the element, false -- the element is already contained (Empty string contained in the Trie).</returns>
     /// <exception cref="ArgumentNullException">element can't be null.</exception>
-    public bool Add(string element, int value)
+    public bool Add(List<byte> element, int value)
     {
         if (element == null)
         {
             throw new ArgumentNullException(nameof(element), "Can't be null");
         }
 
-        if (element == string.Empty)
+        if (!element.Any())
         {
             return false;
         }
@@ -76,19 +76,19 @@ public class Trie
 
         var currentNode = head;
 
-        foreach (var symbol in element)
+        foreach (var bytes in element)
         {
-            ++currentNode.WordsCount;
+            ++currentNode.BytesCount;
 
-            if (!currentNode.Next.ContainsKey(symbol))
+            if (!currentNode.Next.ContainsKey(bytes))
             {
-                currentNode.Next.Add(symbol, new Node(value));
+                currentNode.Next.Add(bytes, new Node(value));
             }
 
-            currentNode = currentNode.Next[symbol];
+            currentNode = currentNode.Next[bytes];
         }
 
-        ++currentNode.WordsCount;
+        ++currentNode.BytesCount;
 
         return currentNode.IsTerminal = true;
     }
@@ -100,14 +100,14 @@ public class Trie
     /// <returns>true -- if <see cref="element"/> really was in Trie, false -- if Trie doesn't contain <see cref="element"/> .</returns>
     /// <exception cref="ArgumentNullException">element can't be null.</exception>
     /// <exception cref="ArgumentException">can't delete empty string.</exception>
-    public bool Remove(string element)
+    public bool Remove(List<byte> element)
     {
         if (element == null)
         {
             throw new ArgumentNullException(nameof(element), "Can't be null");
         }
 
-        if (element == string.Empty)
+        if (!element.Any())
         {
             throw new ArgumentException("Can't to remove empty string", nameof(element));
         }
@@ -119,11 +119,11 @@ public class Trie
 
         var currentNode = head;
 
-        for (int i = 0; i < element.Length; ++i)
+        for (int i = 0; i < element.Count; ++i)
         {
-            --currentNode.WordsCount;
+            --currentNode.BytesCount;
 
-            if (currentNode.Next[element[i]].WordsCount == 1)
+            if (currentNode.Next[element[i]].BytesCount == 1)
             {
                 currentNode.Next.Remove(element[i]);
                 return true;
@@ -132,7 +132,7 @@ public class Trie
             currentNode = currentNode.Next[element[i]];
         }
 
-        --currentNode.WordsCount;
+        --currentNode.BytesCount;
         currentNode.IsTerminal = false;
 
         return true;
@@ -144,7 +144,7 @@ public class Trie
     /// <param name="prefix">prefix with which the number should start.</param>
     /// <returns>Count of elements Trie which start with prefix. Empty string will return count of all words in Trie.</returns>
     /// <exception cref="ArgumentNullException">prefix can't be null.</exception>
-    public int HowManyStartsWithPrefix(string prefix)
+    public int HowManyStartsWithPrefix(List<byte> prefix)
     {
         if (prefix == null)
         {
@@ -163,7 +163,7 @@ public class Trie
             currentNode = currentNode.Next[symbol];
         }
 
-        return currentNode.WordsCount;
+        return currentNode.BytesCount;
     }
 
     /// <summary>
@@ -171,23 +171,23 @@ public class Trie
     /// </summary>
     /// <returns>returns -1 if no word in Trie, else value of word </returns>
     /// <exception cref="ArgumentNullException">word can't be null</exception>
-    public int GetValueOfElement(string word)
+    public int GetValueOfElement(List<byte> element)
     {
-        if (word == null)
+        if (element == null)
         {
-            throw new ArgumentNullException(nameof(word), "Can't be null");
+            throw new ArgumentNullException(nameof(element), "Can't be null");
         }
 
         Node currentNode = head;
 
-        for (var i = 0; i < word.Length; ++i)
+        for (var i = 0; i < element.Count; ++i)
         {
-            if (!currentNode.Next.ContainsKey(word[i]))
+            if (!currentNode.Next.ContainsKey(element[i]))
             {
                 return -1;
             }
 
-            currentNode = currentNode.Next[word[i]];
+            currentNode = currentNode.Next[element[i]];
         }
 
         return currentNode.Value;
@@ -203,7 +203,7 @@ public class Trie
         /// </summary>
         public Node(int value)
         {
-            Next = new Dictionary<char, Node>();
+            Next = new Dictionary<byte, Node>();
             Value = value;
         }
 
@@ -220,11 +220,11 @@ public class Trie
         /// <summary>
         /// Gets or sets number of words that contain this element.
         /// </summary>
-        public int WordsCount { get; set; }
+        public int BytesCount { get; set; }
 
         /// <summary>
         /// Gets collection of next nodes.
         /// </summary>
-        public Dictionary<char, Node> Next { get; }
+        public Dictionary<byte, Node> Next { get; }
     }
 }

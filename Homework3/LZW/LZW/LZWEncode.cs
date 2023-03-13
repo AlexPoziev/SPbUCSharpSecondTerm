@@ -14,26 +14,30 @@ public class LZWEncode
         var trie = new Trie();
         for (var i = 0; i < 256; ++i)
         {
-            trie.Add(Char.ToString((char)i), i);
+            var newElement = new List<byte>();
+            newElement.Add((byte) i);
+            trie.Add(newElement, i);
         }
 
         byte[] arrayOfBytes = File.ReadAllBytes(filePath);
 
-        string newChars = "";
+        var newBytes = new List<byte>();
         List<byte> result = new();
         var listOfCurrentBits = new List<bool>();
 
         for (int i = 0; i < arrayOfBytes.Length; ++i)
         {
-            string elementToAdd = newChars + (char)arrayOfBytes[i];
+            var elementToAdd = new List<byte>();
+            elementToAdd.AddRange(newBytes);
+            elementToAdd.Add(arrayOfBytes[i]);
             if (trie.Contains(elementToAdd))
             {
-                newChars = elementToAdd;
+                newBytes = elementToAdd;
             }
             else
             {
-                var stringKey = trie.GetValueOfElement(newChars);
-                var bitsToAdd = LZWUtils.ConvertIntToBits(currentPowerOfTwo, stringKey);
+                var key = trie.GetValueOfElement(newBytes);
+                var bitsToAdd = LZWUtils.ConvertIntToBits(currentPowerOfTwo, key);
 
                 AddNewByte(bitsToAdd, ref listOfCurrentBits, result);
 
@@ -44,11 +48,13 @@ public class LZWEncode
                 }
 
                 trie.Add(elementToAdd, trie.Size);
-                newChars = ((char)arrayOfBytes[i]).ToString();
+
+                newBytes.Clear();
+                newBytes.Add(arrayOfBytes[i]);
             }
         }
 
-        var lastKey = trie.GetValueOfElement(newChars);
+        var lastKey = trie.GetValueOfElement(newBytes);
         var bitToAdd = LZWUtils.ConvertIntToBits(currentPowerOfTwo, lastKey);
 
         AddNewByte(bitToAdd, ref listOfCurrentBits, result);
