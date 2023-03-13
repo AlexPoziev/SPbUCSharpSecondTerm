@@ -40,6 +40,8 @@ public static class LZWArchiver
         var encoder = new LZWEncode();
         encoder.Encode(tempFilePath, newFilePath);
 
+        File.Delete(tempFilePath);
+
         var test = File.ReadAllBytes(newFilePath);
 
         var firstFileSize = (new FileInfo(filePath)).Length;

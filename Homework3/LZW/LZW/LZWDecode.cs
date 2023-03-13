@@ -64,15 +64,15 @@ public class LZWDecode
 
                 currentByte.Clear();
 
-                List<byte> entry;
+                List<byte> entry = new List<byte>();
                 if (dictionary.ContainsKey(newKey))
                 {
-                    entry = dictionary[newKey];
+                    entry.AddRange(dictionary[newKey]);
                 }
                 else
                 {
-                    firstByte.Add(firstByte[0]);
-                    entry = firstByte;
+                    entry.AddRange(firstByte);
+                    entry.Add(firstByte[0]);
                 }
 
                 result.AddRange(entry);
