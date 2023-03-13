@@ -9,9 +9,9 @@ public static class BWTSort
         (first, second) = (second, first);
     }
 
-    // function to compare two suffix of <word>, takes two suffix indexes
+    // function to compare two suffix of <bytes>, takes two suffix indexes
     // returns true if the first suffix more than the second
-    // throw exception if word == null
+    // throw exception if bytes == null
     private static bool IsSuffixMore(in byte[] bytes, int firstSuffixIndex, int secondSuffixIndex)
     {
         if (bytes == null)
@@ -48,9 +48,9 @@ public static class BWTSort
 
     // ShellSort function with Knuth Sequence
     // BWT interpretation, return position of the last element
-    // word immutable
-    // throw exception if wrod == null
-    // int array must contains array with numbers in range 0..word.Length - 1. They must not to stay in a row
+    // bytes immutable
+    // throw exception if bytes == null
+    // int array must contains array with numbers in range 0..bytes.Length - 1. They must not to stay in a row
     public static int DirectBWTSort(in byte[] bytes, int[] array)
     {
         if (bytes == null)
@@ -106,9 +106,9 @@ public static class BWTSort
         return lastElement;
     }
 
-    // sort of ints by word values. Mutate ints. Sorting must be stable
-    // throw exception if word == null
-    // ints array must contains array with numbers in range 0..word.Length - 1. They must not to stay in a row
+    // sort of ints by bytes values. Mutate ints. Sorting must be stable
+    // throw exception if bytes == null
+    // ints array must contains array with numbers in range 0..bytes.Length - 1. They must not to stay in a row
     public static void InverseBWTSort(in byte[] bytes, int[] ints)
     {
         if (bytes == null)
@@ -131,27 +131,16 @@ public static class BWTSort
             throw new ArgumentException("Array filled not right(not range 0..word.Length - 1)", nameof(ints));
         }
 
-        //for (int i = 0; i < bytes.Length - 1; ++i)
-        //{
-        //    for (int j = 0; j < bytes.Length - 1 - i; ++j)
-        //    {
-        //        if (bytes[ints[j]] > bytes[ints[j + 1]])
-        //        {
-        //            Swap(ref ints[j], ref ints[j + 1]);
-        //        }
-        //    }
-        //}
-
         MergeSort(bytes, ints);
     }
 
-    static void MergeSort(byte[] arr, int[] indices)
+    private static void MergeSort(byte[] arr, int[] indices)
     {
         int[] tmpIndices = new int[indices.Length];
         MergeSortHelper(arr, indices, tmpIndices, 0, indices.Length - 1);
     }
 
-    static void MergeSortHelper(byte[] arr, int[] indices, int[] tmpIndices, int start, int end)
+    private static void MergeSortHelper(byte[] arr, int[] indices, int[] tmpIndices, int start, int end)
     {
         if (start >= end)
         {

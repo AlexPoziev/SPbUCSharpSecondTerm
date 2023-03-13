@@ -19,15 +19,15 @@ public class Trie
     }
 
     /// <summary>
-    /// Gets size of Trie, count of elements in Trie, doesn't include empty string.
+    /// Gets size of Trie, count of elements in Trie, doesn't include empty array.
     /// </summary>
     public int Size { get { return head.BytesCount; } }
 
     /// <summary>
     /// Method to check is element contained in Trie.
     /// </summary>
-    /// <param name="element">Еhe string to be checked to see if it is contained in.</param>
-    /// <returns>true -- if Trie contains element, false -- if it doesn't (Empty string contained in the Trie) .</returns>
+    /// <param name="element">The array to be checked to see if it is contained in.</param>
+    /// <returns>true -- if Trie contains element, false -- if it doesn't (Empty array contained in the Trie) .</returns>
     /// <exception cref="ArgumentNullException">element variable can't be null.</exception>
     public bool Contains(List<byte> element)
     {
@@ -55,7 +55,7 @@ public class Trie
     /// Method for adding an element to a Trie.
     /// </summary>
     /// <param name="element">element, that need to be added to Trie.</param>
-    /// <returns>true -- it successfully added the element, false -- the element is already contained (Empty string contained in the Trie).</returns>
+    /// <returns>true -- it successfully added the element, false -- the element is already contained (Empty array contained in the Trie).</returns>
     /// <exception cref="ArgumentNullException">element can't be null.</exception>
     public bool Add(List<byte> element, int value)
     {
@@ -99,7 +99,7 @@ public class Trie
     /// <param name="element">element that will be deleted.</param>
     /// <returns>true -- if <see cref="element"/> really was in Trie, false -- if Trie doesn't contain <see cref="element"/> .</returns>
     /// <exception cref="ArgumentNullException">element can't be null.</exception>
-    /// <exception cref="ArgumentException">can't delete empty string.</exception>
+    /// <exception cref="ArgumentException">can't delete empty array.</exception>
     public bool Remove(List<byte> element)
     {
         if (element == null)
@@ -142,7 +142,7 @@ public class Trie
     /// Method that returns how many elements of Trie starts with prefix.
     /// </summary>
     /// <param name="prefix">prefix with which the number should start.</param>
-    /// <returns>Count of elements Trie which start with prefix. Empty string will return count of all words in Trie.</returns>
+    /// <returns>Count of elements Trie which start with prefix. Empty array will return count of all words in Trie.</returns>
     /// <exception cref="ArgumentNullException">prefix can't be null.</exception>
     public int HowManyStartsWithPrefix(List<byte> prefix)
     {
@@ -167,10 +167,10 @@ public class Trie
     }
 
     /// <summary>
-    /// Method to get value of word
+    /// Method to get value of byte array
     /// </summary>
     /// <returns>returns -1 if no word in Trie, else value of word </returns>
-    /// <exception cref="ArgumentNullException">word can't be null</exception>
+    /// <exception cref="ArgumentNullException">byte array can't be null</exception>
     public int GetValueOfElement(List<byte> element)
     {
         if (element == null)
@@ -213,7 +213,7 @@ public class Trie
         public int Value { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is this element terminal for word.
+        /// Gets or sets a value indicating whether is this element terminal for byte array.
         /// </summary>
         public bool IsTerminal { get; set; }
 

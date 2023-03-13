@@ -6,7 +6,7 @@ using System.Text;
 public static class BWT
 {
     // Direct Burrows–Wheeler transform
-    // returns transformed string and index of last element
+    // returns transformed byte array and index of last element
     // throw exception if word == null
     public static (byte[], int) DirectBWT(in byte[] bytes)
     {
@@ -36,8 +36,8 @@ public static class BWT
     }
 
     // Inverse Burrows–Wheeler transform
-    // returns origin string
-    // throw exception if transformedString == null
+    // returns origin byte array
+    // throw exception if transformedbyteArray == null
     public static byte[] InverseBWT(in byte[] tranformedByteArray, int lastElementIndex)
     {
         if (tranformedByteArray == null)

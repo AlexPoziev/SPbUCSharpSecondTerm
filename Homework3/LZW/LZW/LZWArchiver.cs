@@ -2,11 +2,30 @@
 
 namespace LZW;
 
+/// <summary>
+/// Class of archiver based on LZW algorithm.
+/// </summary>
 public static class LZWArchiver
 {
+
+    /// <summary>
+    /// Method to compress file. Create new file with name: <fileName>.zipped
+    /// </summary>
+    /// <param name="filePath">path to file that need to be compressed</param>
+    /// <returns>Сompression ratio</returns>
+    /// <exception cref="ArgumentException">File must to exists and to be not empty</exception>
     public static double Compress(string filePath)
     {
+        if (!File.Exists(filePath))
+        {
+            throw new ArgumentException("No file with this path exists", nameof(filePath));
+        }
+
         var fileByteContent = File.ReadAllBytes(filePath);
+        if (fileByteContent == null || !fileByteContent.Any())
+        {
+            throw new ArgumentException("Trying to compress empty file", nameof(filePath));
+        }
 
         (fileByteContent, var lastElementIndex) = BWT.DirectBWT(fileByteContent);
 
@@ -42,22 +61,42 @@ public static class LZWArchiver
 
         File.Delete(tempFilePath);
 
-        var test = File.ReadAllBytes(newFilePath);
-
         var firstFileSize = (new FileInfo(filePath)).Length;
         var secondFileSize = (new FileInfo(newFilePath)).Length;
 
         return (double)secondFileSize / (double)firstFileSize;
     }
 
+    /// <summary>
+    /// Method to decompress file with extension <.zipped>. Create new file with same name except .zipped
+    /// </summary>
+    /// <param name="filePath">path to file that need to be compressed</param>
+    /// <exception cref="ArgumentException">File must to exists and not to be compises only of extension/exception>
     public static void Decompress(string filePath)
     {
+        if (!File.Exists(filePath))
+        {
+            throw new ArgumentException("No file with this path exists", nameof(filePath));
+        }
+
         var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.'));
+        if (newFilePath == string.Empty)
+        {
+            throw new ArgumentException("File name comprises only of extension", nameof(filePath));
+        }
 
         File.Create(newFilePath).Close();
 
         var decoder = new LZWDecode();
-        decoder.Decode(filePath, newFilePath);
+
+        try
+        {
+            decoder.Decode(filePath, newFilePath);
+        }
+        catch
+        {
+            throw new ArgumentException("Trying to decompress empty file", nameof(filePath));
+        }
 
         var bytes = File.ReadAllBytes(newFilePath).ToList();
 
@@ -76,4 +115,3 @@ public static class LZWArchiver
         File.WriteAllBytes(newFilePath, BWT.InverseBWT(bytes.ToArray(), lastIndex));
     }
 }
-
