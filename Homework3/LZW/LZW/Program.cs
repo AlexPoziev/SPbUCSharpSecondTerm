@@ -81,14 +81,18 @@ var newFilePath = filePath + ".zipped";
 //var result = LZWZip.Compress(filePath);
 //Console.WriteLine(result);
 
-//var encoder = new LZWEncode();
-//encoder.Encode(filePath, newFilePath);
+var encoder = new LZWEncode();
+encoder.Encode(filePath, newFilePath);
+
+var decoder = new LZWDecode();
+decoder.Decode(newFilePath, "./testik.txt");
 
 //var firstFileSize = (new FileInfo(filePath)).Length;
 //var secondFileSize = (new FileInfo(newFilePath)).Length;
 
 //Console.WriteLine((double)secondFileSize / (double)firstFileSize);
 
-Console.WriteLine(LZWArchiver.Compress(filePath));
+//Console.WriteLine(LZWArchiver.Compress(filePath));
 
-LZWArchiver.Decompress(newFilePath);
+//LZWArchiver.Decompress(newFilePath);
+

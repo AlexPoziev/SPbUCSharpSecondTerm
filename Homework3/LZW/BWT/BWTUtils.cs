@@ -131,15 +131,67 @@ public static class BWTSort
             throw new ArgumentException("Array filled not right(not range 0..word.Length - 1)", nameof(ints));
         }
 
-        for (int i = 0; i < bytes.Length - 1; ++i)
+        //for (int i = 0; i < bytes.Length - 1; ++i)
+        //{
+        //    for (int j = 0; j < bytes.Length - 1 - i; ++j)
+        //    {
+        //        if (bytes[ints[j]] > bytes[ints[j + 1]])
+        //        {
+        //            Swap(ref ints[j], ref ints[j + 1]);
+        //        }
+        //    }
+        //}
+
+        MergeSort(bytes, ints);
+    }
+
+    static void MergeSort(byte[] arr, int[] indices)
+    {
+        int[] tmpIndices = new int[indices.Length];
+        MergeSortHelper(arr, indices, tmpIndices, 0, indices.Length - 1);
+    }
+
+    static void MergeSortHelper(byte[] arr, int[] indices, int[] tmpIndices, int start, int end)
+    {
+        if (start >= end)
         {
-            for (int j = 0; j < bytes.Length - 1 - i; ++j)
+            return;
+        }
+
+        int mid = (start + end) / 2;
+
+        MergeSortHelper(arr, indices, tmpIndices, start, mid);
+        MergeSortHelper(arr, indices, tmpIndices, mid + 1, end);
+
+        int left = start;
+        int right = mid + 1;
+        int tmpIndex = start;
+
+        while (left <= mid && right <= end)
+        {
+            if (arr[indices[left]] <= arr[indices[right]])
             {
-                if (bytes[ints[j]] > bytes[ints[j + 1]])
-                {
-                    Swap(ref ints[j], ref ints[j + 1]);
-                }
+                tmpIndices[tmpIndex++] = indices[left++];
             }
+            else
+            {
+                tmpIndices[tmpIndex++] = indices[right++];
+            }
+        }
+
+        while (left <= mid)
+        {
+            tmpIndices[tmpIndex++] = indices[left++];
+        }
+
+        while (right <= end)
+        {
+            tmpIndices[tmpIndex++] = indices[right++];
+        }
+
+        for (int i = start; i <= end; i++)
+        {
+            indices[i] = tmpIndices[i];
         }
     }
 

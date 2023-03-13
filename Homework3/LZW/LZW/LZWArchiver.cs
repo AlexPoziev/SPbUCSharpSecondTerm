@@ -52,10 +52,12 @@ public static class LZWArchiver
     {
         var newFilePath = filePath.Substring(0, filePath.LastIndexOf('.'));
 
-        var decoder = new LZWDecode();
-        decoder.Decode(newFilePath, newFilePath);
+        File.Create(newFilePath).Close();
 
-        var bytes = File.ReadAllBytes(filePath).ToList();
+        var decoder = new LZWDecode();
+        decoder.Decode(filePath, newFilePath);
+
+        var bytes = File.ReadAllBytes(newFilePath).ToList();
 
         var lastIndexSize = bytes.First();
         bytes.RemoveAt(0);
@@ -70,8 +72,6 @@ public static class LZWArchiver
         var lastIndex = LZWUtils.ConvertBitsToInt(lastIndexBitsList);
 
         File.WriteAllBytes(newFilePath, BWT.InverseBWT(bytes.ToArray(), lastIndex));
-
-
     }
 }
 

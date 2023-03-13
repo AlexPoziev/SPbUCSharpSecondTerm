@@ -13,17 +13,22 @@ public class LZWDecode
 
     public void Decode(string filePath, string newFilePath)
     {
-        var dictionary = new Dictionary<int, string>();
+        var dictionary = new Dictionary<int, List<byte>>();
         for (var i = 0; i < 256; ++i)
         {
-            dictionary.Add(i, ((char)i).ToString());
+            var newElement = new List<byte>();
+            newElement.Add((byte)i);
+            dictionary.Add(i, newElement);
         }
 
-        List<byte> listOfBytes = File.ReadAllBytes(filePath).ToList<byte>();
+        var listOfBytes = File.ReadAllBytes(filePath).ToList<byte>();
 
-        string symbol = ((char)listOfBytes.First()).ToString();
+        var firstByte = new List<byte>();
+        firstByte.Add(listOfBytes.First());
         listOfBytes.RemoveAt(0);
-        var result = new StringBuilder(symbol);
+
+        var result = new List<byte>();
+        result.Add(firstByte[0]);
         var currentByte = new List<bool>();
         var remainingBits = new List<bool>();
 
@@ -59,18 +64,29 @@ public class LZWDecode
 
                 currentByte.Clear();
 
-                string entry = dictionary.ContainsKey(newKey)
-                    ? dictionary[newKey]
-                    : symbol + symbol[0];
+                List<byte> entry;
+                if (dictionary.ContainsKey(newKey))
+                {
+                    entry = dictionary[newKey];
+                }
+                else
+                {
+                    firstByte.Add(firstByte[0]);
+                    entry = firstByte;
+                }
 
-                result.Append(entry);
-                dictionary.Add(dictionary.Count, symbol + entry[0]);
-                symbol = entry;
+                result.AddRange(entry);
+
+                var newElement = new List<byte>();
+                newElement.AddRange(firstByte);
+                newElement.Add(entry[0]);
+                dictionary.Add(dictionary.Count, newElement);
+
+                firstByte = entry;
             }
         }
 
-        string answer = result.ToString();
-        File.WriteAllText(newFilePath, answer);
+        File.WriteAllBytes(newFilePath, result.ToArray());
     }
 }
 
