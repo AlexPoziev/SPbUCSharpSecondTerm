@@ -1,24 +1,44 @@
 ﻿using Trees;
-using Algorithms;
-using System.Linq;
 using LZW;
 
-// BWT FROM FILE 
-var filePath = args[0];
-var useKey = args[1];
+if (args.Length < 2)
+{
+    Console.WriteLine("Not enough arguments");
+}
 
-var newFilePath = filePath + ".zipped";
+if (args[1] == "-c")
+{
+    Console.WriteLine("Compressing File...\n");
 
-//var encoder = new LZWEncode();
-//encoder.Encode(filePath, newFilePath);
+    var encoder = new LZWEncode();
+    var tempFilePath = args[0] + ".zipped";
+    File.Create(tempFilePath).Close();
+    try
+    {
+        encoder.Encode(args[0], args[0] + ".zipped");
+    }
+    catch
+    {
+        Console.WriteLine("Compression Failed.");
+        return;
+    }
 
+    var WithoutBWTCompressRatio = (double)(new FileInfo(tempFilePath).Length) / (double)(new FileInfo(args[0])).Length;
 
-//var firstFileSize = (new FileInfo(filePath)).Length;
-//var secondFileSize = (new FileInfo(newFilePath)).Length;
+    File.Delete(tempFilePath);
 
-//Console.WriteLine((double)secondFileSize / (double)firstFileSize);
+    double BWTCompressRatio;
+    try
+    {
+        BWTCompressRatio = LZWArchiver.Compress(args[0]);
+    }
+    catch
+    {
+        Console.WriteLine("Compression Failed.");
+        return;
+    }
 
-Console.WriteLine(LZWArchiver.Compress(filePath));
-
-LZWArchiver.Decompress(newFilePath);
+    Console.WriteLine($"Compression ratio with BWT: {BWTCompressRatio}");
+    Console.WriteLine($"Compression ratio without BWT: {WithoutBWTCompressRatio}");
+}
 

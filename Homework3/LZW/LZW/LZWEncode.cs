@@ -62,7 +62,7 @@ public class LZWEncode
             else
             {
                 var key = trie.GetValueOfElement(newBytes);
-                var bitsToAdd = LZWUtils.ConvertIntToBits(currentPowerOfTwo, key);
+                var bitsToAdd = BinaryConverter.ConvertIntToBits(currentPowerOfTwo, key);
 
                 AddNewByte(bitsToAdd, ref listOfCurrentBits, result);
 
@@ -80,7 +80,7 @@ public class LZWEncode
         }
 
         var lastKey = trie.GetValueOfElement(newBytes);
-        var bitToAdd = LZWUtils.ConvertIntToBits(currentPowerOfTwo, lastKey);
+        var bitToAdd = BinaryConverter.ConvertIntToBits(currentPowerOfTwo, lastKey);
 
         AddNewByte(bitToAdd, ref listOfCurrentBits, result);
 
@@ -89,7 +89,7 @@ public class LZWEncode
             listOfCurrentBits.Add(false);
         }
 
-        result.Add((byte)LZWUtils.ConvertBitsToInt(listOfCurrentBits));
+        result.Add((byte)BinaryConverter.ConvertBitsToInt(listOfCurrentBits));
 
         File.WriteAllBytes(newFilePath, result.ToArray());
     }
@@ -105,7 +105,7 @@ public class LZWEncode
                 listOfCurrentBits.Add(firstElement);
             }
 
-            result.Add((byte)LZWUtils.ConvertBitsToInt(listOfCurrentBits));
+            result.Add((byte)BinaryConverter.ConvertBitsToInt(listOfCurrentBits));
             listOfCurrentBits.Clear();
         }
 

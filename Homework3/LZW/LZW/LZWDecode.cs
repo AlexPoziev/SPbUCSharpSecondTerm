@@ -52,6 +52,8 @@ public class LZWDecode
         var result = InverseLZW(listOfBytes, dictionary);
 
         File.WriteAllBytes(newFilePath, result.ToArray());
+
+        ResetDecoder();
     }
 
     private List<byte> InverseLZW(List<byte> listOfBytes, Dictionary<int, List<byte>> dictionary)
@@ -79,7 +81,7 @@ public class LZWDecode
                 continue;
             }
 
-            int newKey = LZWUtils.ConvertBitsToInt(currentByte);
+            int newKey = BinaryConverter.ConvertBitsToInt(currentByte);
 
             currentByte.Clear();
 
@@ -111,7 +113,7 @@ public class LZWDecode
 
     private bool PrepareNewByte(byte element, List<bool> remainingBits, List<bool> currentByte)
     {
-        var newByte = LZWUtils.ConvertIntToBits(byteSize, element);
+        var newByte = BinaryConverter.ConvertIntToBits(byteSize, element);
         while (newByte.Count > 0)
         {
             remainingBits.Add(newByte.ElementAt(0));
@@ -132,7 +134,7 @@ public class LZWDecode
         return true;
     }
 
-    private void resetDecoder()
+    private void ResetDecoder()
     {
         currentMaxNumberOfElementsInDictionary = 256;
         currentPowerOfTwo = byteSize;

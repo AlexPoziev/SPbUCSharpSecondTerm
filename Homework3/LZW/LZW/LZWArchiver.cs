@@ -34,7 +34,7 @@ public static class LZWArchiver
 
         var bytesForLastIndex = (int)Math.Log2(lastElementIndex) / 8 + 1;
 
-        var lastIndexBits = LZWUtils.ConvertIntToBits(bytesForLastIndex * 8, lastElementIndex);
+        var lastIndexBits = BinaryConverter.ConvertIntToBits(bytesForLastIndex * 8, lastElementIndex);
 
         var listFileContent = fileByteContent.ToList();
 
@@ -48,7 +48,7 @@ public static class LZWArchiver
                 lastIndexBits.RemoveAt(lastIndexBits.Count - 1);
             }
 
-            listFileContent.Insert(0, (byte)LZWUtils.ConvertBitsToInt(newByte));
+            listFileContent.Insert(0, (byte)BinaryConverter.ConvertBitsToInt(newByte));
         }
 
         listFileContent.Insert(0, (byte)bytesForLastIndex);
@@ -106,11 +106,11 @@ public static class LZWArchiver
         var lastIndexBitsList = new List<bool>();
         for (int i = 0; i < lastIndexSize; ++i)
         {
-            lastIndexBitsList.AddRange(LZWUtils.ConvertIntToBits(8, bytes.First()));
+            lastIndexBitsList.AddRange(BinaryConverter.ConvertIntToBits(8, bytes.First()));
             bytes.RemoveAt(0);
         }
 
-        var lastIndex = LZWUtils.ConvertBitsToInt(lastIndexBitsList);
+        var lastIndex = BinaryConverter.ConvertBitsToInt(lastIndexBitsList);
 
         File.WriteAllBytes(newFilePath, BWT.InverseBWT(bytes.ToArray(), lastIndex));
     }
