@@ -1,18 +1,15 @@
-﻿using Algorithms;
+﻿namespace LZW;
 
-namespace LZW;
+using Algorithms;
 
 /// <summary>
 /// Class of archiver based on LZW algorithm.
 /// </summary>
 public static class LZWArchiver
 {
-
-    /// <summary>
-    /// Method to compress file. Create new file with name: <fileName>.zipped
-    /// </summary>
+    /// <summary> Method to compress file. Create new file with name:.<fileName>.zipped </summary>
     /// <param name="filePath">path to file that need to be compressed</param>
-    /// <returns>Сompression ratio</returns>
+    /// <returns> Сompression ratio </returns>
     /// <exception cref="ArgumentException">File must to exists and to be not empty</exception>
     public static double Compress(string filePath)
     {
@@ -32,7 +29,7 @@ public static class LZWArchiver
         var newFilePath = filePath + ".zipped";
         File.Create(newFilePath).Close();
 
-        var bytesForLastIndex = (int)Math.Log2(lastElementIndex) / 8 + 1;
+        var bytesForLastIndex = lastElementIndex == 0 ? 1 : ((int)Math.Log2(lastElementIndex) / 8) + 1;
 
         var lastIndexBits = BinaryConverter.ConvertIntToBits(bytesForLastIndex * 8, lastElementIndex);
 
@@ -61,14 +58,14 @@ public static class LZWArchiver
 
         File.Delete(tempFilePath);
 
-        var firstFileSize = (new FileInfo(filePath)).Length;
-        var secondFileSize = (new FileInfo(newFilePath)).Length;
+        var firstFileSize = new FileInfo(filePath).Length;
+        var secondFileSize = new FileInfo(newFilePath).Length;
 
         return (double)secondFileSize / (double)firstFileSize;
     }
 
     /// <summary>
-    /// Method to decompress file with extension <.zipped>. Create new file with same name except .zipped
+    /// Method to decompress file with extension.<.zipped>. Create new file with same name except .zipped
     /// </summary>
     /// <param name="filePath">path to file that need to be compressed</param>
     /// <exception cref="ArgumentException">File must to exists and not to be compises only of extension/exception>

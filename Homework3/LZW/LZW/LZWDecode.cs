@@ -1,28 +1,21 @@
-﻿using Trees;
-using System.Text;
-using System.Diagnostics.Metrics;
-using System.Collections.Generic;
-using System.Collections;
-using System.Xml.Linq;
-
-namespace LZW;
+﻿namespace LZW;
 
 /// <summary>
-/// Class that perfroms decoding of the file by LZW algorithm
+/// Class that perfroms decoding of the file by LZW algorithm.
 /// </summary>
 public class LZWDecode
 {
-    readonly private int byteSize = 8;
+    private readonly int byteSize = 8;
 
     private int currentPowerOfTwo = 8;
     private int currentMaxNumberOfElementsInDictionary = 256;
 
     /// <summary>
-    /// Method to decode file by LZW algorithm
+    /// Method to decode file by LZW algorithm.
     /// </summary>
-    /// <param name="filePath">The path of the file that need to be decompressed</param>
-    /// <param name="newFilePath">The path of the file to write decompressed result</param>
-    /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty </exception>
+    /// <param name="filePath">The path of the file that need to be decompressed.</param>
+    /// <param name="newFilePath">The path of the file to write decompressed result.</param>
+    /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty.</exception>
     public void Decode(string filePath, string newFilePath)
     {
         if (!File.Exists(filePath))

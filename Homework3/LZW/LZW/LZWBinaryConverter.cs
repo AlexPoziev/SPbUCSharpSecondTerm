@@ -1,18 +1,17 @@
 ﻿namespace LZW;
 
 /// <summary>
-/// Utils to convert bits to positive int value and vice versa
+/// Utils to convert bits to positive int value and vice versa.
 /// </summary>
 public static class BinaryConverter
 {
-
     /// <summary>
-    /// convert bits, represented like list of bools to positive int value
+    /// convert bits, represented like list of bools to positive int value.
     /// </summary>
-    /// <param name="bits">bits to convert into int value</param>
+    /// <param name="bits">bits to convert into int value.</param>
     /// <returns>converted int value</returns>
-    /// <exception cref="ArgumentNullException">bits array can't be null</exception>
-    /// <exception cref="ArgumentException">bits array can't be empty</exception>
+    /// <exception cref="ArgumentNullException">bits array can't be null.</exception>
+    /// <exception cref="ArgumentException">bits array can't be empty.</exception>
     public static int ConvertBitsToInt(List<bool> bits)
     {
         if (bits == null)
@@ -42,12 +41,12 @@ public static class BinaryConverter
     }
 
     /// <summary>
-    /// Method to convert positive number to bits, represented like list of bools with fixed size
+    /// Method to convert positive number to bits, represented like list of bools with fixed size.
     /// </summary>
-    /// <param name="bitsCount">the smallest number of bits that should be in the result list</param>
-    /// <param name="number">number that should be converted</param>
-    /// <returns>bits in list of bools form</returns>
-    /// <exception cref="ArgumentException">number should be positive, bitsCount should be more than 0</exception>
+    /// <param name="bitsCount">the smallest number of bits that should be in the result list.</param>
+    /// <param name="number">number that should be converted.</param>
+    /// <returns>bits in list of bools form.</returns>
+    /// <exception cref="ArgumentException">number should be positive, bitsCount should be more than 0.</exception>
     public static List<bool> ConvertIntToBits(int bitsCount, int number)
     {
         if (number < 0)
@@ -86,4 +85,3 @@ public static class BinaryConverter
         return bits;
     }
 }
-

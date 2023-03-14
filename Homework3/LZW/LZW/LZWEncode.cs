@@ -7,14 +7,14 @@ using Trees;
 /// </summary>
 public class LZWEncode
 {
-    readonly private int byteSize = 8;
+    private readonly int byteSize = 8;
 
     /// <summary>
-    /// Method to encode file by LZW algorithm
+    /// Method to encode file by LZW algorithm.
     /// </summary>
-    /// <param name="filePath">The path of the file that need to be compressed</param>
-    /// <param name="newFilePath">The path of the file to write compressed result</param>
-    /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty </exception>
+    /// <param name="filePath">The path of the file that need to be compressed.</param>
+    /// <param name="newFilePath">The path of the file to write compressed result.</param>
+    /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty.</exception>
     public void Encode(string filePath, string newFilePath)
     {
         int currentPowerOfTwo = byteSize;
@@ -30,6 +30,12 @@ public class LZWEncode
             throw new ArgumentException("No file with this path exists", nameof(newFilePath));
         }
 
+        byte[] arrayOfBytes = File.ReadAllBytes(filePath);
+        if (arrayOfBytes == null || !arrayOfBytes.Any())
+        {
+            throw new ArgumentException("Trying to compress empty file", nameof(filePath));
+        }
+
         var trie = new Trie();
         for (var i = 0; i < 256; ++i)
         {
@@ -38,14 +44,8 @@ public class LZWEncode
             trie.Add(newElement, i);
         }
 
-        byte[] arrayOfBytes = File.ReadAllBytes(filePath);
-        if (arrayOfBytes == null || !arrayOfBytes.Any())
-        {
-            throw new ArgumentException("Trying to compress empty file", nameof(filePath));
-        }
-
         var newBytes = new List<byte>();
-        List<byte> result = new();
+        List<byte> result = new ();
         var listOfCurrentBits = new List<bool>();
 
         for (int i = 0; i < arrayOfBytes.Length; ++i)
@@ -112,4 +112,3 @@ public class LZWEncode
         listOfCurrentBits = bitsToAdd;
     }
 }
-
