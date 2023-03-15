@@ -1,0 +1,46 @@
+\documentclass[a4paper, 14pt]{report}
+
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{amsthm}
+
+\author{Aleksey Poziev}
+\title{Аналитическая геометрия}
+\date{\today}
+
+\begin{document} %
+	\maketitle
+\tableofcontents{}
+\clearpage
+
+\newtheorem{thm}{Теорема} 
+\newtheorem{defin}{Определение}
+
+\chapter{Точечное пространство}
+
+\begin{thm}
+	V - векторное пространство. E - множество точек. \\
+	Задано E $\times$ V $\rightarrow$ E (сложение)\\
+	\begin{enumerate}
+		\item (e + $V_1$) + $V_2$ = e + ($V_1$ + $V_2$)
+		\item e + $\overline{0}$ = e
+		\item $\forall$ $e_1$, $e_2$  $\exists$! V:  $e_1$ + V = $e_2$
+	\end{enumerate}
+	Если выполняются все условия, то E - называется \textbf{точечным пространством}
+\end{thm}
+Если мы фиксируем $e_0$, то $\exists$ биекция между E $\leftrightarrow$ V
+\begin{itemize}
+	\item e $\rightarrow$ $\overline{e - e_0}$ 
+	\item $e_0 + \overline{V}$ $\leftarrow$ V
+\end{itemize}
+
+\begin{defin}
+	$e_0, e_1 \in E$ $|e_0e_1|$ := $|\overrightarrow{e + e_0}|$
+\end{defin}
+Пусть dim V = 3. i, j, k - ОНБ  в V. $e_0 \in E$ , называется начальной точкой, если $\forall e \: \exists! \V \in V: e = e_0 + V => e = (a, b, c)$
+\section{Вторая глава}
+
+	
+\end{document}}

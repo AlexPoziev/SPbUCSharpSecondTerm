@@ -27,7 +27,7 @@ if (args[1] == "-c")
 
     File.WriteAllBytes(tempFilePath, bytesArray);
 
-    var withoutBWTCompressRatio = (double)new FileInfo(tempFilePath).Length / (double)new FileInfo(args[0]).Length;
+    var withoutBWTCompressRatio = (double)new FileInfo(args[0]).Length / (double)new FileInfo(tempFilePath).Length;
 
     File.Delete(tempFilePath);
 

@@ -11,11 +11,12 @@ public class LZWDecode
     private int currentMaxNumberOfElementsInDictionary = 256;
 
     /// <summary>
-    /// Method to decode file by LZW algorithm.
+    /// Method to decode byte array by LZW algorithm.
     /// </summary>
-    /// <param name="filePath">The path of the file that need to be decompressed.</param>
-    /// <param name="newFilePath">The path of the file to write decompressed result.</param>
-    /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty.</exception>
+    /// <param name="arrayOfBytes">array of bytes that need to be decoded.</param>
+    /// <returns>decoded array of bytes.</returns>
+    /// <exception cref="ArgumentNullException">Byte array must to be not null.</exception>
+    /// <exception cref="ArgumentException">Byte array must to be not empty.</exception>
     public byte[] Decode(byte[] arrayOfBytes)
     {
         if (arrayOfBytes == null)

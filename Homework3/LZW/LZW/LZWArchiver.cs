@@ -56,7 +56,7 @@ public static class LZWArchiver
         var firstFileSize = new FileInfo(filePath).Length;
         var secondFileSize = new FileInfo(newFilePath).Length;
 
-        return (double)secondFileSize / (double)firstFileSize;
+        return (double)firstFileSize / (double)secondFileSize;
     }
 
     /// <summary>

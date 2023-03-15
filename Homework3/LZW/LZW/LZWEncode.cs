@@ -3,23 +3,29 @@
 using Trees;
 
 /// <summary>
-/// class that perfroms encoding of the file by LZW algorithm
+/// class that perfroms encoding of the file by LZW algorithm.
 /// </summary>
 public class LZWEncode
 {
     private readonly int byteSize = 8;
 
     /// <summary>
-    /// Method to encode file by LZW algorithm.
+    /// Method to encode byte array by LZW algorithm.
     /// </summary>
-    /// <param name="filePath">The path of the file that need to be compressed.</param>
-    /// <param name="newFilePath">The path of the file to write compressed result.</param>
-    /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty.</exception>
+    /// <param name="arrayOfBytes">byte array that need to be encoded.</param>
+    /// <returns>encoded byte array.</returns>
+    /// <exception cref="ArgumentException">array of bytes can't be empty.</exception>
+    /// <exception cref="ArgumentNullException">array of bytes can't be null.</exception>
     public byte[] Encode(byte[] arrayOfBytes)
     {
-        if (arrayOfBytes == null || !arrayOfBytes.Any())
+        if (arrayOfBytes == null)
         {
-            throw new ArgumentException("Trying to compress empty data", nameof(arrayOfBytes));
+            throw new ArgumentNullException(nameof(arrayOfBytes), "Array of bytes can't be null");
+        }
+
+        if (!arrayOfBytes.Any())
+        {
+            throw new ArgumentException("Trying to compress empty array", nameof(arrayOfBytes));
         }
 
         int currentPowerOfTwo = byteSize;
