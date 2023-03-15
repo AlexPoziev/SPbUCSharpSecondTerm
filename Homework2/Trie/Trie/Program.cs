@@ -5,7 +5,7 @@ Console.WriteLine("It's programm to work with Trie structure");
 var isCycle = true;
 var trie = new Trie();
 
-while (isCycle)
+while (true)
 {
     Console.WriteLine("""
 
@@ -24,7 +24,6 @@ while (isCycle)
     switch (choice)
     {
         case "0":
-            isCycle = false;
             break;
 
         case "1":

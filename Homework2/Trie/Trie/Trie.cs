@@ -21,7 +21,7 @@ public class Trie
     /// <summary>
     /// Gets size of Trie, count of elements in Trie, doesn't include empty string.
     /// </summary>
-    public int Size { get { return head.WordsCount; } }
+    public int Size => head.WordsCount;
 
     /// <summary>
     /// Method to check is element contained in Trie.
@@ -119,17 +119,17 @@ public class Trie
 
         var currentNode = head;
 
-        for (int i = 0; i < element.Length; ++i)
+        foreach (var symbol in element)
         {
             --currentNode.WordsCount;
 
-            if (currentNode.Next[element[i]].WordsCount == 1)
+            if (currentNode.Next[symbol].WordsCount == 1)
             {
-                currentNode.Next.Remove(element[i]);
+                currentNode.Next.Remove(symbol);
                 return true;
             }
 
-            currentNode = currentNode.Next[element[i]];
+            currentNode = currentNode.Next[symbol];
         }
 
         --currentNode.WordsCount;
