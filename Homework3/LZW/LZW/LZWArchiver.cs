@@ -26,9 +26,6 @@ public static class LZWArchiver
 
         (fileByteContent, var lastElementIndex) = BWT.DirectBWT(fileByteContent);
 
-        var newFilePath = filePath + ".zipped";
-        File.Create(newFilePath).Close();
-
         var bytesForLastIndex = lastElementIndex == 0 ? 1 : ((int)Math.Log2(lastElementIndex) / 8) + 1;
 
         var lastIndexBits = BinaryConverter.ConvertIntToBits(bytesForLastIndex * 8, lastElementIndex);
@@ -50,13 +47,11 @@ public static class LZWArchiver
 
         listFileContent.Insert(0, (byte)bytesForLastIndex);
 
-        var tempFilePath = "./tempZipFile";
-        File.WriteAllBytes(tempFilePath, listFileContent.ToArray());
-
         var encoder = new LZWEncode();
-        encoder.Encode(tempFilePath, newFilePath);
 
-        File.Delete(tempFilePath);
+        var newFilePath = filePath + ".zipped";
+
+        File.WriteAllBytes(newFilePath, encoder.Encode(listFileContent.ToArray()));
 
         var firstFileSize = new FileInfo(filePath).Length;
         var secondFileSize = new FileInfo(newFilePath).Length;
@@ -86,16 +81,18 @@ public static class LZWArchiver
 
         var decoder = new LZWDecode();
 
+        var valueToDecode = File.ReadAllBytes(filePath);
+
         try
         {
-            decoder.Decode(filePath, newFilePath);
+           valueToDecode = decoder.Decode(valueToDecode);
         }
         catch
         {
             throw new ArgumentException("Trying to decompress empty file", nameof(filePath));
         }
 
-        var bytes = File.ReadAllBytes(newFilePath).ToList();
+        var bytes = valueToDecode.ToList();
 
         var lastIndexSize = bytes.First();
         bytes.RemoveAt(0);

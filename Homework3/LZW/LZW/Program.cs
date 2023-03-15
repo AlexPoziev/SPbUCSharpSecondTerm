@@ -13,15 +13,19 @@ if (args[1] == "-c")
     var encoder = new LZWEncode();
     var tempFilePath = args[0] + ".zipped";
     File.Create(tempFilePath).Close();
+
+    var bytesArray = File.ReadAllBytes(args[0]);
     try
     {
-        encoder.Encode(args[0], args[0] + ".zipped");
+        bytesArray = encoder.Encode(bytesArray);
     }
     catch
     {
         Console.WriteLine("Compression Failed.");
         return;
     }
+
+    File.WriteAllBytes(tempFilePath, bytesArray);
 
     var withoutBWTCompressRatio = (double)new FileInfo(tempFilePath).Length / (double)new FileInfo(args[0]).Length;
 

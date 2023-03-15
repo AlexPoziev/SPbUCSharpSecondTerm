@@ -16,23 +16,19 @@ public class LZWDecode
     /// <param name="filePath">The path of the file that need to be decompressed.</param>
     /// <param name="newFilePath">The path of the file to write decompressed result.</param>
     /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty.</exception>
-    public void Decode(string filePath, string newFilePath)
+    public byte[] Decode(byte[] arrayOfBytes)
     {
-        if (!File.Exists(filePath))
+        if (arrayOfBytes == null)
         {
-            throw new ArgumentException("No file with this path exists", nameof(filePath));
+            throw new ArgumentNullException(nameof(arrayOfBytes), "Array of bytes can't be null");
         }
 
-        if (!File.Exists(newFilePath))
+        if (!arrayOfBytes.Any())
         {
-            throw new ArgumentException("No file with this path exists", nameof(newFilePath));
+            throw new ArgumentException("Trying to decompress empty array", nameof(arrayOfBytes));
         }
 
-        var listOfBytes = File.ReadAllBytes(filePath).ToList<byte>();
-        if (listOfBytes == null || !listOfBytes.Any())
-        {
-            throw new ArgumentException("Trying to compress empty file", nameof(filePath));
-        }
+        var listOfBytes = arrayOfBytes.ToList();
 
         var dictionary = new Dictionary<int, List<byte>>();
         for (var i = 0; i < 256; ++i)
@@ -44,9 +40,9 @@ public class LZWDecode
 
         var result = InverseLZW(listOfBytes, dictionary);
 
-        File.WriteAllBytes(newFilePath, result.ToArray());
-
         ResetDecoder();
+
+        return result.ToArray();
     }
 
     private List<byte> InverseLZW(List<byte> listOfBytes, Dictionary<int, List<byte>> dictionary)

@@ -15,26 +15,15 @@ public class LZWEncode
     /// <param name="filePath">The path of the file that need to be compressed.</param>
     /// <param name="newFilePath">The path of the file to write compressed result.</param>
     /// <exception cref="ArgumentException">Files must to exist. filePath must to not be empty.</exception>
-    public void Encode(string filePath, string newFilePath)
+    public byte[] Encode(byte[] arrayOfBytes)
     {
-        int currentPowerOfTwo = byteSize;
-        int currentMaxNumberOfElementsInTrie = 256;
-
-        if (!File.Exists(filePath))
-        {
-            throw new ArgumentException("No file with this path exists", nameof(filePath));
-        }
-
-        if (!File.Exists(newFilePath))
-        {
-            throw new ArgumentException("No file with this path exists", nameof(newFilePath));
-        }
-
-        byte[] arrayOfBytes = File.ReadAllBytes(filePath);
         if (arrayOfBytes == null || !arrayOfBytes.Any())
         {
-            throw new ArgumentException("Trying to compress empty file", nameof(filePath));
+            throw new ArgumentException("Trying to compress empty data", nameof(arrayOfBytes));
         }
+
+        int currentPowerOfTwo = byteSize;
+        int currentMaxNumberOfElementsInTrie = 256;
 
         var trie = new Trie();
         for (var i = 0; i < 256; ++i)
@@ -91,7 +80,7 @@ public class LZWEncode
 
         result.Add((byte)BinaryConverter.ConvertBitsToInt(listOfCurrentBits));
 
-        File.WriteAllBytes(newFilePath, result.ToArray());
+        return result.ToArray();
     }
 
     private void AddNewByte(List<bool> bitsToAdd, ref List<bool> listOfCurrentBits, List<byte> result)
