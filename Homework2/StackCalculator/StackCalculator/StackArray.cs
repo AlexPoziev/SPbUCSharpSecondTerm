@@ -72,8 +72,7 @@ public class StackArray : IStack
     }
 
     /// <inheritdoc />
-    public bool IsEmpty()
-        => topIndex == -1;
+    public bool IsEmpty() => topIndex == -1;
 
     /// <inheritdoc />
     public float Pop()
@@ -83,11 +82,8 @@ public class StackArray : IStack
             throw new InvalidOperationException("Can't to Pop() from empty stack");
         }
 
-        var temp = stack[topIndex];
-        stack[topIndex] = 0;
-
         --topIndex;
 
-        return temp;
+        return stack[topIndex + 1];
     }
 }

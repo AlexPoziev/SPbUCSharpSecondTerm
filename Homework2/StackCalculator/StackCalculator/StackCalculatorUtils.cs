@@ -10,16 +10,8 @@ public static class StackCalculatorUtils
     /// </summary>
     /// <param name="value">String to check is it sign.</param>
     /// <returns>True -- basic arithmetical sign, False -- else.</returns>
-    /// <exception cref="ArgumentNullException">value can't be null.</exception>
-    public static bool IsOperationSign(this string value)
-    {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value), "Can't be null");
-        }
-
-        return value == "-" || value == "+" || value == "*" || value == "/";
-    }
+    public static bool IsOperationSign(this char value)
+            => value == '-' || value == '+' || value == '*' || value == '/';
 
     /// <summary>
     /// Method to perform operations by it's string perfomance.
@@ -31,31 +23,27 @@ public static class StackCalculatorUtils
     /// <paramref name="operation"/> <paramref name="secondNumber"/>.</returns>
     /// <exception cref="ArgumentNullException">operation can't be null.</exception>
     /// <exception cref="ArgumentException">operation nothing from set (-, +, /, *).</exception>
-    public static (float, bool) PerformOperation(string operation, float firstNumber, float secondNumber)
+    public static (float, bool) PerformOperation(char operation, float firstNumber, float secondNumber)
     {
-        if (operation == null)
-        {
-            throw new ArgumentNullException(nameof(operation), "Can't be null");
-        }
 
         switch (operation)
         {
-            case "+":
+            case '+':
                 return (firstNumber + secondNumber, true);
 
-            case "-":
+            case '-':
                 return (firstNumber - secondNumber, true);
 
-            case "*":
+            case '*':
                 return (firstNumber * secondNumber, true);
 
-            case "/":
-                {
-                    const float delta = 0.000001F;
-                    return Math.Abs(0.0F - secondNumber) < delta
-                        ? (0.0F, false)
-                        : (firstNumber / secondNumber, true);
-                }
+            case '/':
+            {
+                const float delta = 0.000001F;
+                return Math.Abs(0.0F - secondNumber) < delta
+                    ? (0.0F, false)
+                    : (firstNumber / secondNumber, true);
+            }
 
             default:
                 throw new ArgumentException("Not operation sign", nameof(operation));

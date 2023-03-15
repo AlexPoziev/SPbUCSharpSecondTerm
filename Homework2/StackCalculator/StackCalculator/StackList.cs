@@ -36,8 +36,7 @@ public class StackList : IStack
     }
 
     /// <inheritdoc />
-    public bool IsEmpty()
-        => !stack.Any();
+    public bool IsEmpty() => !stack.Any();
 
     /// <inheritdoc />
     public float Pop()

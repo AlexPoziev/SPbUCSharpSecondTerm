@@ -17,12 +17,7 @@ public class PostfixCalculator
     /// <exception cref="ArgumentNullException">stack can't get null.</exception>
     public PostfixCalculator(IStack stack)
     {
-        if (stack == null)
-        {
-            throw new ArgumentNullException(nameof(stack), "Can't be null");
-        }
-
-        this.stack = stack;
+        this.stack = stack ?? throw new ArgumentNullException(nameof(stack), "Can't be null");
     }
 
     /// <summary>
@@ -48,11 +43,11 @@ public class PostfixCalculator
 
         foreach (var element in expressionElementsArray)
         {
-            if (!element.IsOperationSign())
+            if (!element[0].IsOperationSign())
             {
                 if (!float.TryParse(element, out float result))
                 {
-                    throw new ArgumentException("Not number argument in expression", nameof(expression));
+                    throw new ArgumentException("Not a number nor an operation argument in expression", nameof(expression));
                 }
 
                 stack.Push(result);
@@ -72,7 +67,7 @@ public class PostfixCalculator
                     throw new ArgumentException("Postfix expression done wrong, not enough numbers to complete operation", nameof(expression));
                 }
 
-                (var expressionResult, var isValidExpression) = StackCalculatorUtils.PerformOperation(element, secondOperationElement, firstOperationElement);
+                (var expressionResult, var isValidExpression) = StackCalculatorUtils.PerformOperation(element[0], secondOperationElement, firstOperationElement);
 
                 if (!isValidExpression)
                 {
@@ -97,9 +92,7 @@ public class PostfixCalculator
         {
             throw new ArgumentException("Postfix expression done wrong, too many numbers", nameof(expression));
         }
-        else
-        {
-            return (finalResult, true);
-        }
+        
+        return (finalResult, true);
     }
 }
