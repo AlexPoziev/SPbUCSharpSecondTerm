@@ -2,7 +2,6 @@
 
 Console.WriteLine("It's programm to work with Trie structure");
 
-var isCycle = true;
 var trie = new Trie();
 
 while (true)

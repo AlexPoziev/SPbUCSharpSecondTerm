@@ -48,7 +48,7 @@ public class Trie
             currentNode = currentNode.Next[symbol];
         }
 
-        return currentNode.IsTerminal || element == string.Empty;
+        return currentNode.IsTerminal;
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public class Trie
 
         if (element == string.Empty)
         {
-            return false;
+            return head.IsTerminal ? false : head.IsTerminal = true;
         }
 
         if (Contains(element))
@@ -99,7 +99,6 @@ public class Trie
     /// <param name="element">element that will be deleted.</param>
     /// <returns>true -- if <see cref="element"/> really was in Trie, false -- if Trie doesn't contain <see cref="element"/> .</returns>
     /// <exception cref="ArgumentNullException">element can't be null.</exception>
-    /// <exception cref="ArgumentException">can't delete empty string.</exception>
     public bool Remove(string element)
     {
         if (element == null)
@@ -109,7 +108,7 @@ public class Trie
 
         if (element == string.Empty)
         {
-            throw new ArgumentException("Can't to remove empty string", nameof(element));
+            return !head.IsTerminal ? false : !(head.IsTerminal = false);
         }
 
         if (!Contains(element))
