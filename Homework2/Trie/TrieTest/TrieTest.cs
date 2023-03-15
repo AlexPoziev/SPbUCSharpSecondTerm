@@ -31,7 +31,7 @@ public class Tests
     }
 
     [TestCase(1, "train", "train")]
-    [TestCase(0, "")]
+    [TestCase(2, "train", "train", "tsss")]
     public void AddExistsElementShouldReturnFalse(int expectedSize, params string[] words)
     {
         var actualAddSuccess = true;
@@ -47,7 +47,7 @@ public class Tests
     }
 
     [TestCase("test", true, "literature", "toast", "tes", "test", "lost")]
-    [TestCase("", true, "literature", "toast", "tes", "test", "lost")]
+    [TestCase("", false, "literature", "toast", "tes", "test", "lost")]
     [TestCase("tests", false, "literature", "toast", "tes", "test", "lost")]
     [TestCase("spoiler", false, "literature", "toast", "tes", "test", "lost")]
     public void ContainsAfterAddShouldReturnTrue(string word, bool expectedResult, params string[] trieElements)
