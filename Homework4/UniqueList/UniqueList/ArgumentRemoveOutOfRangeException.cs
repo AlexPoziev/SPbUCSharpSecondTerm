@@ -1,15 +1,13 @@
-﻿using System;
-namespace Lists
-{
-    public class ArgumentRemoveOutOfRangeException : ArgumentOutOfRangeException
-    {
-        public ArgumentRemoveOutOfRangeException()
-        {
-        }
+﻿namespace Lists;
 
-        public ArgumentRemoveOutOfRangeException(string message) : base(message)
-        {
-        }
+public class ArgumentRemoveOutOfRangeException : ArgumentOutOfRangeException
+{
+    public ArgumentRemoveOutOfRangeException()
+    {
+    }
+
+    public ArgumentRemoveOutOfRangeException(string message) : base(message)
+    {
     }
 }
 

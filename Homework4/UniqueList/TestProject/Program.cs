@@ -1,6 +1,6 @@
-﻿using UniqueList;
+﻿using Lists;
 
-var test = new UniqueList.List<int>();
+var test = new Lists.List<int>();
 
 test.Add(0, 1);
 

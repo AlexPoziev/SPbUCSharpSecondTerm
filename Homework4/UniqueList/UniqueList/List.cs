@@ -2,11 +2,11 @@
 
 public class List<T>
 {
-    private int size;
+    private protected int size;
 
     public int Size() => size;
 
-    Node? head;
+    private protected Node? head;
 
     public T this[int i]
     {
@@ -16,14 +16,9 @@ public class List<T>
 
     private Node GetNodeByPosition(int position)
     {
-        if (position < 0 || position > size)
+        if (position < 0 || position >= size)
         {
             throw new ArgumentOutOfRangeException(nameof(position));
-        }
-
-        if (size == 0)
-        {
-            throw new InvalidOperationException("Can't to get node from empty list");
         }
 
         var currentNode = this.head;
@@ -38,14 +33,9 @@ public class List<T>
 
     public T GetValue(int position)
     {
-        if (position < 0 || position > size)
+        if (position < 0 || position >= size)
         {
             throw new ArgumentOutOfRangeException(nameof(position));
-        }
-
-        if (size == 0)
-        {
-            throw new InvalidOperationException("Can't to get value from empty list");
         }
 
         return GetNodeByPosition(position).Value;
@@ -74,14 +64,9 @@ public class List<T>
 
     public virtual void ChangeValue(int position, T newValue)
     {
-        if (position < 0 || position > size)
+        if (position < 0 || position >= size)
         {
             throw new ArgumentOutOfRangeException(nameof(position));
-        }
-
-        if (size == 0)
-        {
-            throw new InvalidOperationException("Can't to change value in the empty list");
         }
 
         GetNodeByPosition(position).Value = newValue;
