@@ -1,5 +1,5 @@
 ﻿using System;
-namespace UniqueList
+namespace Lists
 {
     public class ArgumentRemoveOutOfRangeException : ArgumentOutOfRangeException
     {

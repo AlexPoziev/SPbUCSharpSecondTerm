@@ -1,4 +1,4 @@
-﻿namespace UniqueList;
+﻿namespace Lists;
 
 public class List<T>
 {
@@ -7,6 +7,12 @@ public class List<T>
     public int Size() => size;
 
     Node? head;
+
+    public T this[int i]
+    {
+        get { return GetValue(i); }
+        set { ChangeValue(i, value); }
+    }
 
     private Node GetNodeByPosition(int position)
     {
@@ -45,7 +51,7 @@ public class List<T>
         return GetNodeByPosition(position).Value;
     }
 
-    public void Add(int position, T value)
+    public virtual void Add(int position, T value)
     {
         if (position < 0 || position > size)
         {
@@ -66,7 +72,7 @@ public class List<T>
         ++size;
     }
 
-    public void ChangeValue(int position, T newValue)
+    public virtual void ChangeValue(int position, T newValue)
     {
         if (position < 0 || position > size)
         {
@@ -101,7 +107,7 @@ public class List<T>
         --size;
     }
 
-    private class Node
+    private protected class Node
     {
         public T Value { get; set; }
         public Node? Next { get; set; }
