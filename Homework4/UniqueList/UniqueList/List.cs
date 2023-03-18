@@ -33,6 +33,8 @@ public class List<T>
         set { ChangeValue(i, value); }
     }
 
+    public bool IsEmpty() => size == 0;
+
     /// <summary>
     /// Method to get value of list by its position.
     /// </summary>
