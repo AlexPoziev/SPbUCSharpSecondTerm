@@ -20,7 +20,7 @@ public class List<T>
     /// Property to check size of List.
     /// </summary>
     /// <returns>List size.</returns>
-    public int Size() => size;
+    public int Size => size;
 
     /// <summary>
     /// Indexer for List. Get access to any element of list by square brackets.
@@ -66,7 +66,7 @@ public class List<T>
 
         if (position == 0)
         {
-            head = new Node(value, head?.Next);
+            head = new Node(value, head);
         }
         else
         {
@@ -98,12 +98,12 @@ public class List<T>
     /// Method to remove element by position.
     /// </summary>
     /// <param name="position">position of the element, that should to be removed.</param>
-    /// <exception cref="ArgumentRemoveOutOfRangeException">position of the removed element should to be greater than or equal to zero and less than Size.</exception>
+    /// <exception cref="InvalidRemoveOperationException">position of the removed element should to be greater than or equal to zero and less than Size.</exception>
     public void Remove(int position)
     {
         if (position < 0 || position >= size)
         {
-            throw new ArgumentRemoveOutOfRangeException();
+            throw new InvalidRemoveOperationException("Can't to remove element with out of range index");
         }
 
         if (position == 0)

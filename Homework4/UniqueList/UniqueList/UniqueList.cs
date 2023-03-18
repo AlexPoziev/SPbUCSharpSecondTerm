@@ -1,7 +1,7 @@
 ﻿namespace Lists;
 
 /// <summary>
-/// Class of the Unique List collection. List withoud value duplicates.
+/// Class of the Unique List collection. List without value duplicates.
 /// </summary>
 /// <typeparam name="T">Type of list elements values.</typeparam>
 public class UniqueList<T> : List<T>

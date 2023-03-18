@@ -4,6 +4,24 @@ using Lists;
 
 public class ListTests
 {
+    private static bool AreValuesArrayAndListSame(List<int> list, int[] array)
+    {
+        if (list.Size != array.Length)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < list.Size; ++i)
+        {
+            if (list.GetValue(i) != array[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static IEnumerable<TestCaseData> Lists
     {
         get
@@ -36,41 +54,60 @@ public class ListTests
 
 
     [TestCaseSource(nameof(Lists))]
-    public void AddAndGetValueShouldPerformExpectedResult(List<int> list)
+    public void AddAndGetValueAndSizeShouldPerformExpectedResult(List<int> list)
     {
-        const int resultSize = 5;
-        var expectedResultArray = new int[resultSize] { 5, 1, 4, 2, 3 };
-        bool IsExpectedResult = true;
+        const int expectedResultSize = 5;
+        var expectedResultArray = new int[expectedResultSize] { 5, 1, 4, 2, 3 };
 
-        for (int i = 0; i < resultSize; ++i)
+        Assert.That(AreValuesArrayAndListSame(list, expectedResultArray));
+    }
+
+    [TestCaseSource(nameof(Lists))]
+    public void RemoveShouldDeleteElementFromList(List<int> list)
+    {
+        const int expectedResultSize = 3;
+        var expectedResultArray = new int[expectedResultSize] { 1, 4, 3 };
+
+        list.Remove(0);
+        list.Remove(2);
+
+        Assert.That(AreValuesArrayAndListSame(list, expectedResultArray));
+    }
+
+    [TestCaseSource(nameof(Lists))]
+    public void RemoveOutOfRangePositionShouldThrowArgumentRemoveException(List<int> list)
+    {
+        var emptyList = new List<int>();
+
+        Assert.Throws<InvalidRemoveOperationException>(() => emptyList.Remove(0));
+        Assert.Throws<InvalidRemoveOperationException>(() => list.Remove(-1));
+        Assert.Throws<InvalidRemoveOperationException>(() => list.Remove(list.Size));
+        Assert.Throws<InvalidRemoveOperationException>(() => list.Remove(list.Size + 1));
+    }
+
+    [TestCaseSource(nameof(Lists))]
+    public void ChangeValueShouldOnlyChangeValueOfOneElement(List<int> list)
+    {
+        const int expectedResultSize = 5;
+        var expectedResultArray = new int[expectedResultSize] { 0, 1, 4, 2, 3 };
+
+        list.ChangeValue(0, 0);
+
+        Assert.That(AreValuesArrayAndListSame(list, expectedResultArray));
+    }
+
+    [TestCaseSource(nameof(Lists))]
+    public void IndexerShouldReturnRealContainment(List<int> list)
+    {
+        const int expectedResultSize = 5;
+        var expectedResultArray = new int[expectedResultSize] { 5, 1, 4, 2, 3 };
+        var isPassed = true;
+
+        for (int i = 0; i < expectedResultSize; ++i)
         {
-            IsExpectedResult = IsExpectedResult && list.GetValue(i) == expectedResultArray[i];
+            isPassed = isPassed && list[i] == expectedResultArray[i];
         }
 
-        Assert.That(IsExpectedResult);
-    }
-
-    [TestCaseSource(nameof(Lists))]
-    public void RemoveShouldDeleteCommonElementFromList(List<int> list)
-    {
-
-    }
-
-    [TestCaseSource(nameof(Lists))]
-    public void RemoveOutOfRangePositionShouldThrowArgumentRemoveException()
-    {
-
-    }
-
-    [TestCaseSource(nameof(Lists))]
-    public void ChangeValueShouldOnlyChangeValueOfOneElement()
-    {
-
-    }
-
-    [TestCaseSource(nameof(Lists))]
-    public void IndexerShouldReturnRealContainment()
-    {
-
+        Assert.That(isPassed);
     }
 }
