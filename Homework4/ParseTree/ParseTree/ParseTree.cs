@@ -108,7 +108,7 @@ public class ParseTree
         if (!ParseTreeUtils.AreParanthesisBalanced(expression)
             || !expression.Any((x) => x == '('))
         {
-            throw new ArgumentException("Parentheses are incorrectly placed");
+            throw new ArgumentException("Parenthesis are incorrectly placed");
         }
 
         var currentIndex = 0;

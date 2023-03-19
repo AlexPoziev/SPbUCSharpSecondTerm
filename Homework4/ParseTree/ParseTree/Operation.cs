@@ -40,6 +40,7 @@ public abstract class Operation : IOperandNode
     /// Method that calculate operation result.
     /// </summary>
     /// <returns>result of calculation in the form: "(OperationSign FirstOperand SecondOperand)".</returns
+    /// <exception cref="DivideByZeroException"></exception>
     public abstract double Calculate();
 
     /// <summary>

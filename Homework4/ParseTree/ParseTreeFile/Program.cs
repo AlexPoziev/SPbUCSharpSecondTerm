@@ -1,9 +1,39 @@
 ﻿using Tree;
 
-var checkParseTree = new ParseTree("(+ (+ 1 2) (/ 3 1))");
+Console.WriteLine("Input path to file with expression: ");
+var filePath = Console.ReadLine();
 
-var test = checkParseTree.Calculate();
+if (!File.Exists(filePath))
+{
+    Console.WriteLine("File doesn't exist");
+    return;
+}
 
-var testik = 0;
+string expression = File.ReadAllText(filePath);
 
-checkParseTree.Print();
+ParseTree parseTree;
+try
+{
+    parseTree = new ParseTree(expression);
+}
+catch (ArgumentException e)
+{
+    Console.WriteLine(e.Message);
+    return;
+}
+
+double result;
+try
+{
+    result = parseTree.Calculate();
+}
+catch (DivideByZeroException)
+{
+    Console.WriteLine("Expression contains dividing by 0");
+    return;
+}
+Console.WriteLine($"Calculated value of the ParseTree: {result}");
+
+
+Console.WriteLine("Parse Tree: ");
+parseTree.Print();
