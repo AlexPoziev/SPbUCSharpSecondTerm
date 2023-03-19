@@ -1,8 +1,15 @@
 ﻿namespace Tree;
 
+/// <summary>
+/// Class that holds ParseTree class utils.
+/// </summary>
 public static class ParseTreeUtils
 {
-    public static bool IsParanthesisBalanced(string expression)
+    /// <summary>
+    /// Check are paranthesis correct. Only balance, not in defined form.
+    /// </summary>
+    /// <returns>True -- correct, false -- incorrect.</returns>
+    public static bool AreParanthesisBalanced(string expression)
     {
         int balance = 0;
 
@@ -25,7 +32,10 @@ public static class ParseTreeUtils
         return balance == 0;
     }
 
-    public static bool IsOperationSign(char expression)
-            => expression == '/' || expression == '*' || expression == '+' || expression == '-';
+    /// <summary>
+    /// Method to check is char operation sign.
+    /// </summary>
+    /// <returns>True -- operation sign, false -- not operation sign.</returns>
+    public static bool IsOperationSign(char symbol)
+            => symbol == '/' || symbol == '*' || symbol == '+' || symbol == '-';
 }
-

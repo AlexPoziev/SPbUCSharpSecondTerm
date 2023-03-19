@@ -1,15 +1,21 @@
 ﻿namespace Tree;
 
+/// <summary>
+/// Class of the multiply operation node.
+/// </summary>
 public class MultiplyOperation : Operation
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MultiplyOperation"/> class.
+    /// </summary>
     public MultiplyOperation(IOperandNode firstOperand, IOperandNode secondOperand)
         : base(firstOperand, secondOperand, '*')
     {
     }
 
-    public override int Evaluate()
+    /// <inheritdoc />
+    public override double Calculate()
     {
-        return LeftOperand.Evaluate() * RightOperand.Evaluate();
+        return LeftOperand.Calculate() * RightOperand.Calculate();
     }
 }
-

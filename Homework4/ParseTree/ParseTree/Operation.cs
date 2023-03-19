@@ -1,24 +1,49 @@
 ﻿namespace Tree;
 
-abstract public class Operation : IOperandNode
+/// <summary>
+/// Abstract Class representing an operation node.
+/// </summary>
+public abstract class Operation : IOperandNode
 {
-    public Operation(IOperandNode firstOperand, IOperandNode secondOperand, char value)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Operation"/> class.
+    /// </summary>
+    public Operation(IOperandNode firstOperand, IOperandNode secondOperand, char operationSign)
     {
-        OperationSign = value;
-        LeftOperand = firstOperand;
-        RightOperand = secondOperand;
+        LeftOperand = firstOperand ?? throw new ArgumentNullException(nameof(firstOperand));
+        RightOperand = secondOperand ?? throw new ArgumentNullException(nameof(secondOperand));
+        OperationSign = operationSign;
     }
 
-    public IOperandNode LeftOperand { get; set; }
-
-    public IOperandNode RightOperand { get; set; }
-
-    public char OperationSign { get; set; }
-
-    public abstract int Evaluate();
-
+    /// <summary>
+    /// Gets string form of operation.
+    /// </summary>
     public string StringInterpretation
-            => LeftOperand.StringInterpretation + OperationSign.ToString() + RightOperand.StringInterpretation;
+            => $"({OperationSign} {LeftOperand.StringInterpretation} {RightOperand.StringInterpretation})";
 
+    /// <summary>
+    /// Gets or sets first operation's operand.
+    /// </summary>
+    public IOperandNode LeftOperand { get; }
+
+    /// <summary>
+    /// Gets or sets second operation's operand.
+    /// </summary>
+    public IOperandNode RightOperand { get; }
+
+    /// <summary>
+    /// Gets or sets arithmetical sign of the operation.
+    /// </summary>
+    public char OperationSign { get; }
+
+    /// <summary>
+    /// Method that calculate operation result.
+    /// </summary>
+    /// <returns>result of calculation in the form: "(OperationSign FirstOperand SecondOperand)".</returns
+    public abstract double Calculate();
+
+    /// <summary>
+    /// Print operation in the form: "(OperationSign FirstOperand SecondOperand)".
+    /// </summary>
     public void Print() => Console.WriteLine(StringInterpretation);
 }

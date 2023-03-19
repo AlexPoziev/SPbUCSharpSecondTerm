@@ -1,15 +1,21 @@
 ﻿namespace Tree;
 
+/// <summary>
+/// Class performs add operation node.
+/// </summary>
 public class AddOperation : Operation
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AddOperation"/> class.
+    /// </summary>
     public AddOperation(IOperandNode firstOperand, IOperandNode secondOperand)
         : base(firstOperand, secondOperand, '+')
     {
     }
-    
-    public override int Evaluate()
+
+    /// <inheritdoc />
+    public override double Calculate()
     {
-        return LeftOperand.Evaluate() + RightOperand.Evaluate();
+        return LeftOperand.Calculate() + RightOperand.Calculate();
     }
 }
-

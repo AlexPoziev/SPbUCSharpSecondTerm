@@ -1,5 +1,9 @@
 ﻿using Tree;
 
-var checkParseTree = new ParseTree("(+ 1 2)");
+var checkParseTree = new ParseTree("(+ ()+ 1 2 (/ 3 1))");
 
-var test = 0;
+var test = checkParseTree.Calculate();
+
+var testik = 0;
+
+checkParseTree.Print();

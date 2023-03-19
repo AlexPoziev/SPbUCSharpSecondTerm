@@ -1,35 +1,52 @@
 ﻿namespace Tree;
 
-using System.Collections.Generic;
-
+/// <summary>
+/// Parse Tree of a mathematical expression class.
+/// </summary>
 public class ParseTree
 {
-    private IOperandNode root;
+    private readonly IOperandNode root;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ParseTree"/> class.
+    /// </summary>
+    /// <param name="expression">Gets expression in form ( operation operand1 operand2). Operand may to be mathematical expression too.</param>
+    /// <exception cref="ArgumentException">Incorrect form of the expression.</exception>
     public ParseTree(string expression)
     {
         IOperandNode ParseExpression(string expression, ref int currentIndex)
         {
             if (expression[currentIndex] != '(')
             {
-                throw new ArgumentException("Paranthesis placement error");
+                throw new ArgumentException("Open Paranthesis placement error");
             }
 
             ++currentIndex;
             var operationSign = expression[currentIndex];
             if (!ParseTreeUtils.IsOperationSign(operationSign))
             {
-                throw new ArgumentException("Operation placement error");
+                throw new ArgumentException("No Operation sign after paranthesis found");
             }
 
             ++currentIndex;
 
             if (expression[currentIndex] != ' ')
             {
-                throw new ArgumentException("Whitespace placement error");
+                throw new ArgumentException("No Whitespace after operation sign found");
             }
 
-            return CreateOperation(expression, ref currentIndex, operationSign);
+            ++currentIndex;
+
+            var newOperation = CreateOperation(expression, ref currentIndex, operationSign);
+
+            if (currentIndex < expression.Length && expression[currentIndex] != ' ' && expression[currentIndex] != ')')
+            {
+                throw new ArgumentException("Incorrect symbol after expression found");
+            }
+
+            ++currentIndex;
+
+            return newOperation;
         }
 
         Operation CreateOperation(string expression, ref int currentIndex, char operationsSign) =>
@@ -50,18 +67,22 @@ public class ParseTree
             }
             else
             {
+                if (ParseTreeUtils.IsOperationSign(expression[currentIndex]))
+                {
+                    throw new ArgumentException("Begin of the new expression must to start with '(' ");
+                }
+
                 var stringNumber = new System.Text.StringBuilder();
 
-                while (expression[currentIndex] != ' ' || expression[currentIndex] != ')')
+                while (expression[currentIndex] != ' ' && expression[currentIndex] != ')')
                 {
                     stringNumber.Append(expression[currentIndex]);
                     ++currentIndex;
                 }
 
-                int intNumber;
-                if (int.TryParse(stringNumber.ToString(), out intNumber))
+                if (!int.TryParse(stringNumber.ToString(), out int intNumber))
                 {
-                    throw new ArgumentException("Expression contains not number neither another operation operand.");
+                    throw new ArgumentException("The expression does not contain a number, or another expression");
                 }
 
                 ++currentIndex;
@@ -70,15 +91,31 @@ public class ParseTree
             }
         }
 
-        if (!ParseTreeUtils.IsParanthesisBalanced(expression)
+        if (!ParseTreeUtils.AreParanthesisBalanced(expression)
             || !expression.Any((x) => x == '('))
         {
-            throw new ArgumentException("Paranthesis placement error");
+            throw new ArgumentException("Parentheses are incorrectly placed");
         }
 
         var currentIndex = 0;
 
         root = ParseExpression(expression, ref currentIndex);
     }
-}
 
+    /// <summary>
+    /// Gets new created expression from parse tree in form: "(operation operand1 operand2)".
+    /// </summary>
+    public string StringInterpretation => root.StringInterpretation;
+
+    /// <summary>
+    /// Print to console expression int parse tree in form: "(operation operand1 operand2)".
+    /// </summary>
+    public void Print() => Console.WriteLine(StringInterpretation);
+
+    /// <summary>
+    /// Calculate expression in parse tree.
+    /// </summary>
+    /// <returns>Result of calculation</returns>
+    /// <exception cref="DivideByZeroException">Second operand of divide can't to be 0.</exception>
+    public double Calculate() => root.Calculate();
+}
