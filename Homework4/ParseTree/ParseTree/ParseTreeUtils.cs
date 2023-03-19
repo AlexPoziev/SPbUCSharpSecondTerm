@@ -1,4 +1,4 @@
-﻿namespace ParseTree;
+﻿namespace Tree;
 
 public static class ParseTreeUtils
 {

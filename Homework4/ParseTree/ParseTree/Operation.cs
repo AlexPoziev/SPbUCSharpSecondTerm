@@ -1,4 +1,4 @@
-﻿namespace ParseTree;
+﻿namespace Tree;
 
 abstract public class Operation : IOperandNode
 {

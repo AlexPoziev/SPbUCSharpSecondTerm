@@ -1,4 +1,4 @@
-﻿namespace ParseTree;
+﻿namespace Tree;
 
 public interface IOperandNode
 {

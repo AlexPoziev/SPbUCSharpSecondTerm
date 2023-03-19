@@ -1,4 +1,4 @@
-﻿namespace ParseTree;
+﻿namespace Tree;
 
 public class MultiplyOperation : Operation
 {

@@ -1,4 +1,4 @@
-﻿namespace ParseTree;
+﻿namespace Tree;
 
 using System.Collections.Generic;
 
@@ -52,7 +52,7 @@ public class ParseTree
             {
                 var stringNumber = new System.Text.StringBuilder();
 
-                while (currentIndex != ' ')
+                while (expression[currentIndex] != ' ' || expression[currentIndex] != ')')
                 {
                     stringNumber.Append(expression[currentIndex]);
                     ++currentIndex;
