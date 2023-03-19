@@ -38,4 +38,12 @@ public static class ParseTreeUtils
     /// <returns>True -- operation sign, false -- not operation sign.</returns>
     public static bool IsOperationSign(char symbol)
             => symbol == '/' || symbol == '*' || symbol == '+' || symbol == '-';
+
+    public static void IsInRange(string expression, int index)
+    {
+        if (index > expression.Length || index < 0)
+        {
+            throw new ArgumentException("Expression not full");
+        }
+    }
 }

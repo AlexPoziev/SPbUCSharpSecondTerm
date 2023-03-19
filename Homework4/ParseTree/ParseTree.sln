@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseTree", "ParseTree\Pars
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseTreeFile", "ParseTreeFile\ParseTreeFile.csproj", "{ED72B2C0-BEF8-4937-93E5-006B01BFCD20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseTreeTest", "ParseTreeTest\ParseTreeTest.csproj", "{600A6D06-1962-4547-92EA-CA53646F79EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ED72B2C0-BEF8-4937-93E5-006B01BFCD20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED72B2C0-BEF8-4937-93E5-006B01BFCD20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED72B2C0-BEF8-4937-93E5-006B01BFCD20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{600A6D06-1962-4547-92EA-CA53646F79EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{600A6D06-1962-4547-92EA-CA53646F79EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{600A6D06-1962-4547-92EA-CA53646F79EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{600A6D06-1962-4547-92EA-CA53646F79EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

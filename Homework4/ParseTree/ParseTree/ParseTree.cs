@@ -16,12 +16,16 @@ public class ParseTree
     {
         IOperandNode ParseExpression(string expression, ref int currentIndex)
         {
+            ParseTreeUtils.IsInRange(expression, currentIndex);
+
             if (expression[currentIndex] != '(')
             {
                 throw new ArgumentException("Open Paranthesis placement error");
             }
 
             ++currentIndex;
+            ParseTreeUtils.IsInRange(expression, currentIndex);
+
             var operationSign = expression[currentIndex];
             if (!ParseTreeUtils.IsOperationSign(operationSign))
             {
@@ -30,7 +34,7 @@ public class ParseTree
 
             ++currentIndex;
 
-            if (expression[currentIndex] != ' ')
+            if (currentIndex > expression.Length || expression[currentIndex] != ' ')
             {
                 throw new ArgumentException("No Whitespace after operation sign found");
             }
@@ -61,13 +65,21 @@ public class ParseTree
 
         IOperandNode CreateOperand(string expression, ref int currentIndex)
         {
+            if (currentIndex >= expression.Length)
+            {
+                throw new ArgumentException("Not enough operands");
+            }
+
             if (expression[currentIndex] == '(')
             {
                 return ParseExpression(expression, ref currentIndex);
             }
             else
             {
-                if (ParseTreeUtils.IsOperationSign(expression[currentIndex]))
+                if (ParseTreeUtils.IsOperationSign(expression[currentIndex])
+                    && (currentIndex + 1 >= expression.Length
+                    || !((expression[currentIndex] == '+' || expression[currentIndex] == '-')
+                    && char.IsDigit(expression[currentIndex + 1]))))
                 {
                     throw new ArgumentException("Begin of the new expression must to start with '(' ");
                 }
@@ -78,11 +90,13 @@ public class ParseTree
                 {
                     stringNumber.Append(expression[currentIndex]);
                     ++currentIndex;
+
+                    ParseTreeUtils.IsInRange(expression, currentIndex);
                 }
 
                 if (!int.TryParse(stringNumber.ToString(), out int intNumber))
                 {
-                    throw new ArgumentException("The expression does not contain a number, or another expression");
+                    throw new ArgumentException("The expression contains not a number, nor another expression");
                 }
 
                 ++currentIndex;
