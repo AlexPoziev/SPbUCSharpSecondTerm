@@ -1,11 +1,11 @@
-﻿using System;
-namespace ParseTree
+﻿namespace ParseTree;
+
+public interface IOperandNode
 {
-    public class OperationNode
-    {
-        public OperationNode()
-        {
-        }
-    }
+    int Evaluate();
+
+    void Print();
+
+    string StringInterpretation { get; }
 }
 

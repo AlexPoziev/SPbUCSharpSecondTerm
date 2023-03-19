@@ -1,11 +1,15 @@
-﻿using System;
-namespace ParseTree
+﻿namespace ParseTree;
+
+public class NumberOperand : IOperandNode
 {
-    public class Operand
-    {
-        public Operand()
-        {
-        }
-    }
+    public NumberOperand(int value) => Value = value;
+
+    public int Value { get; set; }
+
+    public int Evaluate() => Value;
+
+    public string StringInterpretation => Value.ToString();
+
+    public void Print() => Console.WriteLine(StringInterpretation);
 }
 

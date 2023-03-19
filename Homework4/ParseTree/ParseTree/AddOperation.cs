@@ -1,11 +1,15 @@
-﻿using System;
-namespace ParseTree
+﻿namespace ParseTree;
+
+public class AddOperation : Operation
 {
-    public class AddOperation
+    public AddOperation(IOperandNode firstOperand, IOperandNode secondOperand)
+        : base(firstOperand, secondOperand, '+')
     {
-        public AddOperation()
-        {
-        }
+    }
+    
+    public override int Evaluate()
+    {
+        return LeftOperand.Evaluate() + RightOperand.Evaluate();
     }
 }
 
