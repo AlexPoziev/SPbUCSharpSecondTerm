@@ -31,7 +31,7 @@ public class StackTests
     }
 
     [TestCaseSource(nameof(Stack))]
-    public void IsEmptyShouldReturnExpecterValue(IStack stack)
+    public void IsEmptyShouldReturnExpectedValue(IStack stack)
     {
         var isNewStackEmpty = stack.IsEmpty();
 
