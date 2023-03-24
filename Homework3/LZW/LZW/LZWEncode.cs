@@ -79,12 +79,15 @@ public class LZWEncode
 
         AddNewByte(bitToAdd, ref listOfCurrentBits, result);
 
-        while (listOfCurrentBits.Count < byteSize)
+        if (!(listOfCurrentBits.Count == 0 || BinaryConverter.ConvertBitsToInt(listOfCurrentBits) == 0))
         {
-            listOfCurrentBits.Add(false);
-        }
+            while (listOfCurrentBits.Count < byteSize)
+            {
+                listOfCurrentBits.Add(false);
+            }
 
-        result.Add((byte)BinaryConverter.ConvertBitsToInt(listOfCurrentBits));
+            result.Add((byte)BinaryConverter.ConvertBitsToInt(listOfCurrentBits));
+        }
 
         return result.ToArray();
     }
