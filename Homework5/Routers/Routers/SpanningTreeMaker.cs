@@ -9,17 +9,18 @@ public class SpanningTreeMaker
             throw new ArgumentOutOfRangeException(nameof(nodesCount));
         }
 
-        Links = new List<Link>();
-        Links.AddRange(links ?? throw new ArgumentNullException(nameof(links)));
-        Links = Links.OrderByDescending(it => it.LinkValue).ToList();
+
+        Links = links?.OrderByDescending(it => it.LinkValue).ToList() ?? throw new ArgumentNullException(nameof(links));
         
         this.nodesCount = nodesCount;
     }
 
     private int nodesCount;
 
-    public List<Link> Links { get; }
+    private List<Link> Links { get; }
 
-    
+    public List<Link> MakeMaxSpanningTreeMaker()
+    { }
+
 }
 
