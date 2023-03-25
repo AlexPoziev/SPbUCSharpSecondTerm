@@ -5,9 +5,7 @@
 namespace Routers;
 
 /// <summary>
-/// 
+/// Class of entity that connect nodes in graph.
 /// </summary>
-/// <param name="FirstNodeNumber"></param>
-/// <param name="SecondNodeNumber"></param>
-/// <param name="LinkValue"></param>
+/// <param name="LinkValue">Value that link has.</param>
 public record Link(int FirstNodeNumber, int SecondNodeNumber, int LinkValue);
