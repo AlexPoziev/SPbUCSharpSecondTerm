@@ -1,30 +1,55 @@
-﻿namespace Routers;
+﻿// <copyright file="DSU.cs" author="Aleksey Poziev">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
+namespace Routers;
+
+/// <summary>
+/// Class of disjoint-set data structure, stores a collection of disjoint (non-overlapping) sets.
+/// </summary>
 public class DisjointSetUnion
 {
-    public DisjointSetUnion(int setSize)
+    private readonly SetElement[] setUnion;
+
+    /// <summary>
+    /// Gets size of the DisjointSetUnion.
+    /// </summary>
+    public int Size { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DisjointSetUnion"/> class.
+    /// </summary>
+    /// <param name="unionSize">count of sets in DSU.</param>
+    public DisjointSetUnion(int unionSize)
     {
-        if (setSize < 1)
+        if (unionSize < 1)
         {
-            throw new ArgumentOutOfRangeException(nameof(setSize));
+            throw new ArgumentOutOfRangeException(nameof(unionSize));
         }
 
-        setUnion = new SetElement[setSize];
-        for (int i = 0; i < setSize; ++i)
+        Size = unionSize;
+
+        setUnion = new SetElement[unionSize];
+        for (int i = 0; i < unionSize; ++i)
         {
             setUnion[i] = new SetElement(i);
         }
     }
 
-    private readonly SetElement[] setUnion;
-
+    /// <summary>
+    /// Method to find the representative (also called leader) of the set that contains set with given number.
+    /// </summary>
+    /// <param name="setNumber">number of set, which representative is needed to find.</param>
+    /// <returns>number of representative set.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Set number must to be larger than zero
+    /// and less than Size.</exception>
     public int FindSet(int setNumber)
     {
         if (setNumber < 0 || setNumber >= setUnion.Length)
         {
             throw new ArgumentOutOfRangeException(nameof(setNumber));
         }
-        
+
         if (setUnion[setNumber].ParentNumber == setNumber)
         {
             return setNumber;
@@ -33,33 +58,38 @@ public class DisjointSetUnion
         return setUnion[setNumber].ParentNumber = FindSet(setUnion[setNumber].ParentNumber);
     }
 
-    public void UnionSets(int firstSet, int secondSet)
+    /// <summary>
+    /// Merges the two specified sets.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">firstSetNumber and secondSetNumber
+    /// must be larger than zero and less than Size</exception>
+    public void UnionSets(int firstSetNumber, int secondSetNumber)
     {
-        if (firstSet < 0 || firstSet >= setUnion.Length)
+        if (firstSetNumber < 0 || firstSetNumber >= setUnion.Length)
         {
-            throw new ArgumentOutOfRangeException(nameof(firstSet));
+            throw new ArgumentOutOfRangeException(nameof(firstSetNumber));
         }
 
-        if (secondSet < 0 || secondSet >= setUnion.Length)
+        if (secondSetNumber < 0 || secondSetNumber >= setUnion.Length)
         {
-            throw new ArgumentOutOfRangeException(nameof(secondSet));
+            throw new ArgumentOutOfRangeException(nameof(secondSetNumber));
         }
 
-        firstSet = FindSet(firstSet);
-        secondSet = FindSet(secondSet);
+        firstSetNumber = FindSet(firstSetNumber);
+        secondSetNumber = FindSet(secondSetNumber);
 
-        if (firstSet != secondSet)
+        if (firstSetNumber != secondSetNumber)
         {
-            if (setUnion[firstSet].Rank < setUnion[secondSet].Rank)
+            if (setUnion[firstSetNumber].Rank < setUnion[secondSetNumber].Rank)
             {
-                (secondSet, firstSet) = (firstSet, secondSet);
+                (secondSetNumber, firstSetNumber) = (firstSetNumber, secondSetNumber);
             }
 
-            setUnion[secondSet].ParentNumber = firstSet;
+            setUnion[secondSetNumber].ParentNumber = firstSetNumber;
 
-            if (setUnion[firstSet].Rank == setUnion[secondSet].Rank)
+            if (setUnion[firstSetNumber].Rank == setUnion[secondSetNumber].Rank)
             {
-                ++setUnion[firstSet].Rank;
+                ++setUnion[firstSetNumber].Rank;
             }
         }
     }
@@ -70,11 +100,9 @@ public class DisjointSetUnion
         {
             ParentNumber = parentNumber;
         }
-        
+
         public int Rank { get; set; } = 0;
 
         public int ParentNumber { get; set; }
     }
-
 }
-

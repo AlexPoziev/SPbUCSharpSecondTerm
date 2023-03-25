@@ -1,4 +1,8 @@
-﻿using Routers;
+﻿// <copyright file="Project.cs" author="Aleksey Poziev">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Routers;
 
 if (args.Length < 2)
 {

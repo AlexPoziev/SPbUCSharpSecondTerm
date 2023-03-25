@@ -1,7 +1,25 @@
-﻿namespace Routers;
+﻿// <copyright file="ConfigurationGenerator.cs" author="Aleksey Poziev">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
+namespace Routers;
+
+/// <summary>
+/// Class, that perform generation of a configuration for each router by topology.
+/// </summary>
 public static class ConfigurationGenerator
 {
+    /// <summary>
+    /// Method according to network topology, it generates
+    /// a configuration for each router and checks that all routers are reachable.
+    /// </summary>
+    /// <param name="topology">a string array of routers and what other routers
+    /// they are connected to with what bandwidth channels. Strings in form: 1: 2 (10), 3 (5).</param>
+    /// <returns>Topology, but only those connections that are necessary to ensure
+    /// the connectivity of the network are left, without cycles.</returns>
+    /// <exception cref="ArgumentNullException">topology must be not null.</exception>
+    /// <exception cref="IncorrectTopologyFormException">Strings of topology must to be in form
+    /// 1: 2 (10), 3 (5)</exception>
     public static string[] Configurate(string[] topology)
     {
         if (topology == null)
@@ -37,7 +55,7 @@ public static class ConfigurationGenerator
         for (int i = 0; i < topology.Length; ++i)
         {
             var currentIndex = 0;
-            var firstNodeNumber = StringParseUtils.TryGetNumberUntilSign(':', ref currentIndex, topology[i]) - 1;
+            var firstNodeNumber = StringParseUtils.GetNumberUntilSign(':', ref currentIndex, topology[i]) - 1;
             if (firstNodeNumber < 0)
             {
                 throw new IncorrectTopologyFormException("Router's numbers should be larger than 0");
@@ -59,7 +77,7 @@ public static class ConfigurationGenerator
                 ++currentIndex;
                 StringParseUtils.IsInRange(currentLinksSubstrings[j], currentIndex);
 
-                var secondNodeNumber = StringParseUtils.TryGetNumberUntilSign(' ', ref currentIndex, currentLinksSubstrings[j]) - 1;
+                var secondNodeNumber = StringParseUtils.GetNumberUntilSign(' ', ref currentIndex, currentLinksSubstrings[j]) - 1;
                 if (secondNodeNumber < 0)
                 {
                     throw new IncorrectTopologyFormException("Router's numbers should be larger than 0");
@@ -83,7 +101,7 @@ public static class ConfigurationGenerator
                 ++currentIndex;
                 StringParseUtils.IsInRange(currentLinksSubstrings[j], currentIndex);
 
-                var linkValue = StringParseUtils.TryGetNumberUntilSign(')', ref currentIndex, currentLinksSubstrings[j]);
+                var linkValue = StringParseUtils.GetNumberUntilSign(')', ref currentIndex, currentLinksSubstrings[j]);
 
                 if (linkValue <= 0)
                 {
