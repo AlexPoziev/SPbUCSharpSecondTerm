@@ -4,6 +4,16 @@ public static class ConfigurationGenerator
 {
     public static string[] Configurate(string[] topology)
     {
+        if (topology == null)
+        {
+            throw new ArgumentNullException(nameof(topology));
+        }
+
+        if (!topology.Any())
+        {
+            throw new IncorrectTopologyFormException("Topology must be not empty");
+        }
+
         var (links, nodesCount) = SplitTopology(topology);
 
         var treeMaker = new SpanningTreeCreator(links.ToArray(), nodesCount);

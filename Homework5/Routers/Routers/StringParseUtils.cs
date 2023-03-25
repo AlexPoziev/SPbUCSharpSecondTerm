@@ -4,6 +4,11 @@ public static class StringParseUtils
 {
     public static int TryGetNumberUntilSign(char sign, ref int currentIndex, string currentString)
     {
+        if (currentString == null)
+        {
+            throw new ArgumentNullException(nameof(currentString));
+        }
+
         if (currentIndex >= currentString.Length || currentIndex < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(currentIndex));
@@ -19,12 +24,12 @@ public static class StringParseUtils
 
         if (currentIndex == currentString.Length)
         {
-            throw new IncorrectTopologyFormException($"Not enough '{sign}' sign");
+            throw new ArgumentException($"Not enough '{sign}' sign");
         }
 
         if (!int.TryParse(newStringNumber.ToString(), out var newNumber))
         {
-            throw new IncorrectTopologyFormException($"'{newStringNumber}' must to be a number");
+            throw new ArgumentException($"'{newStringNumber}' must to be a number");
         }
 
         return newNumber;
