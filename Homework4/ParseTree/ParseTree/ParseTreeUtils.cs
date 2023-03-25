@@ -39,6 +39,12 @@ public static class ParseTreeUtils
     public static bool IsOperationSign(char symbol)
             => symbol == '/' || symbol == '*' || symbol == '+' || symbol == '-';
 
+    /// <summary>
+    /// Method to check is index in range.
+    /// If index out of range -- throw exception, else just go further.
+    /// </summary>
+    /// <param name="expression">string that should contain index.</param>
+    /// <exception cref="ArgumentException">If index out of string.</exception>
     public static void IsInRange(string expression, int index)
     {
         if (index > expression.Length || index < 0)
