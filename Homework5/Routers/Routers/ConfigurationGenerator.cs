@@ -33,8 +33,21 @@ public static class ConfigurationGenerator
         }
 
         var (links, nodesCount) = SplitTopology(topology);
+        if (links.Count == 0 && nodesCount == 1)
+        {
+            return new string[] { "1:" };
+        }
 
-        var treeMaker = new SpanningTreeCreator(links.ToArray(), nodesCount);
+        SpanningTreeCreator treeMaker;
+
+        try
+        {
+            treeMaker = new SpanningTreeCreator(links.ToArray(), nodesCount);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            throw new NotConnectedGraphException("Graph isn't connected");
+        }
 
         var result = treeMaker.CreateMaxSpanningTree();
 
@@ -67,6 +80,11 @@ public static class ConfigurationGenerator
 
             for (int j = 0; j < currentLinksSubstrings.Length; ++j)
             {
+                if (currentLinksSubstrings[j] == string.Empty)
+                {
+                    break;
+                }
+
                 currentIndex = 0;
 
                 if (currentLinksSubstrings[j][currentIndex] != ' ')
@@ -118,7 +136,7 @@ public static class ConfigurationGenerator
     private static string[] CreateTopology(Link[] links)
     {
         var topology = new List<string>();
-
+        
         var sortedLinks = links.OrderBy(it => it.FirstNodeNumber).ToArray();
 
         var newElement = new System.Text.StringBuilder($"{sortedLinks[0].FirstNodeNumber + 1}: {sortedLinks[0].SecondNodeNumber + 1} ({sortedLinks[0].LinkValue})");
