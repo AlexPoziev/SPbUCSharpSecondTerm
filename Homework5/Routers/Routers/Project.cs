@@ -21,7 +21,7 @@ if (args[1] == null)
     Console.WriteLine("Input file path can't be null");
 }
 
-var fileContent = File.ReadAllLines(args[0]);
+var fileContent = File.ReadAllLines(args[0]).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
 if (fileContent == null)
 {
     Console.WriteLine("File content can't be null");
@@ -39,7 +39,7 @@ try
 }
 catch (NotConnectedGraphException)
 {
-    Console.Error.WriteLine("the topology from the file is not connected");
+    Console.Error.WriteLine("Topology from the file isn't connected");
     return 1;
 }
 catch (IncorrectTopologyFormException e)
