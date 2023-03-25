@@ -19,7 +19,7 @@ public class SpanningTreeCreator
         this.nodesCount = nodesCount;
     }
     
-    private int nodesCount;
+    private readonly int nodesCount;
 
     private readonly Link[] links;
 
