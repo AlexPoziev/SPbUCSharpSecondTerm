@@ -27,7 +27,7 @@ public class SpanningTreeCreator
     {
         var dsu = new DisjointSetUnion(nodesCount);
 
-        var result = new Link[links.Length];
+        var result = new Link[nodesCount - 1];
 
         var linksCount = 0;
 
