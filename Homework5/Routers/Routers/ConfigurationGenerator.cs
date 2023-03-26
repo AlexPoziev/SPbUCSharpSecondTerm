@@ -1,5 +1,5 @@
 ﻿// <copyright file="ConfigurationGenerator.cs" author="Aleksey Poziev">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) Aleksey Poziev. All rights reserved.
 // </copyright>
 
 namespace Routers;
@@ -26,6 +26,8 @@ public static class ConfigurationGenerator
         {
             throw new ArgumentNullException(nameof(topology));
         }
+
+        topology = topology.Where(it => !string.IsNullOrWhiteSpace(it)).ToArray();
 
         if (!topology.Any())
         {

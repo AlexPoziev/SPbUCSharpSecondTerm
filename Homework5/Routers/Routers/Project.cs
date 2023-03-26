@@ -1,5 +1,5 @@
 ﻿// <copyright file="Project.cs" author="Aleksey Poziev">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) Aleksey Poziev. All rights reserved.
 // </copyright>
 
 using Routers;
@@ -21,7 +21,7 @@ if (args[1] == null)
     Console.WriteLine("Input file path can't be null");
 }
 
-var fileContent = File.ReadAllLines(args[0]).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+var fileContent = File.ReadAllLines(args[0]);
 if (fileContent == null)
 {
     Console.WriteLine("File content can't be null");

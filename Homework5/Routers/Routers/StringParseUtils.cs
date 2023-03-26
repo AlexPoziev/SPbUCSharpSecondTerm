@@ -1,5 +1,5 @@
 ﻿// <copyright file="StringParseUtils.cs" author="Aleksey Poziev">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// Copyright (c) Aleksey Poziev. All rights reserved.
 // </copyright>
 
 namespace Routers;
