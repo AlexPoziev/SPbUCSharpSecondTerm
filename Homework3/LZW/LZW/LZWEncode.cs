@@ -3,7 +3,7 @@
 using Trees;
 
 /// <summary>
-/// class that perfroms encoding of the file by LZW algorithm.
+/// class that perfroms encoding by LZW algorithm.
 /// </summary>
 public class LZWEncode
 {

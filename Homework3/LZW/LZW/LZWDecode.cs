@@ -1,7 +1,7 @@
 ﻿namespace LZW;
 
 /// <summary>
-/// Class that perfroms decoding of the file by LZW algorithm.
+/// Class that perfroms decoding by LZW algorithm.
 /// </summary>
 public class LZWDecode
 {
