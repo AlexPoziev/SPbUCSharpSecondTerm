@@ -31,7 +31,7 @@ public static class ConfigurationGenerator
 
         if (!topology.Any())
         {
-            throw new IncorrectTopologyFormException("Topology must be not empty");
+            throw new IncorrectFormException("Topology must be not empty");
         }
 
         var (links, nodesCount) = SplitTopology(topology);
@@ -73,7 +73,7 @@ public static class ConfigurationGenerator
             var firstNodeNumber = StringParseUtils.GetNumberUntilSign(':', ref currentIndex, topology[i]) - 1;
             if (firstNodeNumber < 0)
             {
-                throw new IncorrectTopologyFormException("Router's numbers should be larger than 0");
+                throw new IncorrectFormException("Router's numbers should be larger than 0");
             }
 
             nodeSet.Add(firstNodeNumber);
@@ -91,7 +91,7 @@ public static class ConfigurationGenerator
 
                 if (currentLinksSubstrings[j][currentIndex] != ' ')
                 {
-                    throw new IncorrectTopologyFormException("Not enough space after ':' or ','");
+                    throw new IncorrectFormException("Not enough space after ':' or ','");
                 }
 
                 ++currentIndex;
@@ -100,14 +100,14 @@ public static class ConfigurationGenerator
                 var secondNodeNumber = StringParseUtils.GetNumberUntilSign(' ', ref currentIndex, currentLinksSubstrings[j]) - 1;
                 if (secondNodeNumber < 0)
                 {
-                    throw new IncorrectTopologyFormException("Router's numbers should be larger than 0");
+                    throw new IncorrectFormException("Router's numbers should be larger than 0");
                 }
 
                 nodeSet.Add(secondNodeNumber);
 
                 if (secondNodeNumber == firstNodeNumber)
                 {
-                    throw new IncorrectTopologyFormException("Router must to connect to Another router, not itself");
+                    throw new IncorrectFormException("Router must to connect to Another router, not itself");
                 }
 
                 ++currentIndex;
@@ -115,7 +115,7 @@ public static class ConfigurationGenerator
 
                 if (currentLinksSubstrings[j][currentIndex] != '(')
                 {
-                    throw new IncorrectTopologyFormException("Not enough '(' after second Router number");
+                    throw new IncorrectFormException("Not enough '(' after second Router number");
                 }
 
                 ++currentIndex;
@@ -125,7 +125,7 @@ public static class ConfigurationGenerator
 
                 if (linkValue <= 0)
                 {
-                    throw new IncorrectTopologyFormException("Bandwidth should be more than zero");
+                    throw new IncorrectFormException("Bandwidth should be more than zero");
                 }
 
                 links.Add(new Link(firstNodeNumber, secondNodeNumber, linkValue));
@@ -149,7 +149,7 @@ public static class ConfigurationGenerator
         {
             if (sortedLinks[i].FirstNodeNumber == sortedLinks[i - 1].FirstNodeNumber)
             {
-                newElement.Append(",");
+                newElement.Append(',');
             }
             else
             {

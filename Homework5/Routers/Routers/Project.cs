@@ -42,7 +42,7 @@ catch (NotConnectedGraphException)
     Console.Error.WriteLine("Topology from the file isn't connected");
     return 1;
 }
-catch (IncorrectTopologyFormException e)
+catch (IncorrectFormException e)
 {
     Console.WriteLine(e.Message);
     return 0;
