@@ -48,7 +48,7 @@ public static class ConfigurationGenerator
         }
         catch (ArgumentOutOfRangeException)
         {
-            throw new NotConnectedGraphException("Graph isn't connected");
+            throw new DisconnectedGraphException("Graph isn't connected");
         }
 
         var result = treeMaker.CreateMaxSpanningTree();
@@ -126,6 +126,18 @@ public static class ConfigurationGenerator
                 if (linkValue <= 0)
                 {
                     throw new IncorrectFormException("Bandwidth should be more than zero");
+                }
+
+                ++currentIndex;
+
+                while (currentIndex < currentLinksSubstrings[j].Length)
+                {
+                    if (currentLinksSubstrings[j][currentIndex] != ' ')
+                    {
+                        throw new IncorrectFormException("Not enough comma.");
+                    }
+
+                    ++currentIndex;
                 }
 
                 links.Add(new Link(firstNodeNumber, secondNodeNumber, linkValue));

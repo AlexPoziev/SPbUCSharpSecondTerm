@@ -40,7 +40,7 @@ public class SpanningTreeCreator
     /// Create Spanning Tree with max sum of all links values.
     /// </summary>
     /// <returns>array of new spanning tree links.</returns>
-    /// <exception cref="NotConnectedGraphException">the original graph isn't connected.</exception>
+    /// <exception cref="DisconnectedGraphException">the original graph isn't connected.</exception>
     public Link[] CreateMaxSpanningTree()
     {
         var dsu = new DisjointSetUnion(nodesCount);
@@ -72,7 +72,7 @@ public class SpanningTreeCreator
         }
         else
         {
-            throw new NotConnectedGraphException();
+            throw new DisconnectedGraphException();
         }
     }
 }

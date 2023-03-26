@@ -41,12 +41,12 @@ public static class StringParseUtils
 
         if (currentIndex == currentString.Length)
         {
-            throw new ArgumentException($"Not enough '{sign}' sign");
+            throw new IncorrectFormException($"Not enough '{sign}' sign");
         }
 
         if (!int.TryParse(newStringNumber.ToString(), out var newNumber))
         {
-            throw new ArgumentException($"'{newStringNumber}' must to be a number");
+            throw new IncorrectFormException($"'{newStringNumber}' must to be a number");
         }
 
         return newNumber;

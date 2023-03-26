@@ -37,7 +37,7 @@ try
 {
     fileContent = ConfigurationGenerator.Configurate(fileContent);
 }
-catch (NotConnectedGraphException)
+catch (DisconnectedGraphException)
 {
     Console.Error.WriteLine("Topology from the file isn't connected");
     return 1;

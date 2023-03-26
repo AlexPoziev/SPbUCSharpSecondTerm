@@ -7,19 +7,19 @@ namespace Routers;
 /// <summary>
 /// Exception inform that graph isn't connected.
 /// </summary>
-public class NotConnectedGraphException : Exception
+public class DisconnectedGraphException : Exception
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="NotConnectedGraphException"/> class.
+    /// Initializes a new instance of the <see cref="DisconnectedGraphException"/> class.
     /// </summary>
-    public NotConnectedGraphException()
+    public DisconnectedGraphException()
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NotConnectedGraphException"/> class.
+    /// Initializes a new instance of the <see cref="DisconnectedGraphException"/> class.
     /// </summary>
-    public NotConnectedGraphException(string message)
+    public DisconnectedGraphException(string message)
         : base(message)
     {
     }
