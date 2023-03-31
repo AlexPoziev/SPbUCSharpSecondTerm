@@ -42,7 +42,7 @@ public static class LINQMinusMinus
         {
             if (expression(element))
             {
-                list.Add(element);
+                result.Add(element);
             }
         }
 
@@ -65,7 +65,7 @@ public static class LINQMinusMinus
 
         foreach (var element in list)
         {
-            result = expression(accumulator, element);
+            result = expression(result, element);
         }
 
         return result;

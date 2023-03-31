@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1705.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapFilterFold", "MapFilterFold\MapFilterFold.csproj", "{38432B02-29A7-41F8-AEC4-142F61F14F0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQMinusMinusTest", "LINQMinusMinus\LINQMinusMinusTest.csproj", "{10C2931C-A35E-42A8-B5BC-E4424AFE86A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{38432B02-29A7-41F8-AEC4-142F61F14F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38432B02-29A7-41F8-AEC4-142F61F14F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38432B02-29A7-41F8-AEC4-142F61F14F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10C2931C-A35E-42A8-B5BC-E4424AFE86A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10C2931C-A35E-42A8-B5BC-E4424AFE86A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10C2931C-A35E-42A8-B5BC-E4424AFE86A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10C2931C-A35E-42A8-B5BC-E4424AFE86A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
