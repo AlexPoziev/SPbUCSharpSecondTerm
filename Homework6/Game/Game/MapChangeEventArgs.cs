@@ -1,12 +1,16 @@
-﻿namespace Game;
+﻿namespace CoinCollectorGame;
 
 public class MapChangeEventArgs : EventArgs
 {
-    public (int, int) ChangedCoordinates { get; set; }
+    public (int row, int column) ChangedCoordinates { get; }
 
-    public MapChangeEventArgs(int row, int column)
+    public char NewValue { get; }
+
+    public MapChangeEventArgs(int row, int column, char newValue)
     {
         ChangedCoordinates = (row, column);
+
+        NewValue = newValue;
     }
 }
 

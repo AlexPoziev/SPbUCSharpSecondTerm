@@ -2,6 +2,8 @@
 
 public class Map
 {
+    public event EventHandler<MapChangeEventArgs> OnMapChange = (sender, args) => { };
+
     private readonly char[,] mapMatrix;
 
     public Map(string[] content)
@@ -54,10 +56,26 @@ public class Map
         }
     }
 
-    public void SetValueInCoordinates(int row, int column, char newValue)
+    public void SetValueInCoordinates((int row, int column) coordinates, char newValue)
     {
-        mapMatrix[row, column] = newValue;
+        if (coordinates.column >= mapMatrix.GetLength(1) || coordinates.column < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(coordinates.column));
+        }
+
+        if (coordinates.row >= mapMatrix.GetLength(0) || coordinates.row < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(coordinates.row));
+        }
+
+        mapMatrix[coordinates.row, coordinates.column] = newValue;
+
+        OnMapChange?.Invoke(this, new MapChangeEventArgs(coordinates.row, coordinates.column, newValue));
     }
+
+    public bool IsInMapRange((int row, int column) coordinates)
+            => coordinates.column < mapMatrix.GetLength(1) && coordinates.column >= 0
+            && coordinates.row < mapMatrix.GetLength(0) && coordinates.row >= 0;
 
     public (int, int) GetRandomFreeSpotCoordinates()
     {
@@ -68,8 +86,8 @@ public class Map
 
         while (true)
         {
-            column = random.Next(mapMatrix.GetLength(0));
-            row = random.Next(mapMatrix.GetLength(1));
+            column = random.Next(mapMatrix.GetLength(1));
+            row = random.Next(mapMatrix.GetLength(0));
 
             if (mapMatrix[row, column] == ' ')
             {
