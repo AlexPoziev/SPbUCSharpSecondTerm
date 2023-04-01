@@ -1,11 +1,9 @@
-﻿using System;
-namespace Game
+﻿namespace Game;
+
+public class EventLoop
 {
-    public class EventLoop
+    public EventLoop()
     {
-        public EventLoop()
-        {
-        }
     }
 }
 

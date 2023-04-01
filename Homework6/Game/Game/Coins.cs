@@ -1,11 +1,9 @@
-﻿using System;
-namespace Game
+﻿namespace CoinCollectorGame;
+
+public class Coins
 {
-    public class Coins
+    public Coins()
     {
-        public Coins()
-        {
-        }
     }
 }
 

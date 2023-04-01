@@ -1,11 +1,9 @@
-﻿using System;
-namespace Game
+﻿namespace CoinCollectorGame;
+
+public class GameOver
 {
-    public class GameOver
+    public GameOver()
     {
-        public GameOver()
-        {
-        }
     }
 }
 
