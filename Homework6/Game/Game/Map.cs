@@ -29,7 +29,7 @@ public class Map
 
         var freeSpotsCount = 0;
 
-        for (var i = 0; i < maxWidth; ++i)
+        for (var i = 0; i < content.Length; ++i)
         {
             int currentIndex;
             for (currentIndex = 0; currentIndex < content[i].Length; ++currentIndex)
@@ -46,7 +46,7 @@ public class Map
             {
                 ++freeSpotsCount;
                 mapMatrix[i, currentIndex] = ' ';
-                ++maxWidth;
+                ++currentIndex;
             }
         }
 
@@ -56,26 +56,33 @@ public class Map
         }
     }
 
-    public void SetValueInCoordinates((int row, int column) coordinates, char newValue)
+    public char SetValueInCoordinates((int row, int column) coordinates, char newValue)
     {
         if (coordinates.column >= mapMatrix.GetLength(1) || coordinates.column < 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(coordinates.column));
+            throw new ArgumentOutOfRangeException(nameof(coordinates), "Column value out of range");
         }
 
         if (coordinates.row >= mapMatrix.GetLength(0) || coordinates.row < 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(coordinates.row));
+            throw new ArgumentOutOfRangeException(nameof(coordinates.row), "Row value out of range");
         }
+
+        var oldValue = mapMatrix[coordinates.row, coordinates.column];
 
         mapMatrix[coordinates.row, coordinates.column] = newValue;
 
         OnMapChange?.Invoke(this, new MapChangeEventArgs(coordinates.row, coordinates.column, newValue));
+
+        return oldValue;
     }
 
     public bool IsInMapRange((int row, int column) coordinates)
             => coordinates.column < mapMatrix.GetLength(1) && coordinates.column >= 0
             && coordinates.row < mapMatrix.GetLength(0) && coordinates.row >= 0;
+
+    public bool IsFreeSpot((int row, int column) coordinates)
+           => IsInMapRange(coordinates) && mapMatrix[coordinates.row, coordinates.column] == ' ';
 
     public (int, int) GetRandomFreeSpotCoordinates()
     {
@@ -109,8 +116,5 @@ public class Map
 
             Console.WriteLine();
         }
-    }
-
-    
+    }    
 }
-

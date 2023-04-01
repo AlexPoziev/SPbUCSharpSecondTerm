@@ -2,11 +2,13 @@
 
 public class Game
 {
+    public event EventHandler<EventArgs> OnCoinCollect = (sender, args) => { };
+
     private readonly Map map;
 
     private (int row, int column) currentCoordinates;
 
-    private CursorValueChanger cursor = new CursorValueChanger();
+    private readonly CursorValueChanger cursor = new();
 
     public Game(string fileName)
     {
@@ -33,41 +35,47 @@ public class Game
     {
         var newCoordinates = TakeCoordinatesAfterDirectionMove(direction);
 
-        if (!map.IsInMapRange(newCoordinates))
+        if (!map.IsFreeSpot(newCoordinates))
         {
             return;
         }
 
         map.SetValueInCoordinates((currentCoordinates.row, currentCoordinates.column), ' ');
-        map.SetValueInCoordinates((newCoordinates.row, newCoordinates.column), '@');
+        currentCoordinates = newCoordinates;
+        var oldElement = map.SetValueInCoordinates((newCoordinates.row, newCoordinates.column), '@');
+
+        if (oldElement == 'o')
+        {
+            OnCoinCollect(this, EventArgs.Empty);
+        }
     }
 
     private (int row, int column) TakeCoordinatesAfterDirectionMove(Direction direction) =>
         direction switch
         {
             Direction.Left => (currentCoordinates.row, currentCoordinates.column - 1),
-            Direction.Up => (currentCoordinates.row + 1, currentCoordinates.column),
-            Direction.Down => (currentCoordinates.row - 1, currentCoordinates.column),
+            Direction.Up => (currentCoordinates.row - 1, currentCoordinates.column),
+            Direction.Down => (currentCoordinates.row + 1, currentCoordinates.column),
             Direction.Right => (currentCoordinates.row, currentCoordinates.column + 1),
-            _ => throw new ArgumentException("Not direction"),
+            _ => throw new ArgumentException("Unexpected behaviour"),
         };
 
-    public void OnLeft(object sender, EventArgs args)
+    public void OnLeft(object? sender, EventArgs args)
     {
         MoveCharacter(Direction.Left);
     }
 
-    public void OnRight(object sender, EventArgs args)
+    public void OnRight(object? sender, EventArgs args)
     {
         MoveCharacter(Direction.Right);
     }
 
-    public void OnDown(object sender, EventArgs args)
+    public void OnDown(object? sender, EventArgs args)
     {
         MoveCharacter(Direction.Down);
     }
 
-    public void OnUp(object sender, EventArgs args)
+    public void OnUp(object? sender, EventArgs args)
     {
         MoveCharacter(Direction.Up);
     }

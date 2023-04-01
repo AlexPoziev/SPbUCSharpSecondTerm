@@ -12,7 +12,7 @@ public class EventLoop
     {
         while (true)
         {
-            var key = Console.ReadKey(false);
+            var key = Console.ReadKey(true);
 
             switch (key.Key)
             {

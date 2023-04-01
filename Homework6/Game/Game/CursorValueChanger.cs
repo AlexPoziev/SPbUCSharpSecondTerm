@@ -14,7 +14,7 @@ public class CursorValueChanger
 
     private void ChangeValue(object? sender, MapChangeEventArgs e)
     {
-        Console.SetCursorPosition(e.ChangedCoordinates.row, e.ChangedCoordinates.column);
+        Console.SetCursorPosition(e.ChangedCoordinates.column, e.ChangedCoordinates.row);
         Console.Write(e.NewValue);
     }
 }
