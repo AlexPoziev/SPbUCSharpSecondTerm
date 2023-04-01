@@ -10,11 +10,13 @@ public class Game
 
     private readonly CursorValueChanger cursor = new();
 
+    private readonly Coins coins;
+
     public Game(string fileName)
     {
         if (!File.Exists(fileName))
         {
-            throw new ArgumentException("File doensn't exist", nameof(fileName));
+            throw new ArgumentException("File doesn't exist", nameof(fileName));
         }
 
         var content = File.ReadAllLines(fileName);
@@ -25,6 +27,9 @@ public class Game
 
         map.SetValueInCoordinates((first, second), '@');
         currentCoordinates = (first, second);
+
+        coins = new(map);
+        coins.Subscribe(this);
 
         map.PrintMap();
 

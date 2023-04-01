@@ -6,6 +6,8 @@ public class Map
 
     private readonly char[,] mapMatrix;
 
+    private readonly List<char> freeSpotSigns = new() { ' ', 'o' };
+
     public Map(string[] content)
     {
         if (content == null || content.Contains(null))
@@ -82,7 +84,7 @@ public class Map
             && coordinates.row < mapMatrix.GetLength(0) && coordinates.row >= 0;
 
     public bool IsFreeSpot((int row, int column) coordinates)
-           => IsInMapRange(coordinates) && mapMatrix[coordinates.row, coordinates.column] == ' ';
+           => IsInMapRange(coordinates) && freeSpotSigns.Contains(mapMatrix[coordinates.row, coordinates.column]);
 
     public (int, int) GetRandomFreeSpotCoordinates()
     {

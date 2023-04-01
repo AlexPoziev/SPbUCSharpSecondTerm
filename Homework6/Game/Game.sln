@@ -5,7 +5,7 @@ VisualStudioVersion = 25.0.1705.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{55D3F8BE-2F26-49D0-9531-C233B2AFA6DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameExecuter", "GameExecutor\GameExecuter.csproj", "{CD7229DF-F03E-4BE4-9DB8-77531B80A660}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameExecutor", "GameExecutor\GameExecutor.csproj", "{CD7229DF-F03E-4BE4-9DB8-77531B80A660}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
