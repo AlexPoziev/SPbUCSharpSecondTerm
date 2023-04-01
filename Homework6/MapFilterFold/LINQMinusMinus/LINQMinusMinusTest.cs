@@ -1,4 +1,7 @@
-﻿namespace LINQMinusMinus;
+﻿// "Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements;
+// and tos You under the Apache License, Version 2.0. "
+
+namespace LINQMinusMinus;
 
 using MapFilterFold;
 
