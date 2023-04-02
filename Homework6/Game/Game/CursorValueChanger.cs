@@ -1,8 +1,8 @@
 ﻿namespace CoinCollectorGame;
 
-public class CursorValueChanger
+public static class CursorValueChanger
 {
-    public void Subscribe (Map map)
+    public static void Subscribe (Map map)
     {
         if (map == null)
         {
@@ -12,7 +12,7 @@ public class CursorValueChanger
         map.OnMapChange += ChangeValue;
     }
 
-    private void ChangeValue(object? sender, MapChangeEventArgs e)
+    private static void ChangeValue(object? sender, MapChangeEventArgs e)
     {
         Console.SetCursorPosition(e.ChangedCoordinates.column, e.ChangedCoordinates.row);
         Console.Write(e.NewValue);

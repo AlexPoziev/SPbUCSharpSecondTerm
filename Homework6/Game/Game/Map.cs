@@ -6,7 +6,9 @@ public class Map
 
     private readonly char[,] mapMatrix;
 
-    private readonly List<char> freeSpotSigns = new() { ' ', 'o' };
+    private readonly HashSet<char> freeSpotSigns = new() { ' ', 'o' };
+
+    public (int height, int width)  Size => (mapMatrix.GetLength(0), mapMatrix.GetLength(1));
 
     public Map(string[] content)
     {
@@ -118,5 +120,7 @@ public class Map
 
             Console.WriteLine();
         }
-    }    
+    }
+
+    public void AddFreeSpotSign(char newSign) => freeSpotSigns.Add(newSign);
 }

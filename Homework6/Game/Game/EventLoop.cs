@@ -1,5 +1,4 @@
-﻿
-namespace CoinCollectorGame;
+﻿namespace CoinCollectorGame;
 
 public class EventLoop
 {
@@ -34,4 +33,3 @@ public class EventLoop
         }
     }
 }
-

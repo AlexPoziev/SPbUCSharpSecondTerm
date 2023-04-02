@@ -2,15 +2,11 @@
 
 public class Game
 {
-    public event EventHandler<EventArgs> OnCoinCollect = (sender, args) => { };
+    readonly EventLoop looper;
 
-    private readonly Map map;
+    private Map GameMap { get; }
 
-    private (int row, int column) currentCoordinates;
-
-    private readonly CursorValueChanger cursor = new();
-
-    private readonly Coins coins;
+    private MechanicsCore core;
 
     public Game(string fileName)
     {
@@ -21,76 +17,39 @@ public class Game
 
         var content = File.ReadAllLines(fileName);
 
-        map = new Map(content);
+        GameMap = new Map(content);
 
-        var (first, second) = map.GetRandomFreeSpotCoordinates();
+        looper = new();
 
-        map.SetValueInCoordinates((first, second), '@');
-        currentCoordinates = (first, second);
+        core = new(GameMap);
 
-        coins = new(map);
-        coins.Subscribe(this);
-
-        map.PrintMap();
-
-        cursor.Subscribe(map);
+        core.EntryOverGamePortal += Stop;
     }
 
-    private void MoveCharacter(Direction direction)
+    public void Launch()
     {
-        var newCoordinates = TakeCoordinatesAfterDirectionMove(direction);
+        looper.LeftHandler += core.OnLeft;
+        looper.RightHandler += core.OnRight;
+        looper.UpHandler += core.OnUp;
+        looper.DownHandler += core.OnDown;
 
-        if (!map.IsFreeSpot(newCoordinates))
-        {
-            return;
-        }
-
-        map.SetValueInCoordinates((currentCoordinates.row, currentCoordinates.column), ' ');
-        currentCoordinates = newCoordinates;
-        var oldElement = map.SetValueInCoordinates((newCoordinates.row, newCoordinates.column), '@');
-
-        if (oldElement == 'o')
-        {
-            OnCoinCollect(this, EventArgs.Empty);
-        }
+        looper.Run();
     }
 
-    private (int row, int column) TakeCoordinatesAfterDirectionMove(Direction direction) =>
-        direction switch
-        {
-            Direction.Left => (currentCoordinates.row, currentCoordinates.column - 1),
-            Direction.Up => (currentCoordinates.row - 1, currentCoordinates.column),
-            Direction.Down => (currentCoordinates.row + 1, currentCoordinates.column),
-            Direction.Right => (currentCoordinates.row, currentCoordinates.column + 1),
-            _ => throw new ArgumentException("Unexpected behaviour"),
-        };
-
-    public void OnLeft(object? sender, EventArgs args)
+    private void Stop(object? sender, EventArgs args)
     {
-        MoveCharacter(Direction.Left);
-    }
+        looper.LeftHandler -= core.OnLeft;
+        looper.RightHandler -= core.OnRight;
+        looper.UpHandler -= core.OnUp;
+        looper.DownHandler -= core.OnDown;
 
-    public void OnRight(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Right);
-    }
+        Console.Clear();
 
-    public void OnDown(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Down);
-    }
+        Console.WriteLine("""
+            Congratulations!!!
+            You managed to get out of a scary two-dimensional location.
 
-    public void OnUp(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Up);
-    }
-
-    private enum  Direction
-    {
-        Left,
-        Up,
-        Down,
-        Right,
+            To exit, press ESCAPE key.
+            """);
     }
 }
-
