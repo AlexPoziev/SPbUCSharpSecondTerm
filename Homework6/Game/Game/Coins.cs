@@ -20,7 +20,7 @@ public class Coins
         this.map = map;
 
         var random = new Random();
-        coinsLeft = (byte)random.Next(10);
+        coinsLeft = (byte)(random.Next(10) + 1);
     }
 
     public void Subscribe(MechanicsCore core)
@@ -31,7 +31,6 @@ public class Coins
         }
 
         core.OnCoinCollect += CollectCoin;
-        AddCoinToMap();
     }
 
     private void CoinCountNotifier()
@@ -40,18 +39,20 @@ public class Coins
         Console.WriteLine($"Remains {coinsLeft} coins");
     }
 
-    private void AddCoinToMap()
+    private void AddCoinToMap((int row, int column) coordinates)
     {
-        var newCoordinates = map.GetRandomFreeSpotCoordinates();
+        var newCoordinates = map.GetRandomFreeAchievableSpotCoordinates(coordinates);
         map.SetValueInCoordinates(newCoordinates, coin);
     }
 
-    private void CollectCoin(object? sender, EventArgs args)
+    private void CollectCoin(object? sender, CollectCoinEventArgs args)
     {
+
+
         --coinsLeft;
         if (coinsLeft == 0)
         {
-            AfterAllCoinsCollectEvent(this, new EndGameEventArgs(map));
+            AfterAllCoinsCollectEvent(this, new EndGameEventArgs(map, args.Coordinates));
             if (sender != null && sender is MechanicsCore)
             {
                 ((MechanicsCore)sender).OnCoinCollect -= CollectCoin;
@@ -60,7 +61,7 @@ public class Coins
             return;
         }
 
-        AddCoinToMap();
+        AddCoinToMap(args.Coordinates);
         CoinCountNotifier();
     }
 }

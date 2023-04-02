@@ -7,7 +7,11 @@ public static class PathFinder
         var height = mapMatrix.GetLength(0);
         var width = mapMatrix.GetLength(1);
 
-        var vertices = new int[width * height];
+        var vertices = new int[width * height * 5];
+        for (int i = 0; i < width * height * 5; ++i)
+        {
+            vertices[i] = -1;
+        }
 
         IndexVertices(mapMatrix, (height, width), vertices, freeSpotSigns);
 
@@ -53,7 +57,7 @@ public static class PathFinder
         {
             for (var j = 0; j < matrixSize.width; ++j)
             {
-                if (freeSpotSigns.Contains(mapMatrix[i, j]))
+                if (freeSpotSigns.Contains(mapMatrix[i, j]) || mapMatrix[i, j] == '@')
                 {
                     var index = i * 5 * matrixSize.width + 5 * j;
                     verticies[index] = index;

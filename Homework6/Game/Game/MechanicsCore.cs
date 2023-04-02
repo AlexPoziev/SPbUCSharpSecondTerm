@@ -2,7 +2,7 @@
 
 public class MechanicsCore
 {
-    public event EventHandler<EventArgs> OnCoinCollect = (sender, args) => { };
+    public event EventHandler<CollectCoinEventArgs> OnCoinCollect = (sender, args) => { };
 
     public event EventHandler<EventArgs> EntryOverGamePortal = (sender, args) => { };
 
@@ -33,8 +33,8 @@ public class MechanicsCore
 
         coins = new(Map);
         coins.AfterAllCoinsCollectEvent += EndGamePortal.EndGamePortalAppereance;
-
         coins.Subscribe(this);
+        OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
     }
 
     private void MoveCharacter(Direction direction)
@@ -52,7 +52,7 @@ public class MechanicsCore
 
         if (oldElement == 'o')
         {
-            OnCoinCollect(this, EventArgs.Empty);
+            OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
         }
 
         if (oldElement == '§')

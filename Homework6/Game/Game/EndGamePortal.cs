@@ -8,7 +8,7 @@ public static class EndGamePortal
 
         args.GameMap.AddFreeSpotSign(portalSign);
 
-        (int row, int column) = args.GameMap.GetRandomFreeSpotCoordinates();
+        (int row, int column) = args.GameMap.GetRandomFreeAchievableSpotCoordinates(args.currentCoordinates);
 
         args.GameMap.SetValueInCoordinates((row, column), portalSign);
 

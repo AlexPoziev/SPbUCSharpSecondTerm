@@ -94,6 +94,27 @@ public class Map
     public bool IsAchievable((int row, int column) startCoordinates, (int row, int column) finishCoordinates)
             => PathFinder.DoesPathExist(startCoordinates, finishCoordinates, mapMatrix, FreeSpotSigns);
 
+    public (int, int) GetRandomFreeAchievableSpotCoordinates((int row, int column) startCoordinates)
+    {
+        var random = new Random();
+
+        int column;
+        int row;
+
+        while (true)
+        {
+            column = random.Next(mapMatrix.GetLength(1));
+            row = random.Next(mapMatrix.GetLength(0));
+
+            if (mapMatrix[row, column] == ' ' && IsAchievable(startCoordinates, (row, column)))
+            {
+                break;
+            }
+        }
+
+        return (row, column);
+    }
+
     public (int, int) GetRandomFreeSpotCoordinates()
     {
         var random = new Random();
