@@ -23,17 +23,18 @@ public class MechanicsCore
 
         var (first, second) = Map.GetRandomFreeSpotCoordinates();
 
+
         Map.SetValueInCoordinates((first, second), '@');
         currentCoordinates = (first, second);
+
+        Map.PrintMap();
+
+        CursorValueChanger.Subscribe(Map);
 
         coins = new(Map);
         coins.AfterAllCoinsCollectEvent += EndGamePortal.EndGamePortalAppereance;
 
         coins.Subscribe(this);
-
-        Map.PrintMap();
-
-        CursorValueChanger.Subscribe(Map);
     }
 
     private void MoveCharacter(Direction direction)

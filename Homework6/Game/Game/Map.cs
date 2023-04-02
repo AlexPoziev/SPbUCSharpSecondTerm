@@ -6,9 +6,9 @@ public class Map
 
     private readonly char[,] mapMatrix;
 
-    private readonly HashSet<char> freeSpotSigns = new() { ' ', 'o' };
+    public HashSet<char> FreeSpotSigns { get; private set; }
 
-    public (int height, int width)  Size => (mapMatrix.GetLength(0), mapMatrix.GetLength(1));
+    public (int height, int width) Size => (mapMatrix.GetLength(0), mapMatrix.GetLength(1));
 
     public Map(string[] content)
     {
@@ -24,11 +24,13 @@ public class Map
 
         var maxWidth = int.MinValue;
 
-        foreach(var element in content)
+        foreach (var element in content)
         {
             maxWidth = Math.Max(maxWidth, element.Length);
         }
-        
+
+        FreeSpotSigns = new() { 'o', ' ' };
+
         mapMatrix = new char[content.Length, maxWidth];
 
         var freeSpotsCount = 0;
@@ -85,8 +87,12 @@ public class Map
             => coordinates.column < mapMatrix.GetLength(1) && coordinates.column >= 0
             && coordinates.row < mapMatrix.GetLength(0) && coordinates.row >= 0;
 
+
     public bool IsFreeSpot((int row, int column) coordinates)
-           => IsInMapRange(coordinates) && freeSpotSigns.Contains(mapMatrix[coordinates.row, coordinates.column]);
+           => IsInMapRange(coordinates) && FreeSpotSigns.Contains(mapMatrix[coordinates.row, coordinates.column]);
+
+    public bool IsAchievable((int row, int column) startCoordinates, (int row, int column) finishCoordinates)
+            => PathFinder.DoesPathExist(startCoordinates, finishCoordinates, mapMatrix, FreeSpotSigns);
 
     public (int, int) GetRandomFreeSpotCoordinates()
     {
@@ -122,5 +128,7 @@ public class Map
         }
     }
 
-    public void AddFreeSpotSign(char newSign) => freeSpotSigns.Add(newSign);
+    public void AddFreeSpotSign(char newSign) => FreeSpotSigns.Add(newSign);
+
+
 }
