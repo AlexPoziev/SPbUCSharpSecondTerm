@@ -4,7 +4,7 @@
 namespace CoinCollectorGame;
 
 /// <summary>
-/// Class that implement event arguments class for Map changing event.
+/// Class that contains data for Map changing event.
 /// </summary>
 public class MapChangeEventArgs : EventArgs
 {

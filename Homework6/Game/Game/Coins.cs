@@ -1,15 +1,23 @@
-﻿namespace CoinCollectorGame;
+﻿// "Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements;
+// and tos You under the Apache License, Version 2.0. "
 
+namespace CoinCollectorGame;
+
+/// <summary>
+/// Class of of mechanic: They appear in random place, after collecting them all triggers end game event.
+/// </summary>
 public class Coins
 {
-    public event EventHandler<EndGameEventArgs> AfterAllCoinsCollectEvent = (sender, args) => { };
-
     private readonly Map map;
 
     private readonly char coin = 'o';
 
     private byte coinsLeft;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Coins"/> class.
+    /// </summary>
+    /// <param name="map">game map.</param>
     public Coins(Map map)
     {
         if (map == null)
@@ -20,9 +28,20 @@ public class Coins
         this.map = map;
 
         var random = new Random();
+
         coinsLeft = (byte)(random.Next(10) + 1);
     }
 
+    /// <summary>
+    /// subject of end game event (or not end) after collecting all coins.
+    /// </summary>
+    public event EventHandler<EndGameEventArgs> AfterAllCoinsCollectEvent = (sender, args) => { };
+
+    /// <summary>
+    /// Method to attach observer to event.
+    /// </summary>
+    /// <param name="core">Current game core object.</param>
+    /// <exception cref="ArgumentNullException">core can't be null.</exception>
     public void Subscribe(MechanicsCore core)
     {
         if (core == null)
@@ -31,6 +50,23 @@ public class Coins
         }
 
         core.OnCoinCollect += CollectCoin;
+
+        EndGamePortal.Subscribe(this);
+    }
+
+    /// <summary>
+    /// Method to detach observer to event.
+    /// </summary>
+    /// <param name="core">Current game core object.</param>
+    /// <exception cref="ArgumentNullException">core can't be null.</exception>
+    public void Unsubscribe(MechanicsCore core)
+    {
+        if (core == null)
+        {
+            throw new ArgumentNullException(nameof(core));
+        }
+
+        core.OnCoinCollect -= CollectCoin;
     }
 
     private void CoinCountNotifier()
@@ -53,7 +89,7 @@ public class Coins
             AfterAllCoinsCollectEvent(this, new EndGameEventArgs(map, args.Coordinates));
             if (sender != null && sender is MechanicsCore)
             {
-                ((MechanicsCore)sender).OnCoinCollect -= CollectCoin;
+                Unsubscribe((MechanicsCore)sender);
             }
 
             return;
@@ -63,4 +99,3 @@ public class Coins
         CoinCountNotifier();
     }
 }
-

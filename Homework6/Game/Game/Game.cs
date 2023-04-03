@@ -1,13 +1,24 @@
-﻿namespace CoinCollectorGame;
+﻿// "Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements;
+// and tos You under the Apache License, Version 2.0. "
 
+namespace CoinCollectorGame;
+
+/// <summary>
+/// Class of the Game, in which you can to move, collect coins and after defined number of coins
+/// go in the portal and finish the game.
+/// </summary>
 public class Game
 {
-    readonly EventLoop looper;
+    private readonly EventLoop eventLooper;
 
     private Map GameMap { get; }
 
     private MechanicsCore core;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Game"/> class.
+    /// </summary>
+    /// <param name="fileName">name of file, that contains map for the game.</param>
     public Game(string fileName)
     {
         if (!File.Exists(fileName))
@@ -19,29 +30,32 @@ public class Game
 
         GameMap = new Map(content);
 
-        looper = new();
+        eventLooper = new ();
 
-        core = new(GameMap);
+        core = new (GameMap);
 
         core.EntryGameOverPortal += Stop;
     }
 
+    /// <summary>
+    /// Method to start a Game.
+    /// </summary>
     public void Launch()
     {
-        looper.LeftHandler += core.OnLeft;
-        looper.RightHandler += core.OnRight;
-        looper.UpHandler += core.OnUp;
-        looper.DownHandler += core.OnDown;
+        eventLooper.LeftHandler += core.OnLeft;
+        eventLooper.RightHandler += core.OnRight;
+        eventLooper.UpHandler += core.OnUp;
+        eventLooper.DownHandler += core.OnDown;
 
-        looper.Run();
+        eventLooper.Run();
     }
 
     private void Stop(object? sender, EventArgs args)
     {
-        looper.LeftHandler -= core.OnLeft;
-        looper.RightHandler -= core.OnRight;
-        looper.UpHandler -= core.OnUp;
-        looper.DownHandler -= core.OnDown;
+        eventLooper.LeftHandler -= core.OnLeft;
+        eventLooper.RightHandler -= core.OnRight;
+        eventLooper.UpHandler -= core.OnUp;
+        eventLooper.DownHandler -= core.OnDown;
 
         Console.Clear();
 

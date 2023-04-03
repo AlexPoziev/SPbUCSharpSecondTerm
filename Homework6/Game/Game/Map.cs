@@ -38,7 +38,7 @@ public class Map
             maxWidth = Math.Max(maxWidth, element.Length);
         }
 
-        FreePointSigns = new() { 'o', emptyPointSign };
+        FreePointSigns = new () { 'o', emptyPointSign };
 
         mapMatrix = new char[content.Length, maxWidth];
 
@@ -72,7 +72,7 @@ public class Map
     }
 
     /// <summary>
-    /// Subject (or publisher) for map changing event.
+    /// Subject for map changing event.
     /// </summary>
     public event EventHandler<MapChangeEventArgs> OnMapChange = (sender, args) => { };
 

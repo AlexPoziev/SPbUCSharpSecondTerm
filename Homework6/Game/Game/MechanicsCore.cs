@@ -14,14 +14,6 @@ public class MechanicsCore
 
     private (int row, int column) currentCoordinates;
 
-    private enum Direction
-    {
-        Left,
-        Up,
-        Down,
-        Right,
-    }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="MechanicsCore"/> class.
     /// </summary>
@@ -45,20 +37,28 @@ public class MechanicsCore
         CursorValueChanger.Subscribe(this.map);
 
         coins = new (this.map);
-        coins.AfterAllCoinsCollectEvent += EndGamePortal.EndGamePortalAppereance;
+
         coins.Subscribe(this);
         OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
     }
 
     /// <summary>
-    /// Subject (or publisher) for collecting coin event(You bring a coin).
+    /// Subject for collecting coin event(You bring a coin).
     /// </summary>
     public event EventHandler<CollectCoinEventArgs> OnCoinCollect = (sender, args) => { };
 
     /// <summary>
-    /// Subject (of publisher) for entry game over portal.
+    /// Subject for entry game over portal.
     /// </summary>
     public event EventHandler<EventArgs> EntryGameOverPortal = (sender, args) => { };
+
+    private enum Direction
+    {
+        Left,
+        Up,
+        Down,
+        Right,
+    }
 
     /// <summary>
     /// Observer on left move.
