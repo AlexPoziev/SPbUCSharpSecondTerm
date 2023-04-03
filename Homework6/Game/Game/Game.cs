@@ -23,7 +23,7 @@ public class Game
 
         core = new(GameMap);
 
-        core.EntryOverGamePortal += Stop;
+        core.EntryGameOverPortal += Stop;
     }
 
     public void Launch()

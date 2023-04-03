@@ -6,9 +6,9 @@ public static class EndGamePortal
     {
         const char portalSign = '§';
 
-        args.GameMap.AddFreeSpotSign(portalSign);
+        args.GameMap.AddFreePointSign(portalSign);
 
-        (int row, int column) = args.GameMap.GetRandomFreeAchievableSpotCoordinates(args.currentCoordinates);
+        (int row, int column) = args.GameMap.GetRandomEmptyAchievablePointCoordinates(args.currentCoordinates);
 
         args.GameMap.SetValueInCoordinates((row, column), portalSign);
 

@@ -1,17 +1,31 @@
-﻿namespace CoinCollectorGame;
+﻿// "Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements;
+// and tos You under the Apache License, Version 2.0. "
 
+namespace CoinCollectorGame;
+
+/// <summary>
+/// Class that append all game mechanics.
+/// </summary>
 public class MechanicsCore
 {
-    public event EventHandler<CollectCoinEventArgs> OnCoinCollect = (sender, args) => { };
+    private readonly Coins coins;
 
-    public event EventHandler<EventArgs> EntryOverGamePortal = (sender, args) => { };
-
-    public Map Map { get; }
+    private readonly Map map;
 
     private (int row, int column) currentCoordinates;
 
-    private readonly Coins coins;
+    private enum Direction
+    {
+        Left,
+        Up,
+        Down,
+        Right,
+    }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MechanicsCore"/> class.
+    /// </summary>
+    /// <param name="map">Game map.</param>
     public MechanicsCore(Map map)
     {
         if (map == null)
@@ -19,36 +33,80 @@ public class MechanicsCore
             throw new ArgumentNullException(nameof(map));
         }
 
-        Map = map;
+        this.map = map;
 
-        var (first, second) = Map.GetRandomFreeSpotCoordinates();
+        var (first, second) = this.map.GetRandomEmptyPointCoordinates();
 
-
-        Map.SetValueInCoordinates((first, second), '@');
+        this.map.SetValueInCoordinates((first, second), '@');
         currentCoordinates = (first, second);
 
-        Map.PrintMap();
+        this.map.PrintMap();
 
-        CursorValueChanger.Subscribe(Map);
+        CursorValueChanger.Subscribe(this.map);
 
-        coins = new(Map);
+        coins = new (this.map);
         coins.AfterAllCoinsCollectEvent += EndGamePortal.EndGamePortalAppereance;
         coins.Subscribe(this);
         OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
     }
 
+    /// <summary>
+    /// Subject (or publisher) for collecting coin event(You bring a coin).
+    /// </summary>
+    public event EventHandler<CollectCoinEventArgs> OnCoinCollect = (sender, args) => { };
+
+    /// <summary>
+    /// Subject (of publisher) for entry game over portal.
+    /// </summary>
+    public event EventHandler<EventArgs> EntryGameOverPortal = (sender, args) => { };
+
+    /// <summary>
+    /// Observer on left move.
+    /// </summary>
+    public void OnLeft(object? sender, EventArgs args)
+    {
+        MoveCharacter(Direction.Left);
+    }
+
+    /// <summary>
+    /// Observer on right move.
+    /// </summary>
+    public void OnRight(object? sender, EventArgs args)
+    {
+        MoveCharacter(Direction.Right);
+    }
+
+    /// <summary>
+    /// Observer on down move.
+    /// </summary>
+    public void OnDown(object? sender, EventArgs args)
+    {
+        MoveCharacter(Direction.Down);
+    }
+
+    /// <summary>
+    /// Observer on up move.
+    /// </summary>
+    public void OnUp(object? sender, EventArgs args)
+    {
+        MoveCharacter(Direction.Up);
+    }
+
+    /// <summary>
+    /// Method that implement moving of character, And notify <paramref name="OnCoinCollect"/> and <paramref name="EntryGameOverPortal"/> events observers.
+    /// </summary>
     private void MoveCharacter(Direction direction)
     {
         var newCoordinates = TakeCoordinatesAfterDirectionMove(direction);
 
-        if (!Map.IsFreeSpot(newCoordinates))
+        if (!map.IsFreePoint(newCoordinates))
         {
             return;
         }
 
-        Map.SetValueInCoordinates((currentCoordinates.row, currentCoordinates.column), ' ');
+        map.SetValueInCoordinates((currentCoordinates.row, currentCoordinates.column), ' ');
         currentCoordinates = newCoordinates;
-        var oldElement = Map.SetValueInCoordinates((newCoordinates.row, newCoordinates.column), '@');
+        var oldElement = map.SetValueInCoordinates((newCoordinates.row, newCoordinates.column), '@');
 
         if (oldElement == 'o')
         {
@@ -57,7 +115,7 @@ public class MechanicsCore
 
         if (oldElement == '§')
         {
-            EntryOverGamePortal(this, EventArgs.Empty);
+            EntryGameOverPortal(this, EventArgs.Empty);
         }
     }
 
@@ -70,33 +128,4 @@ public class MechanicsCore
             Direction.Right => (currentCoordinates.row, currentCoordinates.column + 1),
             _ => throw new ArgumentException("Unexpected behaviour"),
         };
-
-    public void OnLeft(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Left);
-    }
-
-    public void OnRight(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Right);
-    }
-
-    public void OnDown(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Down);
-    }
-
-    public void OnUp(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Up);
-    }
-
-    private enum  Direction
-    {
-        Left,
-        Up,
-        Down,
-        Right,
-    }
 }
-

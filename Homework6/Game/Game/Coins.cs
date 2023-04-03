@@ -41,14 +41,12 @@ public class Coins
 
     private void AddCoinToMap((int row, int column) coordinates)
     {
-        var newCoordinates = map.GetRandomFreeAchievableSpotCoordinates(coordinates);
+        var newCoordinates = map.GetRandomEmptyAchievablePointCoordinates(coordinates);
         map.SetValueInCoordinates(newCoordinates, coin);
     }
 
     private void CollectCoin(object? sender, CollectCoinEventArgs args)
     {
-
-
         --coinsLeft;
         if (coinsLeft == 0)
         {
