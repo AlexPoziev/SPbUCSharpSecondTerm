@@ -11,28 +11,37 @@ public class Game
 {
     private readonly EventLoop eventLooper;
 
-    private Map GameMap { get; }
+    private Map gameMap;
 
     private MechanicsCore core;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Game"/> class.
+    /// Initializes a new instance of the <see cref="Game"/> class with random start character position.
     /// </summary>
-    /// <param name="fileName">name of file, that contains map for the game.</param>
+    /// <param name="fileName">Name of the file with game map.</param>
     public Game(string fileName)
+        : this(fileName, default, true)
     {
-        if (!File.Exists(fileName))
-        {
-            throw new ArgumentException("File doesn't exist", nameof(fileName));
-        }
+    }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Game"/> class with defined start character position.
+    /// </summary>
+    /// <param name="fileName">Name of the file with game map.</param>
+    public Game(string fileName, (int row, int column) mainCharacterStartingPosition)
+        : this(fileName, mainCharacterStartingPosition, false)
+    {
+    }
+
+    private Game(string fileName, (int row, int column) mainCharacterStartingPosition, bool isRandom)
+    {
         var content = File.ReadAllLines(fileName);
 
-        GameMap = new Map(content);
+        gameMap = new Map(content);
 
         eventLooper = new ();
 
-        core = new (GameMap);
+        core = isRandom ? new (gameMap) : new (gameMap, mainCharacterStartingPosition);
 
         core.EntryGameOverPortal += Stop;
     }

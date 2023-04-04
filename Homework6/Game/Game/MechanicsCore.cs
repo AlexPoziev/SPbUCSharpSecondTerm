@@ -8,17 +8,13 @@ namespace CoinCollectorGame;
 /// </summary>
 public class MechanicsCore
 {
-    private readonly Coins coins;
+    private Coins? coins;
 
-    private readonly Map map;
+    private Map? map;
 
     private (int row, int column) currentCoordinates;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MechanicsCore"/> class.
-    /// </summary>
-    /// <param name="map">Game map.</param>
-    public MechanicsCore(Map map)
+    public MechanicsCore(Map map, (int row, int column) mainCharacterStartingPosition)
     {
         if (map == null)
         {
@@ -27,19 +23,24 @@ public class MechanicsCore
 
         this.map = map;
 
-        var (first, second) = this.map.GetRandomEmptyPointCoordinates();
-
-        this.map.SetValueInCoordinates((first, second), '@');
-        currentCoordinates = (first, second);
+        this.map.SetValueInCoordinates(mainCharacterStartingPosition, '@');
+        currentCoordinates = mainCharacterStartingPosition;
 
         this.map.PrintMap();
 
         CursorValueChanger.Subscribe(this.map);
 
-        coins = new (this.map);
-
-        coins.Subscribe(this);
+        this.coins = new(this.map);
+        this.coins.Subscribe(this);
         OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MechanicsCore"/> class.
+    /// </summary>
+    /// <param name="map">Game map.</param>
+    public MechanicsCore(Map map) : this(map,map.GetRandomEmptyPointCoordinates())
+    {
     }
 
     /// <summary>
@@ -97,6 +98,11 @@ public class MechanicsCore
     /// </summary>
     private void MoveCharacter(Direction direction)
     {
+        if (map == null)
+        {
+            throw new ArgumentNullException(nameof(map));
+        }
+
         var newCoordinates = TakeCoordinatesAfterDirectionMove(direction);
 
         if (!map.IsFreePoint(newCoordinates))
