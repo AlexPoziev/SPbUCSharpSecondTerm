@@ -29,7 +29,7 @@ public class Coins
 
         var random = new Random();
 
-        coinsLeft = (byte)(random.Next(10) + 1);
+        coinsLeft = (byte)(random.Next(12) + 2);
     }
 
     /// <summary>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameExecutor", "GameExecutor\GameExecutor.csproj", "{CD7229DF-F03E-4BE4-9DB8-77531B80A660}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTest", "GameTest\GameTest.csproj", "{6E359C3D-5B59-4473-905F-4C2D554CCBFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CD7229DF-F03E-4BE4-9DB8-77531B80A660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7229DF-F03E-4BE4-9DB8-77531B80A660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7229DF-F03E-4BE4-9DB8-77531B80A660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

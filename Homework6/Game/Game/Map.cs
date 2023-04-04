@@ -203,6 +203,26 @@ public class Map
     }
 
     /// <summary>
+    /// Method to write map in file.
+    /// </summary>
+    /// <param name="fileName">File name.</param>
+    public void WriteMapInFile(string fileName)
+    {
+        using (var file = new StreamWriter(fileName))
+        {
+            for (int i = 0; i < mapMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < mapMatrix.GetLength(1); j++)
+                {
+                    file.Write(mapMatrix[i, j]);
+                }
+
+                file.WriteLine();
+            }
+        }
+    }
+
+    /// <summary>
     /// Method to add new sign to free point signs set.
     /// </summary>
     public void AddFreePointSign(char newSign) => FreePointSigns.Add(newSign);

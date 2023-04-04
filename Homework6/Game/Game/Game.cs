@@ -11,9 +11,12 @@ public class Game
 {
     private readonly EventLoop eventLooper;
 
-    private Map gameMap;
-
     private MechanicsCore core;
+
+    /// <summary>
+    /// Gets game map.
+    /// </summary>
+    public Map GameMap { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Game"/> class with random start character position.
@@ -37,13 +40,15 @@ public class Game
     {
         var content = File.ReadAllLines(fileName);
 
-        gameMap = new Map(content);
+        GameMap = new Map(content);
 
         eventLooper = new ();
 
-        core = isRandom ? new (gameMap) : new (gameMap, mainCharacterStartingPosition);
+        core = isRandom ? new (GameMap) : new (GameMap, mainCharacterStartingPosition);
 
         core.EntryGameOverPortal += Stop;
+
+        GameMap.WriteMapInFile("test.txt");
     }
 
     /// <summary>
