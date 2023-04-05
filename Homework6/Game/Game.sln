@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1705.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{55D3F8BE-2F26-49D0-9531-C233B2AFA6DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameExecutor", "GameExecutor\GameExecutor.csproj", "{CD7229DF-F03E-4BE4-9DB8-77531B80A660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameTest", "GameTest\GameTest.csproj", "{6E359C3D-5B59-4473-905F-4C2D554CCBFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55D3F8BE-2F26-49D0-9531-C233B2AFA6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D3F8BE-2F26-49D0-9531-C233B2AFA6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D3F8BE-2F26-49D0-9531-C233B2AFA6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D3F8BE-2F26-49D0-9531-C233B2AFA6DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7229DF-F03E-4BE4-9DB8-77531B80A660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7229DF-F03E-4BE4-9DB8-77531B80A660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7229DF-F03E-4BE4-9DB8-77531B80A660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7229DF-F03E-4BE4-9DB8-77531B80A660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E359C3D-5B59-4473-905F-4C2D554CCBFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD3D8728-8FAC-48C7-ADDC-72C2277BC3EF}
+	EndGlobalSection
+EndGlobal
