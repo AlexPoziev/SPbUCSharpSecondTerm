@@ -28,7 +28,7 @@ public class Map
 
         if (!content.Any())
         {
-            throw new ArgumentException("Map can't be empty");
+            throw new InvalidMapException("Map can't be empty");
         }
 
         var maxWidth = int.MinValue;
@@ -65,9 +65,9 @@ public class Map
             }
         }
 
-        if (freePointsCount < 2)
+        if (freePointsCount < 3)
         {
-            throw new ArgumentException("Map must to contain at least 2 empty points.");
+            throw new InvalidMapException("Map must to contain at least 2 empty points.");
         }
     }
 

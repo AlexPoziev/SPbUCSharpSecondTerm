@@ -23,6 +23,16 @@ public class MechanicsCore
 
         this.map = map;
 
+        if (!map.IsInMapRange(mainCharacterStartingPosition))
+        {
+            throw new CharacterStateException("Main character starting position out of range of map size");
+        }
+
+        if (!map.IsFreePoint(mainCharacterStartingPosition))
+        {
+            throw new CharacterStateException("Main character starting position isn't free.");
+        }
+
         this.map.SetValueInCoordinates(mainCharacterStartingPosition, '@');
         currentCoordinates = mainCharacterStartingPosition;
 
@@ -30,7 +40,7 @@ public class MechanicsCore
 
         CursorValueChanger.Subscribe(this.map);
 
-        this.coins = new(this.map);
+        this.coins = new (this.map);
         this.coins.Subscribe(this);
         OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
     }
