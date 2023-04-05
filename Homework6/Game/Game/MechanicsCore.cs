@@ -10,11 +10,15 @@ public class MechanicsCore
 {
     private Coins? coins;
 
-    private Map? map;
+    private Map map;
 
     private (int row, int column) currentCoordinates;
 
-    public MechanicsCore(Map map, (int row, int column) mainCharacterStartingPosition)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MechanicsCore"/> class.
+    /// </summary>
+    /// <param name="doCoins">Does game need to turn on coins mechanic.</param>
+    public MechanicsCore(Map map, (int row, int column) mainCharacterStartingPosition, bool doCoins)
     {
         if (map == null)
         {
@@ -40,16 +44,21 @@ public class MechanicsCore
 
         CursorValueChanger.Subscribe(this.map);
 
-        this.coins = new (this.map);
-        this.coins.Subscribe(this);
-        OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
+        if (doCoins)
+        {
+            this.coins = new (this.map);
+            this.coins.Subscribe(this);
+            OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
+        }
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MechanicsCore"/> class.
+    /// Initializes a new instance of the <see cref="MechanicsCore"/> class with random start coordinates.
     /// </summary>
     /// <param name="map">Game map.</param>
-    public MechanicsCore(Map map) : this(map,map.GetRandomEmptyPointCoordinates())
+    /// <param name="doCoins">Does game need to turn on coins mechanic.</param>
+    public MechanicsCore(Map map, bool doCoins)
+        : this(map, map.GetRandomEmptyPointCoordinates(), doCoins)
     {
     }
 
@@ -63,7 +72,10 @@ public class MechanicsCore
     /// </summary>
     public event EventHandler<EventArgs> EntryGameOverPortal = (sender, args) => { };
 
-    private enum Direction
+    /// <summary>
+    /// Enumeration for direction of moving.
+    /// </summary>
+    public enum Direction
     {
         Left,
         Up,
@@ -106,7 +118,7 @@ public class MechanicsCore
     /// <summary>
     /// Method that implement moving of character, And notify <paramref name="OnCoinCollect"/> and <paramref name="EntryGameOverPortal"/> events observers.
     /// </summary>
-    private void MoveCharacter(Direction direction)
+    public void MoveCharacter(Direction direction)
     {
         if (map == null)
         {

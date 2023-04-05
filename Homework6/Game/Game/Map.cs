@@ -65,7 +65,7 @@ public class Map
             }
         }
 
-        if (freePointsCount < 3)
+        if (freePointsCount < 2)
         {
             throw new InvalidMapException("Map must to contain at least 2 empty points.");
         }

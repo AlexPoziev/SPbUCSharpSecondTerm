@@ -11,7 +11,10 @@ public class Game
 {
     private readonly EventLoop eventLooper;
 
-    private MechanicsCore core;
+    /// <summary>
+    /// Gets core of mechanics.
+    /// </summary>
+    public MechanicsCore Core { get; }
 
     /// <summary>
     /// Gets game map.
@@ -23,7 +26,16 @@ public class Game
     /// </summary>
     /// <param name="fileName">Name of the file with game map.</param>
     public Game(string fileName)
-        : this(fileName, default, true)
+        : this(fileName, default, true, true)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Game"/> class with random start character position.
+    /// </summary>
+    /// <param name="fileName">Name of the file with game map.</param>
+    public Game(string fileName, bool withCoins)
+        : this(fileName, default, true, withCoins)
     {
     }
 
@@ -32,11 +44,20 @@ public class Game
     /// </summary>
     /// <param name="fileName">Name of the file with game map.</param>
     public Game(string fileName, (int row, int column) mainCharacterStartingPosition)
-        : this(fileName, mainCharacterStartingPosition, false)
+        : this(fileName, mainCharacterStartingPosition, false, true)
     {
     }
 
-    private Game(string fileName, (int row, int column) mainCharacterStartingPosition, bool isRandom)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Game"/> class with defined start character position.
+    /// </summary>
+    /// <param name="fileName">Name of the file with game map.</param>
+    public Game(string fileName, (int row, int column) mainCharacterStartingPosition, bool withCoins)
+        : this(fileName, mainCharacterStartingPosition, false, withCoins)
+    {
+    }
+
+    private Game(string fileName, (int row, int column) mainCharacterStartingPosition, bool isRandom, bool withCoins)
     {
         var content = File.ReadAllLines(fileName);
 
@@ -44,9 +65,9 @@ public class Game
 
         eventLooper = new ();
 
-        core = isRandom ? new (GameMap) : new (GameMap, mainCharacterStartingPosition);
+        Core = isRandom ? new (GameMap, withCoins) : new (GameMap, mainCharacterStartingPosition, withCoins);
 
-        core.EntryGameOverPortal += Stop;
+        Core.EntryGameOverPortal += Stop;
 
         GameMap.WriteMapInFile("test.txt");
     }
@@ -56,20 +77,20 @@ public class Game
     /// </summary>
     public void Launch()
     {
-        eventLooper.LeftHandler += core.OnLeft;
-        eventLooper.RightHandler += core.OnRight;
-        eventLooper.UpHandler += core.OnUp;
-        eventLooper.DownHandler += core.OnDown;
+        eventLooper.LeftHandler += Core.OnLeft;
+        eventLooper.RightHandler += Core.OnRight;
+        eventLooper.UpHandler += Core.OnUp;
+        eventLooper.DownHandler += Core.OnDown;
 
         eventLooper.Run();
     }
 
     private void Stop(object? sender, EventArgs args)
     {
-        eventLooper.LeftHandler -= core.OnLeft;
-        eventLooper.RightHandler -= core.OnRight;
-        eventLooper.UpHandler -= core.OnUp;
-        eventLooper.DownHandler -= core.OnDown;
+        eventLooper.LeftHandler -= Core.OnLeft;
+        eventLooper.RightHandler -= Core.OnRight;
+        eventLooper.UpHandler -= Core.OnUp;
+        eventLooper.DownHandler -= Core.OnDown;
 
         Console.Clear();
 
