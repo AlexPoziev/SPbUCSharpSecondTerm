@@ -111,7 +111,7 @@
             DotButton.Location = new Point(285, 511);
             DotButton.Name = "DotButton";
             DotButton.Size = new Size(135, 125);
-            DotButton.TabIndex = 19;
+            DotButton.TabIndex = 8;
             DotButton.Text = ".";
             DotButton.UseVisualStyleBackColor = false;
             // 
@@ -125,7 +125,7 @@
             ZeroButton.Location = new Point(3, 511);
             ZeroButton.Name = "ZeroButton";
             ZeroButton.Size = new Size(276, 125);
-            ZeroButton.TabIndex = 17;
+            ZeroButton.TabIndex = 9;
             ZeroButton.Text = "0";
             ZeroButton.UseVisualStyleBackColor = false;
             ZeroButton.Click += NumberClick;
@@ -139,7 +139,7 @@
             ThreeButton.Location = new Point(285, 384);
             ThreeButton.Name = "ThreeButton";
             ThreeButton.Size = new Size(135, 121);
-            ThreeButton.TabIndex = 16;
+            ThreeButton.TabIndex = 12;
             ThreeButton.Text = "3";
             ThreeButton.UseVisualStyleBackColor = false;
             ThreeButton.Click += NumberClick;
@@ -153,7 +153,7 @@
             TwoButton.Location = new Point(144, 384);
             TwoButton.Name = "TwoButton";
             TwoButton.Size = new Size(135, 121);
-            TwoButton.TabIndex = 15;
+            TwoButton.TabIndex = 11;
             TwoButton.Text = "2";
             TwoButton.UseVisualStyleBackColor = false;
             TwoButton.Click += NumberClick;
@@ -167,7 +167,7 @@
             OneButton.Location = new Point(3, 384);
             OneButton.Name = "OneButton";
             OneButton.Size = new Size(135, 121);
-            OneButton.TabIndex = 14;
+            OneButton.TabIndex = 10;
             OneButton.Text = "1";
             OneButton.UseVisualStyleBackColor = false;
             OneButton.Click += NumberClick;
@@ -181,7 +181,7 @@
             SixButton.Location = new Point(285, 257);
             SixButton.Name = "SixButton";
             SixButton.Size = new Size(135, 121);
-            SixButton.TabIndex = 13;
+            SixButton.TabIndex = 15;
             SixButton.Text = "6";
             SixButton.UseVisualStyleBackColor = false;
             SixButton.Click += NumberClick;
@@ -195,7 +195,7 @@
             FiveButton.Location = new Point(144, 257);
             FiveButton.Name = "FiveButton";
             FiveButton.Size = new Size(135, 121);
-            FiveButton.TabIndex = 12;
+            FiveButton.TabIndex = 14;
             FiveButton.Text = "5";
             FiveButton.UseVisualStyleBackColor = false;
             FiveButton.Click += NumberClick;
@@ -209,7 +209,7 @@
             FourButton.Location = new Point(3, 257);
             FourButton.Name = "FourButton";
             FourButton.Size = new Size(135, 121);
-            FourButton.TabIndex = 11;
+            FourButton.TabIndex = 13;
             FourButton.Text = "4";
             FourButton.UseVisualStyleBackColor = false;
             FourButton.Click += NumberClick;
@@ -223,7 +223,7 @@
             NineButton.Location = new Point(285, 130);
             NineButton.Name = "NineButton";
             NineButton.Size = new Size(135, 121);
-            NineButton.TabIndex = 10;
+            NineButton.TabIndex = 18;
             NineButton.Text = "9";
             NineButton.UseVisualStyleBackColor = false;
             NineButton.Click += NumberClick;
@@ -237,7 +237,7 @@
             EightButton.Location = new Point(144, 130);
             EightButton.Name = "EightButton";
             EightButton.Size = new Size(135, 121);
-            EightButton.TabIndex = 9;
+            EightButton.TabIndex = 17;
             EightButton.Text = "8";
             EightButton.UseVisualStyleBackColor = false;
             EightButton.Click += NumberClick;
@@ -251,7 +251,7 @@
             SevenButton.Location = new Point(3, 130);
             SevenButton.Name = "SevenButton";
             SevenButton.Size = new Size(135, 121);
-            SevenButton.TabIndex = 8;
+            SevenButton.TabIndex = 16;
             SevenButton.Text = "7";
             SevenButton.UseVisualStyleBackColor = false;
             SevenButton.Click += NumberClick;
@@ -265,7 +265,7 @@
             DeleteSymbolButton.Location = new Point(144, 3);
             DeleteSymbolButton.Name = "DeleteSymbolButton";
             DeleteSymbolButton.Size = new Size(135, 121);
-            DeleteSymbolButton.TabIndex = 7;
+            DeleteSymbolButton.TabIndex = 1;
             DeleteSymbolButton.Text = "<=";
             DeleteSymbolButton.UseVisualStyleBackColor = false;
             DeleteSymbolButton.Click += DeleteLastSymbolClick;
@@ -279,7 +279,7 @@
             ClearButton.Location = new Point(3, 3);
             ClearButton.Name = "ClearButton";
             ClearButton.Size = new Size(135, 121);
-            ClearButton.TabIndex = 6;
+            ClearButton.TabIndex = 0;
             ClearButton.Text = "C";
             ClearButton.UseVisualStyleBackColor = false;
             ClearButton.Click += ClearClick;
@@ -293,7 +293,7 @@
             EqualityButton.Location = new Point(426, 511);
             EqualityButton.Name = "EqualityButton";
             EqualityButton.Size = new Size(136, 125);
-            EqualityButton.TabIndex = 0;
+            EqualityButton.TabIndex = 7;
             EqualityButton.Text = "=";
             EqualityButton.UseVisualStyleBackColor = false;
             EqualityButton.Click += ResultClick;
@@ -307,7 +307,7 @@
             PlusButton.Location = new Point(426, 384);
             PlusButton.Name = "PlusButton";
             PlusButton.Size = new Size(136, 121);
-            PlusButton.TabIndex = 1;
+            PlusButton.TabIndex = 6;
             PlusButton.Text = "+";
             PlusButton.UseVisualStyleBackColor = false;
             PlusButton.Click += OperationClick;
@@ -321,7 +321,7 @@
             button3.Location = new Point(426, 257);
             button3.Name = "button3";
             button3.Size = new Size(136, 121);
-            button3.TabIndex = 2;
+            button3.TabIndex = 5;
             button3.Text = "-";
             button3.UseVisualStyleBackColor = false;
             button3.Click += OperationClick;
@@ -335,7 +335,7 @@
             MultiplyButton.Location = new Point(426, 130);
             MultiplyButton.Name = "MultiplyButton";
             MultiplyButton.Size = new Size(136, 121);
-            MultiplyButton.TabIndex = 3;
+            MultiplyButton.TabIndex = 4;
             MultiplyButton.Text = "*";
             MultiplyButton.UseVisualStyleBackColor = false;
             MultiplyButton.Click += OperationClick;
@@ -349,7 +349,7 @@
             DivideButton.Location = new Point(426, 3);
             DivideButton.Name = "DivideButton";
             DivideButton.Size = new Size(136, 121);
-            DivideButton.TabIndex = 4;
+            DivideButton.TabIndex = 3;
             DivideButton.Text = "/";
             DivideButton.UseVisualStyleBackColor = false;
             DivideButton.Click += OperationClick;
@@ -363,7 +363,7 @@
             PercentButton.Location = new Point(285, 3);
             PercentButton.Name = "PercentButton";
             PercentButton.Size = new Size(135, 121);
-            PercentButton.TabIndex = 5;
+            PercentButton.TabIndex = 2;
             PercentButton.Text = "%";
             PercentButton.UseVisualStyleBackColor = false;
             PercentButton.Click += OperationClick;
