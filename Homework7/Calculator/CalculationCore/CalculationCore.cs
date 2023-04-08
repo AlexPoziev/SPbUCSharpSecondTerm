@@ -1,22 +1,47 @@
-﻿namespace Calculator;
+﻿using System.ComponentModel;
 
-public class CalculationCore
+namespace Calculator;
+
+public class CalculationCore : INotifyPropertyChanged
 {
-    private char fractionalSign = '.';
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    public string DisplayNumber { get; private set; } = "0";
+    private readonly char fractionalSign = '.';
+
+    private string displayNumber = "0";
+
+    public string DisplayNumber { 
+        get
+        {
+            return displayNumber;
+        }
+
+        private set
+        {
+            displayNumber = value;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayNumber)));
+        }
+    }
 
     private string tempCalculationValue = "0";
 
-    private char operationSign;
+    private char operationSign = ' ';
 
-    private States currentState = States.DotInNumber;
+    private States currentState = States.NumberTyping;
 
     public void ChangeSignOfNumber()
     {
-        if (DisplayNumber != "0")
+        if (currentState != States.Error && DisplayNumber != "0")
         {
-            DisplayNumber = "-" + DisplayNumber;
+            if (DisplayNumber[0] == '-')
+            {
+                DisplayNumber = DisplayNumber.Substring(1);
+            }
+            else
+            {
+                DisplayNumber = "-" + DisplayNumber;
+            }
         }
     }
 
@@ -34,6 +59,17 @@ public class CalculationCore
         DotInNumber,
         NumberAfterDot,
         OperationSign,
+        EqualitySign,
+        Error,
+    }
+
+    private void PerformOperationWithDisplayAndTempNumbers()
+    {
+        var tempValue = DisplayNumber;
+
+        DisplayNumber = CalculatorUtils.PerformTwoFloatStringsOperation(tempCalculationValue, DisplayNumber, operationSign);
+        
+        tempCalculationValue = tempValue;
     }
 
     private void PerformCalculatorOperation(char newElement)
@@ -45,27 +81,21 @@ public class CalculationCore
         }
         else
         {
-            var tempValue = DisplayNumber;
-            DisplayNumber = CalculatorUtils.PerformTwoFloatStringsOperation(tempCalculationValue, DisplayNumber, operationSign);
-            tempCalculationValue = operationSign == newElement ? tempValue : string.Empty;
-
-            if (newElement != '=')
-            {
-                operationSign = newElement;
-            }
+            PerformOperationWithDisplayAndTempNumbers();
+            operationSign = newElement;
         }
+
+        currentState = States.OperationSign;
     }
 
     public void AddElement(char newElement)
     {
         switch (currentState)
         {
-            #region
-
             case States.NumberTyping:
                 if (char.IsDigit(newElement))
                 {
-                    if (DisplayNumber == "0")
+                    if (DisplayNumber == "0" || DisplayNumber == "Error")
                     {
                         DisplayNumber = newElement.ToString();
                     }
@@ -80,32 +110,72 @@ public class CalculationCore
                 if (newElement == fractionalSign)
                 {
                     DisplayNumber += fractionalSign;
+
+                    currentState = States.DotInNumber;
+
                     break;
                 }
 
-                if (CalculatorUtils.IsOperationOrEqualitySign(newElement))
+                if (CalculatorUtils.IsOperationSign(newElement))
                 {
-                    PerformCalculatorOperation(newElement);
+                    try
+                    {
+                        PerformCalculatorOperation(newElement);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        ClearCalculator();
+                        currentState = States.Error;
+                        DisplayNumber = "Error";
+                    }
+
+                    break;
+                }
+
+                if (operationSign != ' ' && newElement == '=')
+                {
+                    try
+                    {
+                        PerformOperationWithDisplayAndTempNumbers();
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        ClearCalculator();
+                        currentState = States.Error;
+                        DisplayNumber = "Error";
+
+                        break;
+                    }
+
+                    currentState = States.EqualitySign;
 
                     break;
                 }
 
                 break;
-
-            #endregion
 
             case States.DotInNumber:
                 if (char.IsDigit(newElement))
                 {
                     DisplayNumber += newElement;
+                    currentState = States.NumberAfterDot;
                 }
 
                 break;
 
             case States.NumberAfterDot:
-                if (CalculatorUtils.IsOperationOrEqualitySign(newElement))
+                if (CalculatorUtils.IsOperationSign(newElement))
                 {
-                    PerformCalculatorOperation(newElement);
+                    try
+                    {
+                        PerformCalculatorOperation(newElement);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        ClearCalculator();
+                        currentState = States.Error;
+                        DisplayNumber = "Error";
+                    }
 
                     break;
                 }
@@ -113,6 +183,26 @@ public class CalculationCore
                 if (char.IsDigit(newElement))
                 {
                     DisplayNumber += newElement;
+
+                    break;
+                }
+
+                if (operationSign != ' ' && newElement == '=')
+                {
+                    try
+                    {
+                        PerformOperationWithDisplayAndTempNumbers();
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        ClearCalculator();
+                        currentState = States.Error;
+                        DisplayNumber = "Error";
+
+                        break;
+                    }
+
+                    currentState = States.EqualitySign;
 
                     break;
                 }
@@ -120,20 +210,22 @@ public class CalculationCore
                 break;
 
             case States.OperationSign:
-                if (CalculatorUtils.IsOperationOrEqualitySign(newElement))
+                if (CalculatorUtils.IsOperationSign(newElement))
                 {
-                    if (newElement == operationSign)
-                    {
-                        if (tempCalculationValue != string.Empty)
-                        {
-                            DisplayNumber = CalculatorUtils.PerformTwoFloatStringsOperation(DisplayNumber, tempCalculationValue, newElement);
-                        }
-                        else
-                        {
-                            operationSign = newElement;
-                        }
+                    operationSign = newElement;
+                }
 
-                        break;
+                if (newElement == '=')
+                {
+                    try
+                    {
+                        DisplayNumber = CalculatorUtils.PerformTwoFloatStringsOperation(tempCalculationValue, DisplayNumber, operationSign);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        ClearCalculator();
+                        currentState = States.Error;
+                        DisplayNumber = "Error";
                     }
                 }
 
@@ -141,6 +233,56 @@ public class CalculationCore
                 {
                     tempCalculationValue = DisplayNumber;
                     DisplayNumber = newElement.ToString();
+
+                    currentState = States.NumberTyping;
+
+                    break;
+                }
+
+                break;
+
+            case States.EqualitySign:
+                if (newElement == '=')
+                {
+                    try
+                    {
+                        DisplayNumber = CalculatorUtils.PerformTwoFloatStringsOperation(DisplayNumber, tempCalculationValue, operationSign);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        ClearCalculator();
+                        currentState = States.Error;
+                        DisplayNumber = "Error";
+                    }
+
+                    break;
+                }
+
+                if (char.IsDigit(newElement))
+                {
+                    tempCalculationValue = DisplayNumber;
+                    DisplayNumber = newElement.ToString();
+
+                    currentState = States.NumberTyping;
+
+                    break;
+                }
+
+                if (CalculatorUtils.IsOperationSign(newElement))
+                {
+                    operationSign = newElement;
+
+                    break;
+                }
+
+                break;
+
+            case States.Error:
+                if (char.IsDigit(newElement))
+                {
+                    tempCalculationValue = "0";
+                    DisplayNumber = newElement.ToString();
+                    currentState = States.NumberTyping;
 
                     break;
                 }

@@ -8,12 +8,7 @@ public partial class Calculator : Form
     {
         InitializeComponent();
 
-        expressionConveyor.DataBindings.Add("Text", core, "CurrentNumber", true, DataSourceUpdateMode.OnPropertyChanged);
-    }
-
-    private void Form1_Load(object sender, EventArgs e)
-    {
-
+        expressionConveyor.DataBindings.Add("Text", core, "DisplayNumber", true, DataSourceUpdateMode.OnPropertyChanged);
     }
 
     private void Calculator_Load(object sender, EventArgs e)
@@ -21,38 +16,20 @@ public partial class Calculator : Form
 
     }
 
-    private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
-    {
-
-    }
-
-    private void OperationsTable_Paint(object sender, PaintEventArgs e)
-    {
-
-    }
-
-    private void NumberClick(object sender, EventArgs e)
-    {
-
-    }
-
-    private void OperationClick(object sender, EventArgs e)
-    {
-
-    }
-
-    private void ResultClick(object sender, EventArgs e)
-    {
-
-    }
-
     private void ClearClick(object sender, EventArgs e)
     {
-        
+        core.ClearCalculator();
     }
 
     private void ChangeSignClick(object sender, EventArgs e)
     {
+        core.ChangeSignOfNumber();
+    }
 
+    private void NumberOrOperationButtonClick(object sender, EventArgs e)
+    {
+        var senderButton = sender as Button;
+
+        core.AddElement(senderButton!.Text.First());
     }
 }

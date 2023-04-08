@@ -9,8 +9,8 @@ public static class CalculatorUtils
         return Math.Abs(firstNumber - secondNumber) < delta;
     }
 
-    public static bool IsOperationOrEqualitySign(char sign)
-            => sign == '+' && sign == '-' && sign == '*' && sign == '/' && sign == '=';
+    public static bool IsOperationSign(char sign)
+            => sign == '+' || sign == '-' || sign == '*' || sign == '/' || sign == '%';
 
     public static float PerformArithmeticalOperation(float firstNumber, float secondNumber, char operation)
     {
@@ -32,6 +32,9 @@ public static class CalculatorUtils
                 }
 
                 return firstNumber / secondNumber;
+
+            case '%':
+                return secondNumber / 100 * firstNumber;
 
             default:
                 throw new ArgumentException("Not operation sign");
