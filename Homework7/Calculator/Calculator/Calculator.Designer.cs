@@ -28,407 +28,389 @@
         /// </summary>
         private void InitializeComponent()
         {
-            OperationsTable = new TableLayoutPanel();
-            DotButton = new Button();
-            ZeroButton = new Button();
-            ThreeButton = new Button();
-            TwoButton = new Button();
-            OneButton = new Button();
-            SixButton = new Button();
-            FiveButton = new Button();
-            FourButton = new Button();
-            NineButton = new Button();
-            EightButton = new Button();
-            SevenButton = new Button();
-            DeleteSymbolButton = new Button();
-            ClearButton = new Button();
-            EqualityButton = new Button();
-            PlusButton = new Button();
-            button3 = new Button();
-            MultiplyButton = new Button();
-            DivideButton = new Button();
-            PercentButton = new Button();
-            ConveyorPanel = new Panel();
-            ExpressionConveyor = new Label();
-            OperationsTable.SuspendLayout();
-            ConveyorPanel.SuspendLayout();
+            operationsTable = new TableLayoutPanel();
+            dotButton = new Button();
+            zeroButton = new Button();
+            threeButton = new Button();
+            twoButton = new Button();
+            oneButton = new Button();
+            sixButton = new Button();
+            fiveButton = new Button();
+            fourButton = new Button();
+            nineButton = new Button();
+            eightButton = new Button();
+            sevenButton = new Button();
+            changeSignButton = new Button();
+            clearButton = new Button();
+            equalityButton = new Button();
+            plusButton = new Button();
+            minusButton = new Button();
+            multiplyButton = new Button();
+            divideButton = new Button();
+            percentButton = new Button();
+            expressionConveyor = new Label();
+            operationsTable.SuspendLayout();
             SuspendLayout();
             // 
-            // OperationsTable
+            // operationsTable
             // 
-            OperationsTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            OperationsTable.ColumnCount = 4;
-            OperationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            OperationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            OperationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            OperationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            OperationsTable.Controls.Add(DotButton, 2, 4);
-            OperationsTable.Controls.Add(ZeroButton, 0, 4);
-            OperationsTable.Controls.Add(ThreeButton, 2, 3);
-            OperationsTable.Controls.Add(TwoButton, 1, 3);
-            OperationsTable.Controls.Add(OneButton, 0, 3);
-            OperationsTable.Controls.Add(SixButton, 2, 2);
-            OperationsTable.Controls.Add(FiveButton, 1, 2);
-            OperationsTable.Controls.Add(FourButton, 0, 2);
-            OperationsTable.Controls.Add(NineButton, 2, 1);
-            OperationsTable.Controls.Add(EightButton, 1, 1);
-            OperationsTable.Controls.Add(SevenButton, 0, 1);
-            OperationsTable.Controls.Add(DeleteSymbolButton, 1, 0);
-            OperationsTable.Controls.Add(ClearButton, 0, 0);
-            OperationsTable.Controls.Add(EqualityButton, 3, 4);
-            OperationsTable.Controls.Add(PlusButton, 3, 3);
-            OperationsTable.Controls.Add(button3, 3, 2);
-            OperationsTable.Controls.Add(MultiplyButton, 3, 1);
-            OperationsTable.Controls.Add(DivideButton, 3, 0);
-            OperationsTable.Controls.Add(PercentButton, 2, 0);
-            OperationsTable.Location = new Point(12, 204);
-            OperationsTable.Name = "OperationsTable";
-            OperationsTable.RowCount = 5;
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 19.9999981F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 19.9999981F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 20.0000038F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            OperationsTable.Size = new Size(565, 639);
-            OperationsTable.TabIndex = 0;
-            OperationsTable.Paint += OperationsTable_Paint;
+            operationsTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            operationsTable.ColumnCount = 4;
+            operationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            operationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            operationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.8015881F));
+            operationsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.1984119F));
+            operationsTable.Controls.Add(dotButton, 2, 5);
+            operationsTable.Controls.Add(zeroButton, 0, 5);
+            operationsTable.Controls.Add(threeButton, 2, 4);
+            operationsTable.Controls.Add(twoButton, 1, 4);
+            operationsTable.Controls.Add(oneButton, 0, 4);
+            operationsTable.Controls.Add(sixButton, 2, 3);
+            operationsTable.Controls.Add(fiveButton, 1, 3);
+            operationsTable.Controls.Add(fourButton, 0, 3);
+            operationsTable.Controls.Add(nineButton, 2, 2);
+            operationsTable.Controls.Add(eightButton, 1, 2);
+            operationsTable.Controls.Add(sevenButton, 0, 2);
+            operationsTable.Controls.Add(changeSignButton, 1, 1);
+            operationsTable.Controls.Add(clearButton, 0, 1);
+            operationsTable.Controls.Add(equalityButton, 3, 5);
+            operationsTable.Controls.Add(plusButton, 3, 4);
+            operationsTable.Controls.Add(minusButton, 3, 3);
+            operationsTable.Controls.Add(multiplyButton, 3, 2);
+            operationsTable.Controls.Add(divideButton, 3, 1);
+            operationsTable.Controls.Add(percentButton, 2, 1);
+            operationsTable.Controls.Add(expressionConveyor, 0, 0);
+            operationsTable.Location = new Point(12, 25);
+            operationsTable.Name = "operationsTable";
+            operationsTable.RowCount = 6;
+            operationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 27.5336037F));
+            operationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.4932766F));
+            operationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.4932766F));
+            operationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.4932766F));
+            operationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.49328F));
+            operationsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 14.4932766F));
+            operationsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            operationsTable.Size = new Size(435, 635);
+            operationsTable.TabIndex = 0;
+            operationsTable.Paint += OperationsTable_Paint;
             // 
-            // DotButton
+            // dotButton
             // 
-            DotButton.BackColor = SystemColors.ButtonShadow;
-            DotButton.Dock = DockStyle.Fill;
-            DotButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            DotButton.ForeColor = SystemColors.ControlLightLight;
-            DotButton.Location = new Point(285, 511);
-            DotButton.Name = "DotButton";
-            DotButton.Size = new Size(135, 125);
-            DotButton.TabIndex = 8;
-            DotButton.Text = ".";
-            DotButton.UseVisualStyleBackColor = false;
+            dotButton.BackColor = SystemColors.ButtonShadow;
+            dotButton.Dock = DockStyle.Fill;
+            dotButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            dotButton.ForeColor = SystemColors.ControlLightLight;
+            dotButton.Location = new Point(219, 545);
+            dotButton.Name = "dotButton";
+            dotButton.Size = new Size(101, 87);
+            dotButton.TabIndex = 8;
+            dotButton.Text = ".";
+            dotButton.UseVisualStyleBackColor = false;
             // 
-            // ZeroButton
+            // zeroButton
             // 
-            ZeroButton.BackColor = SystemColors.ButtonShadow;
-            OperationsTable.SetColumnSpan(ZeroButton, 2);
-            ZeroButton.Dock = DockStyle.Fill;
-            ZeroButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            ZeroButton.ForeColor = SystemColors.ControlLightLight;
-            ZeroButton.Location = new Point(3, 511);
-            ZeroButton.Name = "ZeroButton";
-            ZeroButton.Size = new Size(276, 125);
-            ZeroButton.TabIndex = 9;
-            ZeroButton.Text = "0";
-            ZeroButton.UseVisualStyleBackColor = false;
-            ZeroButton.Click += NumberClick;
+            zeroButton.BackColor = SystemColors.ButtonShadow;
+            operationsTable.SetColumnSpan(zeroButton, 2);
+            zeroButton.Dock = DockStyle.Fill;
+            zeroButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            zeroButton.ForeColor = SystemColors.ControlLightLight;
+            zeroButton.Location = new Point(3, 545);
+            zeroButton.Name = "zeroButton";
+            zeroButton.Size = new Size(210, 87);
+            zeroButton.TabIndex = 9;
+            zeroButton.Text = "0";
+            zeroButton.UseVisualStyleBackColor = false;
+            zeroButton.Click += NumberClick;
             // 
-            // ThreeButton
+            // threeButton
             // 
-            ThreeButton.BackColor = SystemColors.ButtonShadow;
-            ThreeButton.Dock = DockStyle.Fill;
-            ThreeButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            ThreeButton.ForeColor = SystemColors.ControlLightLight;
-            ThreeButton.Location = new Point(285, 384);
-            ThreeButton.Name = "ThreeButton";
-            ThreeButton.Size = new Size(135, 121);
-            ThreeButton.TabIndex = 12;
-            ThreeButton.Text = "3";
-            ThreeButton.UseVisualStyleBackColor = false;
-            ThreeButton.Click += NumberClick;
+            threeButton.BackColor = SystemColors.ButtonShadow;
+            threeButton.Dock = DockStyle.Fill;
+            threeButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            threeButton.ForeColor = SystemColors.ControlLightLight;
+            threeButton.Location = new Point(219, 453);
+            threeButton.Name = "threeButton";
+            threeButton.Size = new Size(101, 86);
+            threeButton.TabIndex = 12;
+            threeButton.Text = "3";
+            threeButton.UseVisualStyleBackColor = false;
+            threeButton.Click += NumberClick;
             // 
-            // TwoButton
+            // twoButton
             // 
-            TwoButton.BackColor = SystemColors.ButtonShadow;
-            TwoButton.Dock = DockStyle.Fill;
-            TwoButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            TwoButton.ForeColor = SystemColors.ControlLightLight;
-            TwoButton.Location = new Point(144, 384);
-            TwoButton.Name = "TwoButton";
-            TwoButton.Size = new Size(135, 121);
-            TwoButton.TabIndex = 11;
-            TwoButton.Text = "2";
-            TwoButton.UseVisualStyleBackColor = false;
-            TwoButton.Click += NumberClick;
+            twoButton.BackColor = SystemColors.ButtonShadow;
+            twoButton.Dock = DockStyle.Fill;
+            twoButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            twoButton.ForeColor = SystemColors.ControlLightLight;
+            twoButton.Location = new Point(111, 453);
+            twoButton.Name = "twoButton";
+            twoButton.Size = new Size(102, 86);
+            twoButton.TabIndex = 11;
+            twoButton.Text = "2";
+            twoButton.UseVisualStyleBackColor = false;
+            twoButton.Click += NumberClick;
             // 
-            // OneButton
+            // oneButton
             // 
-            OneButton.BackColor = SystemColors.ButtonShadow;
-            OneButton.Dock = DockStyle.Fill;
-            OneButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            OneButton.ForeColor = SystemColors.ControlLightLight;
-            OneButton.Location = new Point(3, 384);
-            OneButton.Name = "OneButton";
-            OneButton.Size = new Size(135, 121);
-            OneButton.TabIndex = 10;
-            OneButton.Text = "1";
-            OneButton.UseVisualStyleBackColor = false;
-            OneButton.Click += NumberClick;
+            oneButton.BackColor = SystemColors.ButtonShadow;
+            oneButton.Dock = DockStyle.Fill;
+            oneButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            oneButton.ForeColor = SystemColors.ControlLightLight;
+            oneButton.Location = new Point(3, 453);
+            oneButton.Name = "oneButton";
+            oneButton.Size = new Size(102, 86);
+            oneButton.TabIndex = 10;
+            oneButton.Text = "1";
+            oneButton.UseVisualStyleBackColor = false;
+            oneButton.Click += NumberClick;
             // 
-            // SixButton
+            // sixButton
             // 
-            SixButton.BackColor = SystemColors.ButtonShadow;
-            SixButton.Dock = DockStyle.Fill;
-            SixButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            SixButton.ForeColor = SystemColors.ControlLightLight;
-            SixButton.Location = new Point(285, 257);
-            SixButton.Name = "SixButton";
-            SixButton.Size = new Size(135, 121);
-            SixButton.TabIndex = 15;
-            SixButton.Text = "6";
-            SixButton.UseVisualStyleBackColor = false;
-            SixButton.Click += NumberClick;
+            sixButton.BackColor = SystemColors.ButtonShadow;
+            sixButton.Dock = DockStyle.Fill;
+            sixButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            sixButton.ForeColor = SystemColors.ControlLightLight;
+            sixButton.Location = new Point(219, 361);
+            sixButton.Name = "sixButton";
+            sixButton.Size = new Size(101, 86);
+            sixButton.TabIndex = 15;
+            sixButton.Text = "6";
+            sixButton.UseVisualStyleBackColor = false;
+            sixButton.Click += NumberClick;
             // 
-            // FiveButton
+            // fiveButton
             // 
-            FiveButton.BackColor = SystemColors.ButtonShadow;
-            FiveButton.Dock = DockStyle.Fill;
-            FiveButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            FiveButton.ForeColor = SystemColors.ControlLightLight;
-            FiveButton.Location = new Point(144, 257);
-            FiveButton.Name = "FiveButton";
-            FiveButton.Size = new Size(135, 121);
-            FiveButton.TabIndex = 14;
-            FiveButton.Text = "5";
-            FiveButton.UseVisualStyleBackColor = false;
-            FiveButton.Click += NumberClick;
+            fiveButton.BackColor = SystemColors.ButtonShadow;
+            fiveButton.Dock = DockStyle.Fill;
+            fiveButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            fiveButton.ForeColor = SystemColors.ControlLightLight;
+            fiveButton.Location = new Point(111, 361);
+            fiveButton.Name = "fiveButton";
+            fiveButton.Size = new Size(102, 86);
+            fiveButton.TabIndex = 14;
+            fiveButton.Text = "5";
+            fiveButton.UseVisualStyleBackColor = false;
+            fiveButton.Click += NumberClick;
             // 
-            // FourButton
+            // fourButton
             // 
-            FourButton.BackColor = SystemColors.ButtonShadow;
-            FourButton.Dock = DockStyle.Fill;
-            FourButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            FourButton.ForeColor = SystemColors.ControlLightLight;
-            FourButton.Location = new Point(3, 257);
-            FourButton.Name = "FourButton";
-            FourButton.Size = new Size(135, 121);
-            FourButton.TabIndex = 13;
-            FourButton.Text = "4";
-            FourButton.UseVisualStyleBackColor = false;
-            FourButton.Click += NumberClick;
+            fourButton.BackColor = SystemColors.ButtonShadow;
+            fourButton.Dock = DockStyle.Fill;
+            fourButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            fourButton.ForeColor = SystemColors.ControlLightLight;
+            fourButton.Location = new Point(3, 361);
+            fourButton.Name = "fourButton";
+            fourButton.Size = new Size(102, 86);
+            fourButton.TabIndex = 13;
+            fourButton.Text = "4";
+            fourButton.UseVisualStyleBackColor = false;
+            fourButton.Click += NumberClick;
             // 
-            // NineButton
+            // nineButton
             // 
-            NineButton.BackColor = SystemColors.ButtonShadow;
-            NineButton.Dock = DockStyle.Fill;
-            NineButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            NineButton.ForeColor = SystemColors.ControlLightLight;
-            NineButton.Location = new Point(285, 130);
-            NineButton.Name = "NineButton";
-            NineButton.Size = new Size(135, 121);
-            NineButton.TabIndex = 18;
-            NineButton.Text = "9";
-            NineButton.UseVisualStyleBackColor = false;
-            NineButton.Click += NumberClick;
+            nineButton.BackColor = SystemColors.ButtonShadow;
+            nineButton.Dock = DockStyle.Fill;
+            nineButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            nineButton.ForeColor = SystemColors.ControlLightLight;
+            nineButton.Location = new Point(219, 269);
+            nineButton.Name = "nineButton";
+            nineButton.Size = new Size(101, 86);
+            nineButton.TabIndex = 18;
+            nineButton.Text = "9";
+            nineButton.UseVisualStyleBackColor = false;
+            nineButton.Click += NumberClick;
             // 
-            // EightButton
+            // eightButton
             // 
-            EightButton.BackColor = SystemColors.ButtonShadow;
-            EightButton.Dock = DockStyle.Fill;
-            EightButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            EightButton.ForeColor = SystemColors.ControlLightLight;
-            EightButton.Location = new Point(144, 130);
-            EightButton.Name = "EightButton";
-            EightButton.Size = new Size(135, 121);
-            EightButton.TabIndex = 17;
-            EightButton.Text = "8";
-            EightButton.UseVisualStyleBackColor = false;
-            EightButton.Click += NumberClick;
+            eightButton.BackColor = SystemColors.ButtonShadow;
+            eightButton.Dock = DockStyle.Fill;
+            eightButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            eightButton.ForeColor = SystemColors.ControlLightLight;
+            eightButton.Location = new Point(111, 269);
+            eightButton.Name = "eightButton";
+            eightButton.Size = new Size(102, 86);
+            eightButton.TabIndex = 17;
+            eightButton.Text = "8";
+            eightButton.UseVisualStyleBackColor = false;
+            eightButton.Click += NumberClick;
             // 
-            // SevenButton
+            // sevenButton
             // 
-            SevenButton.BackColor = SystemColors.ButtonShadow;
-            SevenButton.Dock = DockStyle.Fill;
-            SevenButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            SevenButton.ForeColor = SystemColors.ControlLightLight;
-            SevenButton.Location = new Point(3, 130);
-            SevenButton.Name = "SevenButton";
-            SevenButton.Size = new Size(135, 121);
-            SevenButton.TabIndex = 16;
-            SevenButton.Text = "7";
-            SevenButton.UseVisualStyleBackColor = false;
-            SevenButton.Click += NumberClick;
+            sevenButton.BackColor = SystemColors.ButtonShadow;
+            sevenButton.Dock = DockStyle.Fill;
+            sevenButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            sevenButton.ForeColor = SystemColors.ControlLightLight;
+            sevenButton.Location = new Point(3, 269);
+            sevenButton.Name = "sevenButton";
+            sevenButton.Size = new Size(102, 86);
+            sevenButton.TabIndex = 16;
+            sevenButton.Text = "7";
+            sevenButton.UseVisualStyleBackColor = false;
+            sevenButton.Click += NumberClick;
             // 
-            // DeleteSymbolButton
+            // changeSignButton
             // 
-            DeleteSymbolButton.BackColor = SystemColors.ControlDarkDark;
-            DeleteSymbolButton.Dock = DockStyle.Fill;
-            DeleteSymbolButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteSymbolButton.ForeColor = SystemColors.ControlLightLight;
-            DeleteSymbolButton.Location = new Point(144, 3);
-            DeleteSymbolButton.Name = "DeleteSymbolButton";
-            DeleteSymbolButton.Size = new Size(135, 121);
-            DeleteSymbolButton.TabIndex = 1;
-            DeleteSymbolButton.Text = "<=";
-            DeleteSymbolButton.UseVisualStyleBackColor = false;
-            DeleteSymbolButton.Click += DeleteLastSymbolClick;
+            changeSignButton.BackColor = SystemColors.ControlDarkDark;
+            changeSignButton.Dock = DockStyle.Fill;
+            changeSignButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            changeSignButton.ForeColor = SystemColors.ControlLightLight;
+            changeSignButton.Location = new Point(111, 177);
+            changeSignButton.Name = "changeSignButton";
+            changeSignButton.Size = new Size(102, 86);
+            changeSignButton.TabIndex = 1;
+            changeSignButton.Text = "±";
+            changeSignButton.UseVisualStyleBackColor = false;
+            changeSignButton.Click += ChangeSignClick;
             // 
-            // ClearButton
+            // clearButton
             // 
-            ClearButton.BackColor = SystemColors.ControlDarkDark;
-            ClearButton.Dock = DockStyle.Fill;
-            ClearButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            ClearButton.ForeColor = SystemColors.ControlLightLight;
-            ClearButton.Location = new Point(3, 3);
-            ClearButton.Name = "ClearButton";
-            ClearButton.Size = new Size(135, 121);
-            ClearButton.TabIndex = 0;
-            ClearButton.Text = "C";
-            ClearButton.UseVisualStyleBackColor = false;
-            ClearButton.Click += ClearClick;
+            clearButton.BackColor = SystemColors.ControlDarkDark;
+            clearButton.Dock = DockStyle.Fill;
+            clearButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            clearButton.ForeColor = SystemColors.ControlLightLight;
+            clearButton.Location = new Point(3, 177);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(102, 86);
+            clearButton.TabIndex = 0;
+            clearButton.Text = "C";
+            clearButton.UseVisualStyleBackColor = false;
+            clearButton.Click += ClearClick;
             // 
-            // EqualityButton
+            // equalityButton
             // 
-            EqualityButton.BackColor = Color.DarkOrange;
-            EqualityButton.Dock = DockStyle.Fill;
-            EqualityButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            EqualityButton.ForeColor = SystemColors.ControlLightLight;
-            EqualityButton.Location = new Point(426, 511);
-            EqualityButton.Name = "EqualityButton";
-            EqualityButton.Size = new Size(136, 125);
-            EqualityButton.TabIndex = 7;
-            EqualityButton.Text = "=";
-            EqualityButton.UseVisualStyleBackColor = false;
-            EqualityButton.Click += ResultClick;
+            equalityButton.BackColor = Color.DarkOrange;
+            equalityButton.Dock = DockStyle.Fill;
+            equalityButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            equalityButton.ForeColor = SystemColors.ControlLightLight;
+            equalityButton.Location = new Point(326, 545);
+            equalityButton.Name = "equalityButton";
+            equalityButton.Size = new Size(106, 87);
+            equalityButton.TabIndex = 7;
+            equalityButton.Text = "=";
+            equalityButton.UseVisualStyleBackColor = false;
+            equalityButton.Click += ResultClick;
             // 
-            // PlusButton
+            // plusButton
             // 
-            PlusButton.BackColor = Color.DarkOrange;
-            PlusButton.Dock = DockStyle.Fill;
-            PlusButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            PlusButton.ForeColor = SystemColors.ControlLightLight;
-            PlusButton.Location = new Point(426, 384);
-            PlusButton.Name = "PlusButton";
-            PlusButton.Size = new Size(136, 121);
-            PlusButton.TabIndex = 6;
-            PlusButton.Text = "+";
-            PlusButton.UseVisualStyleBackColor = false;
-            PlusButton.Click += OperationClick;
+            plusButton.BackColor = Color.DarkOrange;
+            plusButton.Dock = DockStyle.Fill;
+            plusButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            plusButton.ForeColor = SystemColors.ControlLightLight;
+            plusButton.Location = new Point(326, 453);
+            plusButton.Name = "plusButton";
+            plusButton.Size = new Size(106, 86);
+            plusButton.TabIndex = 6;
+            plusButton.Text = "+";
+            plusButton.UseVisualStyleBackColor = false;
+            plusButton.Click += OperationClick;
             // 
-            // button3
+            // minusButton
             // 
-            button3.BackColor = Color.DarkOrange;
-            button3.Dock = DockStyle.Fill;
-            button3.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            button3.ForeColor = SystemColors.ControlLightLight;
-            button3.Location = new Point(426, 257);
-            button3.Name = "button3";
-            button3.Size = new Size(136, 121);
-            button3.TabIndex = 5;
-            button3.Text = "-";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += OperationClick;
+            minusButton.BackColor = Color.DarkOrange;
+            minusButton.Dock = DockStyle.Fill;
+            minusButton.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            minusButton.ForeColor = SystemColors.ControlLightLight;
+            minusButton.Location = new Point(326, 361);
+            minusButton.Name = "minusButton";
+            minusButton.Size = new Size(106, 86);
+            minusButton.TabIndex = 5;
+            minusButton.Text = "-";
+            minusButton.UseVisualStyleBackColor = false;
+            minusButton.Click += OperationClick;
             // 
-            // MultiplyButton
+            // multiplyButton
             // 
-            MultiplyButton.BackColor = Color.DarkOrange;
-            MultiplyButton.Dock = DockStyle.Fill;
-            MultiplyButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            MultiplyButton.ForeColor = SystemColors.ControlLightLight;
-            MultiplyButton.Location = new Point(426, 130);
-            MultiplyButton.Name = "MultiplyButton";
-            MultiplyButton.Size = new Size(136, 121);
-            MultiplyButton.TabIndex = 4;
-            MultiplyButton.Text = "*";
-            MultiplyButton.UseVisualStyleBackColor = false;
-            MultiplyButton.Click += OperationClick;
+            multiplyButton.BackColor = Color.DarkOrange;
+            multiplyButton.Dock = DockStyle.Fill;
+            multiplyButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            multiplyButton.ForeColor = SystemColors.ControlLightLight;
+            multiplyButton.Location = new Point(326, 269);
+            multiplyButton.Name = "multiplyButton";
+            multiplyButton.Size = new Size(106, 86);
+            multiplyButton.TabIndex = 4;
+            multiplyButton.Text = "*";
+            multiplyButton.UseVisualStyleBackColor = false;
+            multiplyButton.Click += OperationClick;
             // 
-            // DivideButton
+            // divideButton
             // 
-            DivideButton.BackColor = Color.DarkOrange;
-            DivideButton.Dock = DockStyle.Fill;
-            DivideButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            DivideButton.ForeColor = SystemColors.ControlLightLight;
-            DivideButton.Location = new Point(426, 3);
-            DivideButton.Name = "DivideButton";
-            DivideButton.Size = new Size(136, 121);
-            DivideButton.TabIndex = 3;
-            DivideButton.Text = "/";
-            DivideButton.UseVisualStyleBackColor = false;
-            DivideButton.Click += OperationClick;
+            divideButton.BackColor = Color.DarkOrange;
+            divideButton.Dock = DockStyle.Fill;
+            divideButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            divideButton.ForeColor = SystemColors.ControlLightLight;
+            divideButton.Location = new Point(326, 177);
+            divideButton.Name = "divideButton";
+            divideButton.Size = new Size(106, 86);
+            divideButton.TabIndex = 3;
+            divideButton.Text = "/";
+            divideButton.UseVisualStyleBackColor = false;
+            divideButton.Click += OperationClick;
             // 
-            // PercentButton
+            // percentButton
             // 
-            PercentButton.BackColor = SystemColors.ControlDarkDark;
-            PercentButton.Dock = DockStyle.Fill;
-            PercentButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            PercentButton.ForeColor = SystemColors.ControlLightLight;
-            PercentButton.Location = new Point(285, 3);
-            PercentButton.Name = "PercentButton";
-            PercentButton.Size = new Size(135, 121);
-            PercentButton.TabIndex = 2;
-            PercentButton.Text = "%";
-            PercentButton.UseVisualStyleBackColor = false;
-            PercentButton.Click += OperationClick;
+            percentButton.BackColor = SystemColors.ControlDarkDark;
+            percentButton.Dock = DockStyle.Fill;
+            percentButton.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            percentButton.ForeColor = SystemColors.ControlLightLight;
+            percentButton.Location = new Point(219, 177);
+            percentButton.Name = "percentButton";
+            percentButton.Size = new Size(101, 86);
+            percentButton.TabIndex = 2;
+            percentButton.Text = "%";
+            percentButton.UseVisualStyleBackColor = false;
+            percentButton.Click += OperationClick;
             // 
-            // ConveyorPanel
+            // expressionConveyor
             // 
-            ConveyorPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ConveyorPanel.BorderStyle = BorderStyle.FixedSingle;
-            ConveyorPanel.Controls.Add(ExpressionConveyor);
-            ConveyorPanel.Location = new Point(12, 12);
-            ConveyorPanel.Name = "ConveyorPanel";
-            ConveyorPanel.Size = new Size(565, 141);
-            ConveyorPanel.TabIndex = 1;
-            // 
-            // ExpressionConveyor
-            // 
-            ExpressionConveyor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ExpressionConveyor.Font = new Font("Segoe UI", 35F, FontStyle.Regular, GraphicsUnit.Point);
-            ExpressionConveyor.ForeColor = Color.Ivory;
-            ExpressionConveyor.Location = new Point(3, 9);
-            ExpressionConveyor.Name = "ExpressionConveyor";
-            ExpressionConveyor.Size = new Size(564, 127);
-            ExpressionConveyor.TabIndex = 0;
-            ExpressionConveyor.Text = "5245";
-            ExpressionConveyor.TextAlign = ContentAlignment.MiddleRight;
+            expressionConveyor.AutoSize = true;
+            operationsTable.SetColumnSpan(expressionConveyor, 4);
+            expressionConveyor.Dock = DockStyle.Fill;
+            expressionConveyor.Font = new Font("Segoe UI", 32F, FontStyle.Regular, GraphicsUnit.Point);
+            expressionConveyor.ForeColor = SystemColors.ButtonHighlight;
+            expressionConveyor.Location = new Point(3, 0);
+            expressionConveyor.Name = "expressionConveyor";
+            expressionConveyor.Size = new Size(429, 174);
+            expressionConveyor.TabIndex = 19;
+            expressionConveyor.Text = "Test";
+            expressionConveyor.TextAlign = ContentAlignment.MiddleRight;
             // 
             // Calculator
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(589, 844);
-            Controls.Add(ConveyorPanel);
-            Controls.Add(OperationsTable);
+            ClientSize = new Size(448, 672);
+            Controls.Add(operationsTable);
             Name = "Calculator";
             Text = "x\\";
             Load += Calculator_Load;
-            OperationsTable.ResumeLayout(false);
-            ConveyorPanel.ResumeLayout(false);
+            operationsTable.ResumeLayout(false);
+            operationsTable.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel OperationsTable;
-        private Panel ConveyorPanel;
-        private Label ExpressionConveyor;
-        private Button DotButton;
-        private Button ZeroButton;
-        private Button ThreeButton;
-        private Button TwoButton;
-        private Button OneButton;
-        private Button SixButton;
-        private Button FiveButton;
-        private Button FourButton;
-        private Button NineButton;
-        private Button EightButton;
-        private Button SevenButton;
-        private Button DeleteSymbolButton;
-        private Button ClearButton;
-        private Button EqualityButton;
-        private Button PlusButton;
-        private Button button3;
-        private Button MultiplyButton;
-        private Button DivideButton;
-        private Button PercentButton;
+        private TableLayoutPanel operationsTable;
+        private Button dotButton;
+        private Button zeroButton;
+        private Button threeButton;
+        private Button twoButton;
+        private Button oneButton;
+        private Button sixButton;
+        private Button fiveButton;
+        private Button fourButton;
+        private Button nineButton;
+        private Button eightButton;
+        private Button sevenButton;
+        private Button changeSignButton;
+        private Button clearButton;
+        private Button equalityButton;
+        private Button plusButton;
+        private Button minusButton;
+        private Button multiplyButton;
+        private Button divideButton;
+        private Button percentButton;
+        private Label expressionConveyor;
     }
 }
