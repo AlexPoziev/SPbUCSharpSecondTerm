@@ -1,16 +1,46 @@
-﻿using System.ComponentModel;
+﻿// "Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements;
+// and tos You under the Apache License, Version 2.0. "
 
 namespace Calculator;
 
+using System.ComponentModel;
+
+/// <summary>
+/// Class that implements calculator with 5 operations: '+' '-' '*' '/' '%'.
+/// Copies behaviour of calculator on MacOS.
+/// </summary>
 public class CalculationCore : INotifyPropertyChanged
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     private readonly char fractionalSign = '.';
 
     private string displayNumber = "0";
 
-    public string DisplayNumber { 
+    private string tempCalculationValue = "0";
+
+    private char operationSign = ' ';
+
+    private States currentState = States.NumberTyping;
+
+    /// <summary>
+    /// Event for data binding, to notice that DisplayNumber has been changed.
+    /// </summary>
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    private enum States
+    {
+        NumberTyping,
+        DotInNumber,
+        NumberAfterDot,
+        OperationSign,
+        EqualitySign,
+        Error,
+    }
+
+    /// <summary>
+    /// Gets string representation of number that should be display somewhere.
+    /// </summary>
+    public string DisplayNumber
+    {
         get
         {
             return displayNumber;
@@ -24,12 +54,9 @@ public class CalculationCore : INotifyPropertyChanged
         }
     }
 
-    private string tempCalculationValue = "0";
-
-    private char operationSign = ' ';
-
-    private States currentState = States.NumberTyping;
-
+    /// <summary>
+    /// method to change sign of Display Number.
+    /// </summary>
     public void ChangeSignOfNumber()
     {
         if (currentState != States.Error && DisplayNumber != "0")
@@ -45,6 +72,9 @@ public class CalculationCore : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Method to clear calculator data.
+    /// </summary>
     public void ClearCalculator()
     {
         DisplayNumber = "0";
@@ -53,41 +83,10 @@ public class CalculationCore : INotifyPropertyChanged
         currentState = States.NumberTyping;
     }
 
-    private enum States
-    {
-        NumberTyping,
-        DotInNumber,
-        NumberAfterDot,
-        OperationSign,
-        EqualitySign,
-        Error,
-    }
-
-    private void PerformOperationWithDisplayAndTempNumbers()
-    {
-        var tempValue = DisplayNumber;
-
-        DisplayNumber = CalculatorUtils.PerformTwoFloatStringsOperation(tempCalculationValue, DisplayNumber, operationSign);
-        
-        tempCalculationValue = tempValue;
-    }
-
-    private void PerformCalculatorOperation(char newElement)
-    {
-        if (operationSign == ' ')
-        {
-            operationSign = newElement;
-            tempCalculationValue = DisplayNumber;
-        }
-        else
-        {
-            PerformOperationWithDisplayAndTempNumbers();
-            operationSign = newElement;
-        }
-
-        currentState = States.OperationSign;
-    }
-
+    /// <summary>
+    /// Method that implement Calculator work.
+    /// </summary>
+    /// <param name="newElement">Arithmetical operation sign ( '+' '-' '*' '/' '%' ) or digit or equality sign, or dot( changable to comma).</param>
     public void AddElement(char newElement)
     {
         switch (currentState)
@@ -289,5 +288,30 @@ public class CalculationCore : INotifyPropertyChanged
 
                 break;
         }
+    }
+
+    private void PerformOperationWithDisplayAndTempNumbers()
+    {
+        var tempValue = DisplayNumber;
+
+        DisplayNumber = CalculatorUtils.PerformTwoFloatStringsOperation(tempCalculationValue, DisplayNumber, operationSign);
+
+        tempCalculationValue = tempValue;
+    }
+
+    private void PerformCalculatorOperation(char newElement)
+    {
+        if (operationSign == ' ')
+        {
+            operationSign = newElement;
+            tempCalculationValue = DisplayNumber;
+        }
+        else
+        {
+            PerformOperationWithDisplayAndTempNumbers();
+            operationSign = newElement;
+        }
+
+        currentState = States.OperationSign;
     }
 }
