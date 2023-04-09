@@ -68,8 +68,6 @@ public class Game
         Core = isRandom ? new (GameMap, withCoins) : new (GameMap, mainCharacterStartingPosition, withCoins);
 
         Core.EntryGameOverPortal += Stop;
-
-        GameMap.WriteMapInFile("test.txt");
     }
 
     /// <summary>
