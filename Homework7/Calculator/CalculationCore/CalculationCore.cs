@@ -226,6 +226,8 @@ public class CalculationCore : INotifyPropertyChanged
                         currentState = States.Error;
                         DisplayNumber = "Error";
                     }
+
+                    currentState = States.EqualitySign;
                 }
 
                 if (char.IsDigit(newElement))
