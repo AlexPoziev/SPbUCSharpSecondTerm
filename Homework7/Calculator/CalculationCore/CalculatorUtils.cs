@@ -75,7 +75,7 @@ public static class CalculatorUtils
 
         if (!float.TryParse(secondNumberString, out var secondNumber))
         {
-            throw new ArgumentException("Not a number", nameof(firstNumberString));
+            throw new ArgumentException("Not a number", nameof(secondNumberString));
         }
 
         return PerformArithmeticalOperation(firstNumber, secondNumber, sign).ToString();
