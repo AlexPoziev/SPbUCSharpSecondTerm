@@ -24,6 +24,13 @@ This repository contains Homework solutions from the <a href="https://github.com
 ### Homework 5
 * [Routers](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/17) (not reviewed yet)
 
+### Homework 6
+* [MapFilterFold](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/18) (not reviewed yet)
+* [Game](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/21) Added some features with coins (not reviewed yet)
+
+### Homework 7
+* [Calculator](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/22) (not reviewed yet)
+
 <!-- LICENSE -->
 ## License
 
