@@ -14,12 +14,26 @@
 
 namespace PriorityQueue;
 
+/// <summary>
+/// Priority queue, a containter for integers values
+/// with int value of priority.
+/// elements with high priority are served before elements with low priority.
+/// </summary>
+/// <typeparam name="T">Type of PriorityQueue elements.</typeparam>
 public class PriorityQueue<T>
 {
     private PriorityQueueElement? head;
 
+    /// <summary>
+    /// Gets a value indicating whether queue is empty.
+    /// </summary>
     public bool Empty => head == null;
 
+    /// <summary>
+    /// Method to add value to priority queue.
+    /// </summary>
+    /// <param name="value">Value that need to be added in queue.</param>
+    /// <param name="priority">Priority of value, with which it will be added to priority queue.</param>
     public void Enqueue(T value, int priority)
     {
         var newElement = new PriorityQueueElement(value, priority);
@@ -35,7 +49,7 @@ public class PriorityQueue<T>
 
         if (elementToAddAfterIt == null)
         {
-            newElement.NextElement = head.NextElement;
+            newElement.NextElement = head;
             head = newElement;
         }
         else
@@ -45,21 +59,23 @@ public class PriorityQueue<T>
         }
     }
 
+    /// <summary>
+    /// Method to get value from queue by its priority. From more to less.
+    /// </summary>
+    /// <returns>the value with the highest priority.</returns>
+    /// <exception cref="InvalidOperationException">Can't to get value from empty queue.</exception>
     public T Dequeue()
     {
         if (head == null)
         {
-            throw new InvalidOperationException("Can't to get valye from empty queue");
+            throw new InvalidOperationException("Can't to get value from empty queue");
         }
 
         var result = head.Value;
-
         head = head.NextElement;
 
         return result;
     }
-
-
 
     private PriorityQueueElement? LastElementWithPriorityMoreThanOrEqualsGiven(int priority)
     {
@@ -95,4 +111,3 @@ public class PriorityQueue<T>
         public PriorityQueueElement? NextElement { get; set; }
     }
 }
-
