@@ -45,6 +45,22 @@ public class PriorityQueue<T>
         }
     }
 
+    public T Dequeue()
+    {
+        if (head == null)
+        {
+            throw new InvalidOperationException("Can't to get valye from empty queue");
+        }
+
+        var result = head.Value;
+
+        head = head.NextElement;
+
+        return result;
+    }
+
+
+
     private PriorityQueueElement? LastElementWithPriorityMoreThanOrEqualsGiven(int priority)
     {
         if (head == null)
