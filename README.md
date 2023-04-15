@@ -35,3 +35,33 @@ This repository contains Homework solutions from the <a href="https://github.com
 ## License
 
 Distributed under the Apache2.0 License. See `LICENSE.txt` for more information.
+
+## Setup
+Install [.NET 7.0 (or higher)](https://dotnet.microsoft.com/en-us/download)
+
+Download dotnet SDK on MacOS:
+```
+brew install dotnet-sdk
+```
+
+Clone git repository:
+```
+git clone https://github.com/AlexPoziev/SPBUHomeworkCSharp.git
+```
+
+## Using
+* Go to the clone's project location in terminal ( or console )
+* Choose needed Homework program from Homework content list and go into it:
+```
+cd Homework{number}/{program_name}
+```
+* Launch project:
+```
+dotnet run
+```
+
+
+
+
+
+
