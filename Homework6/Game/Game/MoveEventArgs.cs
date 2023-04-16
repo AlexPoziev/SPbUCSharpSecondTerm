@@ -6,19 +6,19 @@ namespace CoinCollectorGame;
 /// <summary>
 /// Class that contains data for collect coin event.
 /// </summary>
-public class CollectCoinEventArgs : EventArgs
+public class MoveEventArgs : EventArgs
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MoveEventArgs"/> class.
     /// </summary>
     /// <param name="coordinates">coordinates of current characters point.</param>
-    public CollectCoinEventArgs(char symbol, (int row, int column) coordinates)
+    public MoveEventArgs(char symbol, (int row, int column) coordinates)
     {
-        CoinSymbol = symbol;
+        SymbolStepOn = symbol;
         Coordinates = coordinates;
     }
 
-    public char CoinSymbol { get; }
+    public char SymbolStepOn { get; }
 
     /// <summary>
     /// Gets coordinates of current characters point.
