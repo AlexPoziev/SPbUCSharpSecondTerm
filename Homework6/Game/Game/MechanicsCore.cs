@@ -8,11 +8,11 @@ namespace CoinCollectorGame;
 /// </summary>
 public class MechanicsCore
 {
-    private Coins? coins;
+    private char coinsSign = 'o';
+    private char endPortalSign = '§';
+    private char mainCharacterSign = '@';
 
-    private Map map;
-
-    private (int row, int column) currentCoordinates;
+    public Move Movement { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MechanicsCore"/> class.
@@ -25,8 +25,6 @@ public class MechanicsCore
             throw new ArgumentNullException(nameof(map));
         }
 
-        this.map = map;
-
         if (!map.IsInMapRange(mainCharacterStartingPosition))
         {
             throw new CharacterStateException("Main character starting position out of range of map size");
@@ -37,18 +35,19 @@ public class MechanicsCore
             throw new CharacterStateException("Main character starting position isn't free.");
         }
 
-        this.map.SetValueInCoordinates(mainCharacterStartingPosition, '@');
-        currentCoordinates = mainCharacterStartingPosition;
+        Movement = new Move(map);
 
-        this.map.PrintMap();
+        Movement.MoveEvent += MoveHandler;
 
-        CursorValueChanger.Subscribe(this.map);
+        map.SetValueInCoordinates(mainCharacterStartingPosition, mainCharacterSign);
+
+        CursorValueChanger.Subscribe(map);
 
         if (doCoins)
         {
-            this.coins = new (this.map);
-            this.coins.Subscribe(this);
-            OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
+            var coins = new Coins(map);
+            coins.Subscribe(this);
+            OnCoinCollect(this, new CollectCoinEventArgs(coinsSign, mainCharacterStartingPosition));
         }
     }
 
@@ -72,88 +71,16 @@ public class MechanicsCore
     /// </summary>
     public event EventHandler<EventArgs> EntryGameOverPortal = (sender, args) => { };
 
-    /// <summary>
-    /// Enumeration for direction of moving.
-    /// </summary>
-    public enum Direction
+    private void MoveHandler(object? sender, MoveEventArgs args)
     {
-        Left,
-        Up,
-        Down,
-        Right,
-    }
-
-    /// <summary>
-    /// Observer on left move.
-    /// </summary>
-    public void OnLeft(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Left);
-    }
-
-    /// <summary>
-    /// Observer on right move.
-    /// </summary>
-    public void OnRight(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Right);
-    }
-
-    /// <summary>
-    /// Observer on down move.
-    /// </summary>
-    public void OnDown(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Down);
-    }
-
-    /// <summary>
-    /// Observer on up move.
-    /// </summary>
-    public void OnUp(object? sender, EventArgs args)
-    {
-        MoveCharacter(Direction.Up);
-    }
-
-    /// <summary>
-    /// Method that implement moving of character, And notify <paramref name="OnCoinCollect"/> and <paramref name="EntryGameOverPortal"/> events observers.
-    /// </summary>
-    public void MoveCharacter(Direction direction)
-    {
-        if (map == null)
+        if (args.SymbolStepOn == coinsSign)
         {
-            throw new ArgumentNullException(nameof(map));
+            OnCoinCollect(this, new CollectCoinEventArgs(coinsSign, args.Coordinates));
         }
 
-        var newCoordinates = TakeCoordinatesAfterDirectionMove(direction);
-
-        if (!map.IsFreePoint(newCoordinates))
+        if (args.SymbolStepOn == endPortalSign)
         {
-            return;
-        }
-
-        map.SetValueInCoordinates((currentCoordinates.row, currentCoordinates.column), ' ');
-        currentCoordinates = newCoordinates;
-        var oldElement = map.SetValueInCoordinates((newCoordinates.row, newCoordinates.column), '@');
-
-        if (oldElement == 'o')
-        {
-            OnCoinCollect(this, new CollectCoinEventArgs(currentCoordinates));
-        }
-
-        if (oldElement == '§')
-        {
-            EntryGameOverPortal(this, EventArgs.Empty);
+            EntryGameOverPortal(this, EventArgs.Empty);   
         }
     }
-
-    private (int row, int column) TakeCoordinatesAfterDirectionMove(Direction direction) =>
-        direction switch
-        {
-            Direction.Left => (currentCoordinates.row, currentCoordinates.column - 1),
-            Direction.Up => (currentCoordinates.row - 1, currentCoordinates.column),
-            Direction.Down => (currentCoordinates.row + 1, currentCoordinates.column),
-            Direction.Right => (currentCoordinates.row, currentCoordinates.column + 1),
-            _ => throw new ArgumentException("Unexpected behaviour"),
-        };
 }

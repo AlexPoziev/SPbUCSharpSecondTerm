@@ -75,20 +75,20 @@ public class Game
     /// </summary>
     public void Launch()
     {
-        eventLooper.LeftHandler += Core.OnLeft;
-        eventLooper.RightHandler += Core.OnRight;
-        eventLooper.UpHandler += Core.OnUp;
-        eventLooper.DownHandler += Core.OnDown;
+        eventLooper.LeftHandler += Core.Movement.OnLeft;
+        eventLooper.RightHandler += Core.Movement.OnRight;
+        eventLooper.UpHandler += Core.Movement.OnUp;
+        eventLooper.DownHandler += Core.Movement.OnDown;
 
         eventLooper.Run();
     }
 
     private void Stop(object? sender, EventArgs args)
     {
-        eventLooper.LeftHandler -= Core.OnLeft;
-        eventLooper.RightHandler -= Core.OnRight;
-        eventLooper.UpHandler -= Core.OnUp;
-        eventLooper.DownHandler -= Core.OnDown;
+        eventLooper.LeftHandler -= Core.Movement.OnLeft;
+        eventLooper.RightHandler -= Core.Movement.OnRight;
+        eventLooper.UpHandler -= Core.Movement.OnUp;
+        eventLooper.DownHandler -= Core.Movement.OnDown;
 
         Console.Clear();
 

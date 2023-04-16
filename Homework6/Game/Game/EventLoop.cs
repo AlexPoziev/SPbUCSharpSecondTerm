@@ -9,22 +9,22 @@ namespace CoinCollectorGame;
 public class EventLoop
 {
     /// <summary>
-    /// Subject (or publisher) of left arrow press.
+    /// Subject of left arrow press.
     /// </summary>
     public event EventHandler<EventArgs> LeftHandler = (sender, args) => { };
 
     /// <summary>
-    /// Subject (or publisher) of right arrow press.
+    /// Subject of right arrow press.
     /// </summary>
     public event EventHandler<EventArgs> RightHandler = (sender, args) => { };
 
     /// <summary>
-    /// Subject (or publisher) of up arrow press.
+    /// Subject of up arrow press.
     /// </summary>
     public event EventHandler<EventArgs> UpHandler = (sender, args) => { };
 
     /// <summary>
-    /// Subject (or publisher) of down arrow press.
+    /// Subject of down arrow press.
     /// </summary>
     public event EventHandler<EventArgs> DownHandler = (sender, args) => { };
 

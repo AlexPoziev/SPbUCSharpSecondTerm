@@ -8,9 +8,9 @@ namespace CoinCollectorGame;
 /// </summary>
 public class Coins
 {
-    private readonly Map map;
+    private readonly byte maxCoinsCount = 12;
 
-    private readonly char coin = 'o';
+    private readonly Map map;
 
     private byte coinsLeft;
 
@@ -29,7 +29,7 @@ public class Coins
 
         var random = new Random();
 
-        coinsLeft = (byte)(random.Next(12) + 2);
+        coinsLeft = (byte)(random.Next(maxCoinsCount) + 2);
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class Coins
         Console.WriteLine($"Remains {coinsLeft} coins");
     }
 
-    private void AddCoinToMap((int row, int column) coordinates)
+    private void AddCoinToMap((int row, int column) coordinates, char coin)
     {
         var newCoordinates = map.GetRandomEmptyAchievablePointCoordinates(coordinates);
         map.SetValueInCoordinates(newCoordinates, coin);
@@ -87,7 +87,7 @@ public class Coins
         if (coinsLeft == 0)
         {
             AfterAllCoinsCollectEvent(this, new EndGameEventArgs(map, args.Coordinates));
-            if (sender != null && sender is MechanicsCore)
+            if (sender != null)
             {
                 Unsubscribe((MechanicsCore)sender);
             }
@@ -95,7 +95,7 @@ public class Coins
             return;
         }
 
-        AddCoinToMap(args.Coordinates);
+        AddCoinToMap(args.Coordinates, args.CoinSymbol);
         CoinCountNotifier();
     }
 }
