@@ -35,11 +35,13 @@ public class MechanicsCore
             throw new CharacterStateException("Main character starting position isn't free.");
         }
 
-        Movement = new Move(map);
+        Movement = new Move(map, mainCharacterStartingPosition);
 
         Movement.MoveEvent += MoveHandler;
 
         map.SetValueInCoordinates(mainCharacterStartingPosition, mainCharacterSign);
+
+        map.PrintMap();
 
         CursorValueChanger.Subscribe(map);
 
