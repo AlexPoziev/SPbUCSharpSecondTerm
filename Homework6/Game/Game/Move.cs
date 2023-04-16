@@ -8,7 +8,7 @@ public class Move
 
     public event EventHandler<MoveEventArgs> MoveEvent = (sender, args) => { };
 
-    public Move(Map map)
+    public Move(Map map, (int row, int column) currentCoordinates)
     {
         if (map == null)
         {
@@ -16,6 +16,8 @@ public class Move
         }
 
         this.map = map;
+
+        this.currentCoordinates = currentCoordinates;
     }
 
     /// <summary>
