@@ -36,18 +36,18 @@ public class GameTest
         Assert.Throws<InvalidMapException>(() => new Game(testsFilesPath + fileName));
     }
 
-    [TestCase("CellTest.txt", "CellMoveLeftTestResult.txt", 2, 4, MechanicsCore.Direction.Left)]
-    [TestCase("CellTest.txt", "CellMoveRightTestResult.txt", 2, 4, MechanicsCore.Direction.Right)]
-    [TestCase("CellTest.txt", "CellMoveUpTestResult.txt", 2, 4, MechanicsCore.Direction.Up)]
-    [TestCase("CellTest.txt", "CellMoveDownTestResult.txt", 2, 4, MechanicsCore.Direction.Down)]
-    [TestCase("NoWallTest.txt", "MoveInNoWallTestResult.txt", 2, 8, MechanicsCore.Direction.Right)]
-    [TestCase("CellTest.txt", "CellMoveInWallTest.txt", 2, 1, MechanicsCore.Direction.Left)]
-    [TestCase("PortalTest.txt", "PortalTestResult.txt", 2, 3, MechanicsCore.Direction.Left)]
-    public void MoveShouldAppearExpectedResult(string fileName, string fileNameWithExpectedResult, int row, int column, MechanicsCore.Direction direction)
+    [TestCase("CellTest.txt", "CellMoveLeftTestResult.txt", 2, 4, Move.Direction.Left)]
+    [TestCase("CellTest.txt", "CellMoveRightTestResult.txt", 2, 4, Move.Direction.Right)]
+    [TestCase("CellTest.txt", "CellMoveUpTestResult.txt", 2, 4, Move.Direction.Up)]
+    [TestCase("CellTest.txt", "CellMoveDownTestResult.txt", 2, 4, Move.Direction.Down)]
+    [TestCase("NoWallTest.txt", "MoveInNoWallTestResult.txt", 2, 8, Move.Direction.Right)]
+    [TestCase("CellTest.txt", "CellMoveInWallTest.txt", 2, 1, Move.Direction.Left)]
+    [TestCase("PortalTest.txt", "PortalTestResult.txt", 2, 3, Move.Direction.Left)]
+    public void MoveShouldAppearExpectedResult(string fileName, string fileNameWithExpectedResult, int row, int column, Move.Direction direction)
     {
         var game = new Game(testsFilesPath + fileName, (row, column), false);
 
-        game.Core.MoveCharacter(direction);
+        game.Core.Movement.MoveCharacter(direction);
 
         game.GameMap.WriteMapInFile(tempFileName);
 
@@ -67,7 +67,7 @@ public class GameTest
 
         var game = new Game(testsFilesPath + testFileName, startingCoordinates, true);
 
-        game.Core.MoveCharacter(Direction.Left);
+        game.Core.Movement.MoveCharacter(Move.Direction.Left);
 
         game.GameMap.WriteMapInFile(tempFileName);
 
