@@ -4,13 +4,14 @@
 namespace CoinCollectorGame;
 
 /// <summary>
-/// Class that contains data for collect coin event.
+/// Class that contains data for moving event.
 /// </summary>
 public class MoveEventArgs : EventArgs
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MoveEventArgs"/> class.
     /// </summary>
+    /// /// <param name="symbol">symbol that character step on.</param>
     /// <param name="coordinates">coordinates of current characters point.</param>
     public MoveEventArgs(char symbol, (int row, int column) coordinates)
     {
@@ -18,6 +19,9 @@ public class MoveEventArgs : EventArgs
         Coordinates = coordinates;
     }
 
+    /// <summary>
+    /// Gets a symbol that character step on.
+    /// </summary>
     public char SymbolStepOn { get; }
 
     /// <summary>
