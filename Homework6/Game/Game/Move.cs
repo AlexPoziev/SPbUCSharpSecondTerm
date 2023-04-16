@@ -1,13 +1,25 @@
-﻿namespace CoinCollectorGame;
+﻿// "Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements;
+// and tos You under the Apache License, Version 2.0. "
 
+namespace CoinCollectorGame;
+
+/// <summary>
+/// Class that perform moving in 2-dimensional map.
+/// </summary>
 public class Move
 {
     private Map map;
 
     private (int row, int column) currentCoordinates;
 
+    /// <summary>
+    /// Event on any move of character.
+    /// </summary>
     public event EventHandler<MoveEventArgs> MoveEvent = (sender, args) => { };
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Move"/> class.
+    /// </summary>
     public Move(Map map, (int row, int column) currentCoordinates)
     {
         if (map == null)
@@ -97,4 +109,3 @@ public class Move
             _ => throw new ArgumentException("Unexpected behaviour"),
         };
 }
-
