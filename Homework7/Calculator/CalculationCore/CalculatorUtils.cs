@@ -1,6 +1,8 @@
 ﻿// "Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements;
 // and tos You under the Apache License, Version 2.0. "
 
+using System.Globalization;
+
 namespace Calculator;
 
 /// <summary>
@@ -68,12 +70,14 @@ public static class CalculatorUtils
     /// <exception cref="ArgumentException">Operation not in list : '+' '-' '*' '/' '%', or operands not a float numbers.</exception>
     public static string PerformTwoFloatStringsOperation(string firstNumberString, string secondNumberString, char sign)
     {
-        if (!float.TryParse(firstNumberString, out var firstNumber))
+        CultureInfo culture = CultureInfo.InvariantCulture;
+
+        if (!float.TryParse(firstNumberString, culture, out var firstNumber))
         {
             throw new ArgumentException("Not a number", nameof(firstNumberString));
         }
 
-        if (!float.TryParse(secondNumberString, out var secondNumber))
+        if (!float.TryParse(secondNumberString, culture, out var secondNumber))
         {
             throw new ArgumentException("Not a number", nameof(secondNumberString));
         }
