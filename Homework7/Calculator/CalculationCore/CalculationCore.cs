@@ -37,7 +37,7 @@ public class CalculationCore : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Gets string representation of number that should be display somewhere.
+    /// Gets a string representation of number that should be display somewhere.
     /// </summary>
     public string DisplayNumber
     {
@@ -73,7 +73,7 @@ public class CalculationCore : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Method to clear calculator data.
+    /// Method to clear calculator's data.
     /// </summary>
     public void ClearCalculator()
     {
@@ -84,7 +84,7 @@ public class CalculationCore : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Method that implement Calculator work.
+    /// Method that implements Calculator work.
     /// </summary>
     /// <param name="newElement">Arithmetical operation sign ( '+' '-' '*' '/' '%' ) or digit or equality sign, or dot( changable to comma).</param>
     public void AddElement(char newElement)
