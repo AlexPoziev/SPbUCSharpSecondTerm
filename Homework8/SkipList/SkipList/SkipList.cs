@@ -1,7 +1,11 @@
-﻿namespace SkipList;
+﻿using System.Collections;
+
+namespace Lists;
 
 public class SkipList<T> : IList<T> where T : IComparable
 {
+    private int currentListVersion;
+
     private SkipListNode head = new (default, new SkipListNode[1]);
 
     private readonly SkipListNode tail = new (default, Array.Empty<SkipListNode>());
@@ -66,6 +70,8 @@ public class SkipList<T> : IList<T> where T : IComparable
             newSkipListNode.Next[newNodeSize - 1] = tail;
         }
 
+        ++currentListVersion;
+            
         ++Count;
     }
 
@@ -83,7 +89,10 @@ public class SkipList<T> : IList<T> where T : IComparable
             }
 
             --Count;
-            
+
+            ++currentListVersion;
+
+
             return true;
         }
 
@@ -94,6 +103,8 @@ public class SkipList<T> : IList<T> where T : IComparable
     {
         head = new(default, new SkipListNode[1]);
         head.Next[0] = tail;
+
+        ++currentListVersion;
 
         Count = 0;
     }
@@ -173,14 +184,75 @@ public class SkipList<T> : IList<T> where T : IComparable
         }
     }
 
-    public IEnumerator<T> GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    public IEnumerator<T> GetEnumerator() => new Enumerator(this);
 
-    IEnumerator IEnumerable.GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public class Enumerator : IEnumerator<T>
     {
-        throw new NotImplementedException();
+        private readonly int enumeratorListVersion;
+
+        SkipListNode currentNode;
+
+        private readonly SkipList<T> skipList;
+
+        public Enumerator(SkipList<T> skipList)
+        {
+            if (skipList == null)
+            {
+                throw new ArgumentNullException(nameof(skipList));
+            }
+
+            this.skipList = skipList;
+
+            enumeratorListVersion = skipList.currentListVersion;
+
+            currentNode = skipList.head;
+        }
+
+        public T Current
+        {
+            get
+            {
+                if (currentNode == skipList.head)
+                {
+                    throw new InvalidOperationException("Can't to get current before the first MoveNext");
+                }
+
+                return currentNode.Value!;
+            }
+        }
+
+        object IEnumerator.Current => Current;
+
+        public void Dispose() { }
+
+        public bool MoveNext()
+        {
+            if (enumeratorListVersion != skipList.currentListVersion)
+            {
+                throw new InvalidOperationException("After the enumerator was created, the data struct was changed.");
+            }
+
+            if (currentNode == skipList.tail || currentNode.Next[0] == skipList.tail)
+            {
+                return false;
+            }
+
+            currentNode = currentNode.Next[0];
+
+            return true;
+        }
+
+        public void Reset()
+        {
+            if (enumeratorListVersion != skipList.currentListVersion)
+            {
+                throw new InvalidOperationException("After the enumerator was created, the data struct was changed.");
+            }
+
+            currentNode = skipList.head;
+        }
     }
 
     bool ICollection<T>.IsReadOnly => false;
