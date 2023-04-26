@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace SkipList;
+﻿namespace SkipList;
 
 public class SkipList<T> : IList<T> where T : IComparable
 {
@@ -143,20 +141,34 @@ public class SkipList<T> : IList<T> where T : IComparable
     }
 
     public void RemoveAt(int index)
-    { }
+            => Remove(this[index]);
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        
+        if (array == null)
+        {
+            throw new ArgumentNullException(nameof(array));
+        }
+
+        if (arrayIndex < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(array), "Array index less than zero");
+        }
+
+        if (array.Length - arrayIndex < Count || arrayIndex >= array.Length)
+        {
+            throw new ArgumentException("Skip List larger than gap to copy in.", nameof(arrayIndex));
+        }
 
         var currentNode = head.Next[0];
 
-        var currentIndex = 0;
+        var currentIndex = arrayIndex;
 
         while (currentNode != tail)
         {
-            currentNode = currentNode.Next[0];
+            array[currentIndex] = currentNode.Value;
 
+            currentNode = currentNode.Next[0];
             ++currentIndex;
         }
     }
@@ -175,8 +187,26 @@ public class SkipList<T> : IList<T> where T : IComparable
 
     public int Count { get; private set; } = 0;
 
-    public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public T this[int index] {
+        get
+        {
+            if (index < 0 || index >= Count)
+            {
+                throw new IndexOutOfRangeException();
+            }
 
+            var currentNode = head.Next[0];
+
+            for (int i = 0; i < index; ++i)
+            {
+                currentNode = currentNode.Next[0];
+            }
+
+            return currentNode.Value;
+        }
+        set => throw new NotSupportedException("Can't change value by indexer.");
+    }
+    
     private record SkipListNode(T? Value, SkipListNode[] Next);
 
     public SkipList()
