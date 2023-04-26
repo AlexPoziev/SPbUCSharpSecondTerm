@@ -1,4 +1,6 @@
-﻿namespace SkipList;
+﻿using System.Collections;
+
+namespace SkipList;
 
 public class SkipList<T> : IList<T> where T : IComparable
 {
@@ -17,12 +19,13 @@ public class SkipList<T> : IList<T> where T : IComparable
 
         var lastLevelPreviousNodesList = new SkipListNode[head.Next.Length];
 
-        for (var currentLevel = head.Next.Length; currentLevel > 0; --currentLevel)
+        for (var currentLevel = head.Next.Length - 1; currentLevel >= 0; --currentLevel)
         {
             var compareResult = currentNode.Next[currentLevel].Value.CompareTo(value);
-            while (compareResult == 1 && currentNode.Next[currentLevel] != tail)
+            while (compareResult == -1 && currentNode.Next[currentLevel] != tail)
             {
                 currentNode = currentNode.Next[currentLevel];
+                compareResult = currentNode.Next[currentLevel].Value.CompareTo(value);
             }
 
             lastLevelPreviousNodesList[currentLevel] = currentNode;
@@ -35,29 +38,16 @@ public class SkipList<T> : IList<T> where T : IComparable
     {
         var resultOfSearch = GetPreviousOfSearchedByValue(value);
 
-        return resultOfSearch[0] != tail && resultOfSearch[0].Value.CompareTo(value) == 0;
+        return resultOfSearch[0].Next[0] != tail && resultOfSearch[0].Next[0].Value.CompareTo(value) == 0;
     }
 
     public void Insert(int index, T value)
-    {
-
-    }
+            => throw new NotSupportedException("Insert by a specific index not supported in Skip List data struct");
 
     public void Add(T value)
     {
         var previousNodes = GetPreviousOfSearchedByValue(value);
 
-        CreateAndPutRandomHeightSkipListNode(value, previousNodes);
-    }
-
-    public void Clear()
-    {
-        head = new(default, new SkipListNode[1]);
-        head.Next[0] = tail;
-    }
-
-    private SkipListNode CreateAndPutRandomHeightSkipListNode(T value, SkipListNode[] previousNodes)
-    {
         var newNodeSize = GetRandomSkipListNodeHeight();
 
         var newSkipListNode = new SkipListNode(value, new SkipListNode[newNodeSize]);
@@ -74,9 +64,40 @@ public class SkipList<T> : IList<T> where T : IComparable
             head.Next.CopyTo(newHeadNext.Next, 0);
             newHeadNext.Next[newNodeSize - 1] = newSkipListNode;
             head = newHeadNext;
+
+            newSkipListNode.Next[newNodeSize - 1] = tail;
         }
 
-        return newSkipListNode;
+        ++Count;
+    }
+
+    public bool Remove(T value)
+    {
+        var resultOfSearch = GetPreviousOfSearchedByValue(value);
+
+        var nextNode = resultOfSearch[0].Next[0];
+
+        if (nextNode != tail && nextNode.Value.CompareTo(value) == 0)
+        {
+            for (int i = 0; i < resultOfSearch.Length; ++i)
+            {
+                resultOfSearch[i].Next[i] = nextNode.Next[i];
+            }
+
+            --Count;
+            
+            return true;
+        }
+
+        return false;
+    }
+
+    public void Clear()
+    {
+        head = new(default, new SkipListNode[1]);
+        head.Next[0] = tail;
+
+        Count = 0;
     }
 
     private int GetRandomSkipListNodeHeight()
@@ -100,10 +121,67 @@ public class SkipList<T> : IList<T> where T : IComparable
         return currentSize;
     }
 
+    public int IndexOf(T value)
+    {
+        var currentNode = head.Next[0];
+
+        var currentIndex = 0;
+
+        while (currentNode != tail)
+        {
+            if (currentNode.Value.CompareTo(value) == 0)
+            {
+                return currentIndex;
+            }
+
+            currentNode = currentNode.Next[0];
+
+            ++currentIndex;
+        }
+
+        return -1;
+    }
+
+    public void RemoveAt(int index)
+    { }
+
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+        
+
+        var currentNode = head.Next[0];
+
+        var currentIndex = 0;
+
+        while (currentNode != tail)
+        {
+            currentNode = currentNode.Next[0];
+
+            ++currentIndex;
+        }
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
     bool ICollection<T>.IsReadOnly => false;
 
-    public int Count { get; }
+    public int Count { get; private set; } = 0;
+
+    public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     private record SkipListNode(T? Value, SkipListNode[] Next);
+
+    public SkipList()
+    {
+        head.Next[0] = tail;
+    }
 }
 
