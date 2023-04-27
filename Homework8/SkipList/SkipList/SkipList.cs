@@ -14,7 +14,7 @@ public class SkipList<T> : IList<T> where T : IComparable
     {
         if (value == null)
         {
-            return null;
+            throw new ArgumentNullException(nameof(value), "Can't to add null in list");
         }
 
         var currentNode = head;
@@ -23,11 +23,11 @@ public class SkipList<T> : IList<T> where T : IComparable
 
         for (var currentLevel = head.Next.Length - 1; currentLevel >= 0; --currentLevel)
         {
-            var compareResult = currentNode.Next[currentLevel].Value.CompareTo(value);
-            while (compareResult == -1 && currentNode.Next[currentLevel] != tail)
+            var compareResult = value.CompareTo(currentNode.Next[currentLevel].Value);
+            while (compareResult == 1 && currentNode.Next[currentLevel] != tail)
             {
                 currentNode = currentNode.Next[currentLevel];
-                compareResult = currentNode.Next[currentLevel].Value.CompareTo(value);
+                compareResult = value.CompareTo(currentNode.Next[currentLevel].Value);
             }
 
             lastLevelPreviousNodesList[currentLevel] = currentNode;
@@ -40,7 +40,7 @@ public class SkipList<T> : IList<T> where T : IComparable
     {
         var resultOfSearch = GetPreviousOfSearchedByValue(value);
 
-        return resultOfSearch[0].Next[0] != tail && resultOfSearch[0].Next[0].Value.CompareTo(value) == 0;
+        return resultOfSearch[0].Next[0] != tail && value.CompareTo(resultOfSearch[0].Next[0].Value) == 0;
     }
 
     public void Insert(int index, T value)
@@ -81,9 +81,9 @@ public class SkipList<T> : IList<T> where T : IComparable
 
         var nextNode = resultOfSearch[0].Next[0];
 
-        if (nextNode != tail && nextNode.Value.CompareTo(value) == 0)
+        if (nextNode != tail && value.CompareTo(nextNode.Value) == 0)
         {
-            for (int i = 0; i < resultOfSearch.Length; ++i)
+            for (int i = 0; i < nextNode.Next.Length; ++i)
             {
                 resultOfSearch[i].Next[i] = nextNode.Next[i];
             }
@@ -138,7 +138,7 @@ public class SkipList<T> : IList<T> where T : IComparable
 
         while (currentNode != tail)
         {
-            if (currentNode.Value.CompareTo(value) == 0)
+            if (value.CompareTo(currentNode.Value) == 0)
             {
                 return currentIndex;
             }
@@ -177,7 +177,7 @@ public class SkipList<T> : IList<T> where T : IComparable
 
         while (currentNode != tail)
         {
-            array[currentIndex] = currentNode.Value;
+            array[currentIndex] = currentNode.Value ?? throw new InvalidOperationException("List contains null");
 
             currentNode = currentNode.Next[0];
             ++currentIndex;
@@ -274,7 +274,7 @@ public class SkipList<T> : IList<T> where T : IComparable
                 currentNode = currentNode.Next[0];
             }
 
-            return currentNode.Value;
+            return currentNode.Value!;
         }
         set => throw new NotSupportedException("Can't change value by indexer.");
     }
@@ -286,4 +286,3 @@ public class SkipList<T> : IList<T> where T : IComparable
         head.Next[0] = tail;
     }
 }
-
