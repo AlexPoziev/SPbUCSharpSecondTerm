@@ -1,41 +1,38 @@
-﻿using System.Collections;
+﻿/* Copyright 2023-2024 Aleksey Poziev
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License. */
 
 namespace Lists;
 
-public class SkipList<T> : IList<T> where T : IComparable
+using System.Collections;
+
+/// <summary>
+/// Class that implement Skip list data struct, that takes advantages of list and array.
+/// </summary>
+/// <typeparam name="T">Type of Skip list elements</typeparam>
+public class SkipList<T> : IList<T>
+    where T : IComparable
 {
-    private int currentListVersion;
+    private readonly SkipListNode tail = new (default, Array.Empty<SkipListNode>());
 
     private SkipListNode head = new (default, new SkipListNode[1]);
 
-    private readonly SkipListNode tail = new (default, Array.Empty<SkipListNode>());
+    private int currentListVersion;
 
-    private SkipListNode[] GetPreviousOfSearchedByValue(T value)
-    {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value), "Can't to add null in list");
-        }
+    /// <inheritdoc/>
+    bool ICollection<T>.IsReadOnly => false;
 
-        var currentNode = head;
-
-        var lastLevelPreviousNodesList = new SkipListNode[head.Next.Length];
-
-        for (var currentLevel = head.Next.Length - 1; currentLevel >= 0; --currentLevel)
-        {
-            var compareResult = value.CompareTo(currentNode.Next[currentLevel].Value);
-            while (compareResult == 1 && currentNode.Next[currentLevel] != tail)
-            {
-                currentNode = currentNode.Next[currentLevel];
-                compareResult = value.CompareTo(currentNode.Next[currentLevel].Value);
-            }
-
-            lastLevelPreviousNodesList[currentLevel] = currentNode;
-        }
-
-        return lastLevelPreviousNodesList;
-    }
-
+    /// <inheritdoc/>
     public bool Contains(T value)
     {
         var resultOfSearch = GetPreviousOfSearchedByValue(value);
@@ -43,9 +40,11 @@ public class SkipList<T> : IList<T> where T : IComparable
         return resultOfSearch[0].Next[0] != tail && value.CompareTo(resultOfSearch[0].Next[0].Value) == 0;
     }
 
+    /// <inheritdoc/>
     public void Insert(int index, T value)
             => throw new NotSupportedException("Insert by a specific index not supported in Skip List data struct");
 
+    /// <inheritdoc/>
     public void Add(T value)
     {
         var previousNodes = GetPreviousOfSearchedByValue(value);
@@ -71,10 +70,10 @@ public class SkipList<T> : IList<T> where T : IComparable
         }
 
         ++currentListVersion;
-            
         ++Count;
     }
 
+    /// <inheritdoc/>
     public bool Remove(T value)
     {
         var resultOfSearch = GetPreviousOfSearchedByValue(value);
@@ -89,9 +88,7 @@ public class SkipList<T> : IList<T> where T : IComparable
             }
 
             --Count;
-
             ++currentListVersion;
-
 
             return true;
         }
@@ -99,6 +96,7 @@ public class SkipList<T> : IList<T> where T : IComparable
         return false;
     }
 
+    /// <inheritdoc/>
     public void Clear()
     {
         head = new(default, new SkipListNode[1]);
@@ -130,6 +128,7 @@ public class SkipList<T> : IList<T> where T : IComparable
         return currentSize;
     }
 
+    /// <inheritdoc/>
     public int IndexOf(T value)
     {
         var currentNode = head.Next[0];
@@ -151,9 +150,11 @@ public class SkipList<T> : IList<T> where T : IComparable
         return -1;
     }
 
+    /// <inheritdoc/>
     public void RemoveAt(int index)
             => Remove(this[index]);
 
+    /// <inheritdoc/>
     public void CopyTo(T[] array, int arrayIndex)
     {
         if (array == null)
@@ -184,6 +185,7 @@ public class SkipList<T> : IList<T> where T : IComparable
         }
     }
 
+    /// <inheritdoc/>
     public IEnumerator<T> GetEnumerator() => new Enumerator(this);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -198,18 +200,14 @@ public class SkipList<T> : IList<T> where T : IComparable
 
         public Enumerator(SkipList<T> skipList)
         {
-            if (skipList == null)
-            {
-                throw new ArgumentNullException(nameof(skipList));
-            }
-
-            this.skipList = skipList;
+            this.skipList = skipList ?? throw new ArgumentNullException(nameof(skipList));
 
             enumeratorListVersion = skipList.currentListVersion;
 
             currentNode = skipList.head;
         }
 
+        /// <inheritdoc/>
         public T Current
         {
             get
@@ -223,10 +221,15 @@ public class SkipList<T> : IList<T> where T : IComparable
             }
         }
 
+        /// <inheritdoc/>
         object IEnumerator.Current => Current;
 
-        public void Dispose() { }
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+        }
 
+        /// <inheritdoc/>
         public bool MoveNext()
         {
             if (enumeratorListVersion != skipList.currentListVersion)
@@ -244,6 +247,7 @@ public class SkipList<T> : IList<T> where T : IComparable
             return true;
         }
 
+        /// <inheritdoc/>
         public void Reset()
         {
             if (enumeratorListVersion != skipList.currentListVersion)
@@ -255,11 +259,12 @@ public class SkipList<T> : IList<T> where T : IComparable
         }
     }
 
-    bool ICollection<T>.IsReadOnly => false;
-
+    /// <inheritdoc/>
     public int Count { get; private set; } = 0;
 
-    public T this[int index] {
+    /// <inheritdoc/>
+    public T this[int index]
+    {
         get
         {
             if (index < 0 || index >= Count)
@@ -278,9 +283,38 @@ public class SkipList<T> : IList<T> where T : IComparable
         }
         set => throw new NotSupportedException("Can't change value by indexer.");
     }
-    
+
+    private SkipListNode[] GetPreviousOfSearchedByValue(T value)
+    {
+        if (value == null)
+        {
+            throw new ArgumentNullException(nameof(value), "Can't to add null in list");
+        }
+
+        var currentNode = head;
+
+        var lastLevelPreviousNodesList = new SkipListNode[head.Next.Length];
+
+        for (var currentLevel = head.Next.Length - 1; currentLevel >= 0; --currentLevel)
+        {
+            var compareResult = value.CompareTo(currentNode.Next[currentLevel].Value);
+            while (compareResult == 1 && currentNode.Next[currentLevel] != tail)
+            {
+                currentNode = currentNode.Next[currentLevel];
+                compareResult = value.CompareTo(currentNode.Next[currentLevel].Value);
+            }
+
+            lastLevelPreviousNodesList[currentLevel] = currentNode;
+        }
+
+        return lastLevelPreviousNodesList;
+    }
+
     private record SkipListNode(T? Value, SkipListNode[] Next);
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SkipList{T}"/> class.
+    /// </summary>
     public SkipList()
     {
         head.Next[0] = tail;
