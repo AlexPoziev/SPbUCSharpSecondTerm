@@ -162,12 +162,12 @@ public class SkipList<T> : IList<T>
             throw new ArgumentNullException(nameof(array));
         }
 
-        if (arrayIndex < 0)
+        if (arrayIndex < 0 || arrayIndex >= array.Length)
         {
             throw new ArgumentOutOfRangeException(nameof(array), "Array index less than zero");
         }
 
-        if (array.Length - arrayIndex < Count || arrayIndex >= array.Length)
+        if (array.Length - arrayIndex < Count)
         {
             throw new ArgumentException("Skip List larger than gap to copy in.", nameof(arrayIndex));
         }
