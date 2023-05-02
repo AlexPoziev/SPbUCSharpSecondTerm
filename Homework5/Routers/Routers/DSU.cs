@@ -101,7 +101,7 @@ public class DisjointSetUnion
             ParentNumber = parentNumber;
         }
 
-        public int Rank { get; set; } = 0;
+        public int Rank { get; set; }
 
         public int ParentNumber { get; set; }
     }

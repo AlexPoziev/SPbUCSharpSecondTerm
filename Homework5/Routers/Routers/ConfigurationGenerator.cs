@@ -37,7 +37,7 @@ public static class ConfigurationGenerator
         var (links, nodesCount) = SplitTopology(topology);
         if (links.Count == 0 && nodesCount == 1)
         {
-            return new string[] { "1:" };
+            return new[] { "1:" };
         }
 
         SpanningTreeCreator treeMaker;
@@ -149,8 +149,6 @@ public static class ConfigurationGenerator
 
     private static string[] CreateTopology(Link[] links)
     {
-        var topology = new List<string>();
-        
         var sortedLinks = links.OrderBy(it => it.FirstNodeNumber).ToArray();
 
         var newElement = new System.Text.StringBuilder($"{sortedLinks[0].FirstNodeNumber + 1}: {sortedLinks[0].SecondNodeNumber + 1} ({sortedLinks[0].LinkValue})");
