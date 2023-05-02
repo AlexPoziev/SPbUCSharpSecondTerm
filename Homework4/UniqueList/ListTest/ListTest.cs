@@ -32,9 +32,9 @@ public class ListTests
                 new Lists.UniqueList<int>()
             };
 
-            var data = new int[] { 1, 2, 3, 4, 5 };
+            var data = new[] { 1, 2, 3, 4, 5 };
 
-            var position = new int[] { 0, 1, 2, 1, 0 };
+            var position = new[] { 0, 1, 2, 1, 0 };
 
             var result = new System.Collections.Generic.List<TestCaseData>();
 
@@ -65,8 +65,7 @@ public class ListTests
     [TestCaseSource(nameof(Lists))]
     public void RemoveShouldDeleteElementFromList(List<int> list)
     {
-        const int expectedResultSize = 3;
-        var expectedResultArray = new int[expectedResultSize] { 1, 4, 3 };
+        var expectedResultArray = new[] { 1, 4, 3 };
 
         list.Remove(0);
         list.Remove(2);
@@ -88,8 +87,7 @@ public class ListTests
     [TestCaseSource(nameof(Lists))]
     public void ChangeValueShouldOnlyChangeValueOfOneElement(List<int> list)
     {
-        const int expectedResultSize = 5;
-        var expectedResultArray = new int[expectedResultSize] { 0, 1, 4, 2, 3 };
+        var expectedResultArray = new[] { 0, 1, 4, 2, 3 };
 
         list.ChangeValue(0, 0);
 
@@ -100,7 +98,7 @@ public class ListTests
     public void IndexerShouldReturnRealContainment(List<int> list)
     {
         const int expectedResultSize = 5;
-        var expectedResultArray = new int[expectedResultSize] { 5, 1, 4, 2, 3 };
+        var expectedResultArray = new[] { 5, 1, 4, 2, 3 };
         var isPassed = true;
 
         for (int i = 0; i < expectedResultSize; ++i)
