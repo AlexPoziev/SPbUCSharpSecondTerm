@@ -8,7 +8,7 @@ public abstract class Operation : IOperandNode
     /// <summary>
     /// Initializes a new instance of the <see cref="Operation"/> class.
     /// </summary>
-    public Operation(IOperandNode firstOperand, IOperandNode secondOperand, char operationSign)
+    protected Operation(IOperandNode firstOperand, IOperandNode secondOperand, char operationSign)
     {
         LeftOperand = firstOperand ?? throw new ArgumentNullException(nameof(firstOperand));
         RightOperand = secondOperand ?? throw new ArgumentNullException(nameof(secondOperand));

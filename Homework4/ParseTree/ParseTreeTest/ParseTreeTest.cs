@@ -4,7 +4,7 @@ using Tree;
 
 public class Tests
 {
-    private double delta = 0.000001;
+    private readonly double delta = 0.000001;
 
     [Test]
     public void ParseTreeOfSimpleExpressionMethodsShouldReturnExpectedResult()
