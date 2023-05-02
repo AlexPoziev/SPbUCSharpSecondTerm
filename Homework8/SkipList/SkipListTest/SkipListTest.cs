@@ -27,7 +27,7 @@ public class Tests
     [Test]
     public void CountAfterCleanShouldReturnZero()
     {
-        var primaryData = new int[] { 5, 6, 11, 10, 13 };
+        var primaryData = new[] { 5, 6, 11, 10, 13 };
 
         Array.ForEach(primaryData, skipList.Add);
 
@@ -87,15 +87,15 @@ public class Tests
         skipList.Add(valueToCheckContainment);
         skipList.Remove(valueToCheckContainment);
 
-        Assert.That(skipList.Contains(valueToCheckContainment), Is.False);
+        Assert.That(skipList, Does.Not.Contain(valueToCheckContainment));
     }
 
     [Test]
     public void CorrectCopyToShouldPerformExpectedResult()
     {
-        var expectedArray = new int[] { 1, 2, 10, 15 };
+        var expectedArray = new[] { 1, 2, 10, 15 };
 
-        var actualArray = new int[] { 1, 2, 100, 150 };
+        var actualArray = new[] { 1, 2, 100, 150 };
 
         var indexToCopyTo = 2;
 
@@ -112,7 +112,7 @@ public class Tests
     {
         var expectedResult = 11;
 
-        Array.ForEach(new int[] { 6, 5, 10, 13, 11 }, skipList.Add);
+        Array.ForEach(new[] { 6, 5, 10, 13, 11 }, skipList.Add);
 
         Assert.That(skipList[3], Is.EqualTo(expectedResult));
     }
@@ -136,9 +136,9 @@ public class Tests
     [Test]
     public void CopyToWithNotEnoughSpaceForListShouldThrowsArgumentException()
     {
-        var arrayToAddToList = new int[] { 1, 2, 100, 150 };
+        var arrayToAddToList = new[] { 1, 2, 100, 150 };
 
-        var arrayToCopyTo = new int[] { 3, 5, 6 };
+        var arrayToCopyTo = new[] { 3, 5, 6 };
 
         Array.ForEach(arrayToAddToList, skipList.Add);
 
@@ -148,9 +148,9 @@ public class Tests
     [Test]
     public void IteratorShouldPerformExpectedRe()
     {
-        Array.ForEach(new int[] { 5, 6, 11, 10, 13 }, skipList.Add);
+        Array.ForEach(new[] { 5, 6, 11, 10, 13 }, skipList.Add);
 
-        var expected = new int[] { 5, 6, 10, 11, 13 };
+        var expected = new[] { 5, 6, 10, 11, 13 };
 
         var actual = new List<int>();
         foreach (var value in skipList)
@@ -164,7 +164,7 @@ public class Tests
     [Test]
     public void ModifingOfSkipListInIteratorShouldThrowInvalidOperationException()
     {
-        Array.ForEach(new int[] { 5, 6, 10, 11, 13 }, skipList.Add);
+        Array.ForEach(new[] { 5, 6, 10, 11, 13 }, skipList.Add);
 
         var iterator = skipList.GetEnumerator();
 

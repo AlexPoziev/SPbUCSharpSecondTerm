@@ -225,11 +225,6 @@ public class SkipList<T> : IList<T>
         object IEnumerator.Current => Current;
 
         /// <inheritdoc/>
-        public void Dispose()
-        {
-        }
-
-        /// <inheritdoc/>
         public bool MoveNext()
         {
             if (enumeratorListVersion != skipList.currentListVersion)
@@ -257,10 +252,16 @@ public class SkipList<T> : IList<T>
 
             currentNode = skipList.head;
         }
+
+        /// <summary>
+        /// This method empty, because i don't need to dispose something
+        /// </summary>
+        public void Dispose()
+                => GC.SuppressFinalize(this);
     }
 
     /// <inheritdoc/>
-    public int Count { get; private set; } = 0;
+    public int Count { get; private set; }
 
     /// <inheritdoc/>
     public T this[int index]
