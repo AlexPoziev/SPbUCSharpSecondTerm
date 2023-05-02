@@ -6,6 +6,8 @@ This repository contains Homework solutions from the <a href="https://github.com
 <!-- Homework -->
 ## Homework content
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/269d5c5e2cb943a4a64cf9f4ecded5a1)](https://app.codacy.com/gh/AlexPoziev/SPBUHomeworkCSharp?utm_source=github.com&utm_medium=referral&utm_content=AlexPoziev/SPBUHomeworkCSharp&utm_campaign=Badge_Grade)
+
 ### Homework 1
 
 * [Shell Sort](https://github.com/AlexPoziev/SPBUHomeworkCSharp/tree/master/Homework1/Sorting)
