@@ -8,7 +8,7 @@ namespace CoinCollectorGame;
 /// </summary>
 public class Move
 {
-    private Map map;
+    private readonly Map map;
 
     private (int row, int column) currentCoordinates;
 

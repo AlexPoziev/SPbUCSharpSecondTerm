@@ -53,6 +53,8 @@ public class EventLoop
                     break;
                 case ConsoleKey.Escape:
                     return;
+                default:
+                    break;
             }
         }
     }

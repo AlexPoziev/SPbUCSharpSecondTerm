@@ -6,11 +6,11 @@ using static CoinCollectorGame.MechanicsCore;
 
 public class GameTest
 {
-    private string resultTestsFilesPath = "../../../TestsResults/";
+    private readonly string resultTestsFilesPath = "../../../TestsResults/";
 
-    private string testsFilesPath = "../../../Tests/";
+    private readonly string testsFilesPath = "../../../Tests/";
 
-    private string tempFileName = "tempTest.txt";
+    private readonly string tempFileName = "tempTest.txt";
 
     [TestCase("CellTest.txt", 100, 100)]
     [TestCase("CellTest.txt", -1, -1)]
