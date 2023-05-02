@@ -8,9 +8,9 @@ namespace CoinCollectorGame;
 /// </summary>
 public class MechanicsCore
 {
-    private char coinsSign = 'o';
-    private char endPortalSign = '§';
-    private char mainCharacterSign = '@';
+    private readonly char coinsSign = 'o';
+    private readonly char endPortalSign = '§';
+    private readonly char mainCharacterSign = '@';
 
     public Move Movement { get; }
 
