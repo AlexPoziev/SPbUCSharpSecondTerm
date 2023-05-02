@@ -34,6 +34,7 @@ public class Game
     /// Initializes a new instance of the <see cref="Game"/> class with random start character position.
     /// </summary>
     /// <param name="fileName">Name of the file with game map.</param>
+    /// <param name="withCoins">Does game needs to turn on Coin mechanics.</param>
     public Game(string fileName, bool withCoins)
         : this(fileName, default, true, withCoins)
     {
@@ -52,6 +53,7 @@ public class Game
     /// Initializes a new instance of the <see cref="Game"/> class with defined start character position.
     /// </summary>
     /// <param name="fileName">Name of the file with game map.</param>
+    /// <param name="withCoins">Does game needs to turn on Coin mechanics.</param>
     public Game(string fileName, (int row, int column) mainCharacterStartingPosition, bool withCoins)
         : this(fileName, mainCharacterStartingPosition, false, withCoins)
     {
