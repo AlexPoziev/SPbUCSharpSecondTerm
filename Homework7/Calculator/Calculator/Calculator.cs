@@ -2,7 +2,7 @@ namespace Calculator;
 
 public partial class Calculator : Form
 {
-    private CalculationCore core = new CalculationCore();
+    private readonly CalculationCore core = new CalculationCore();
 
     public Calculator()
     {

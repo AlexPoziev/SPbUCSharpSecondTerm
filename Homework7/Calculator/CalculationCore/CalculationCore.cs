@@ -291,7 +291,7 @@ public class CalculationCore : INotifyPropertyChanged
                 break;
 
             default:
-                break;
+                throw new NotSupportedException();
         }
     }
 
