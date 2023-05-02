@@ -1,3 +1,5 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a9e54d8b0d99492e819359b7f3bfe52f)](https://app.codacy.com/gh/AlexPoziev/SPBUHomeworkCSharp/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 <h2 align="center">
 This repository contains Homework solutions from the <a href="https://github.com/yurii-litvinov" target="_blank" rel="noreferrer">yurii-litvinov</a>'s course 📚 <br/>
   2nd semester, C#
