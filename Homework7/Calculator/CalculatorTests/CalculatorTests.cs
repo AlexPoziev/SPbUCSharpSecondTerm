@@ -5,7 +5,7 @@ using Calculator;
 
 public class Tests
 {
-    CalculationCore calculator = new CalculationCore();
+    readonly CalculationCore calculator = new CalculationCore();
 
     private void AddExpressionInCalculator(string expression)
     {

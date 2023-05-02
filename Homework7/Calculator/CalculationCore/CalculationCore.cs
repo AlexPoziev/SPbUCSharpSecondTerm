@@ -289,6 +289,9 @@ public class CalculationCore : INotifyPropertyChanged
                 }
 
                 break;
+
+            default:
+                break;
         }
     }
 

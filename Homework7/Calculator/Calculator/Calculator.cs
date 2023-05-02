@@ -11,11 +11,6 @@ public partial class Calculator : Form
         expressionConveyor.DataBindings.Add("Text", core, "DisplayNumber", true, DataSourceUpdateMode.OnPropertyChanged);
     }
 
-    private void Calculator_Load(object sender, EventArgs e)
-    {
-
-    }
-
     private void ClearClick(object sender, EventArgs e)
     {
         core.ClearCalculator();

@@ -82,6 +82,8 @@ public static class CalculatorUtils
             throw new ArgumentException("Not a number", nameof(secondNumberString));
         }
 
-        return PerformArithmeticalOperation(firstNumber, secondNumber, sign).ToString();
+        var result = PerformArithmeticalOperation(firstNumber, secondNumber, sign).ToString();
+
+        return result;
     }
 }

@@ -384,7 +384,6 @@
             MinimumSize = new Size(260, 540);
             Name = "Calculator";
             Text = "Calculator";
-            Load += Calculator_Load;
             operationsTable.ResumeLayout(false);
             operationsTable.PerformLayout();
             ResumeLayout(false);
