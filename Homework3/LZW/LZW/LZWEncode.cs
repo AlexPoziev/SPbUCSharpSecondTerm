@@ -96,7 +96,7 @@ public class LZWEncode
     {
         while (bitsToAdd.Count + listOfCurrentBits.Count >= byteSize)
         {
-            for (var i = 0; listOfCurrentBits.Count < byteSize; ++i)
+            while (listOfCurrentBits.Count < byteSize)
             {
                 var firstElement = bitsToAdd.First();
                 bitsToAdd.RemoveAt(0);
