@@ -5,11 +5,11 @@ using TMPro;
 
 public class NextFloorTrigger : MonoBehaviour
 {
-    public GameObject character;
+    public GameObject Character;
 
-    public TMP_Text higherFloorText;
+    public TMP_Text HigherFloorText;
 
-    public TMP_Text lowerFloorText;
+    public TMP_Text LowerFloorText;
 
     private string StringIncrement(string number)
     {
@@ -22,14 +22,14 @@ public class NextFloorTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        character.SetActive(false);
+        Character.SetActive(false);
 
-        var currentPosition = character.transform.position;
-        character.transform.position = new Vector3(currentPosition.x, currentPosition.y + 7.63f, currentPosition.z);
+        var currentPosition = Character.transform.position;
+        Character.transform.position = new Vector3(currentPosition.x, currentPosition.y + 7.63f, currentPosition.z);
 
-        character.SetActive(true);
+        Character.SetActive(true);
 
-        higherFloorText.text = StringIncrement(higherFloorText.text);
-        lowerFloorText.text = StringIncrement(lowerFloorText.text);
+        HigherFloorText.text = StringIncrement(HigherFloorText.text);
+        LowerFloorText.text = StringIncrement(LowerFloorText.text);
     }
 }
