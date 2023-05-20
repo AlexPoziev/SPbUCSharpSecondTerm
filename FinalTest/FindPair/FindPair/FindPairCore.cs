@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FindPair;
 public class FindPairCore
 {
-    private int[,] GameMatrix;
+    private readonly int[,] GameMatrix;
 
     private int pairsLeft;
 
@@ -30,20 +30,20 @@ public class FindPairCore
 
     private static int[,] CreateGameMatrix(int size)
     {
-        var valueLimit = size * size / 2 - 1;
+        var valueLimit = size * size / 2;
         var resultMatrix = new int[size, size];
         var usingNumbersCount = new byte[valueLimit];
 
         Random random = new ();
 
-        for (int i = 0; i < valueLimit; ++i) 
+        for (int i = 0; i < size; ++i) 
         {
-            for (int j = 0; j < valueLimit; ++j)
+            for (int j = 0; j < size; ++j)
             {
-                var randomValue = random.Next(valueLimit + 1);
-                while (usingNumbersCount[randomValue] != 2)
+                var randomValue = random.Next(valueLimit);
+                while (usingNumbersCount[randomValue] == 2)
                 {
-                    randomValue = random.Next(valueLimit + 1);
+                    randomValue = random.Next(valueLimit);
                 }
 
                 resultMatrix[i, j] = randomValue;
@@ -61,16 +61,20 @@ public class FindPairCore
        GameOver
     }
 
-    public (int, bool) ChoiceMaker((int x, int y) numberCoordinates)
+    public (int value, bool needToClose, bool isPair) ChoiceMaker((int x, int y) numberCoordinates)
     {
         if (currentState == States.FirstNumber)
         {
             currentState = States.SecondNumber;
-            return (GameMatrix[numberCoordinates.x, numberCoordinates.y], false);
+            previousNumber = GameMatrix[numberCoordinates.x, numberCoordinates.y];
+
+            return (previousNumber, false, false);
         }
         else if (currentState == States.SecondNumber)
         {
             var number = GameMatrix[numberCoordinates.x, numberCoordinates.y];
+
+            currentState = States.FirstNumber;
 
             if (number == previousNumber)
             {
@@ -80,10 +84,12 @@ public class FindPairCore
                     currentState = States.GameOver;
                 }
 
-                return (number, true);
+                return (number, false, true);
             }
 
-            return (number, false);
+            previousNumber = -1;
+
+            return (number, true, false);
         }
         else
         {
