@@ -47,7 +47,7 @@ public static class ParseTreeUtils
     /// <exception cref="ArgumentException">If index out of string.</exception>
     public static void IsInRange(string expression, int index)
     {
-        if (index > expression.Length || index < 0)
+        if (index >= expression.Length || index < 0)
         {
             throw new ArgumentException("Expression not full");
         }

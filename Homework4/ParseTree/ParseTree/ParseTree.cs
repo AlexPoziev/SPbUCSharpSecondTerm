@@ -77,9 +77,9 @@ public class ParseTree
             else
             {
                 if (ParseTreeUtils.IsOperationSign(expression[currentIndex])
-                    && (currentIndex + 1 >= expression.Length
-                    || !((expression[currentIndex] == '+' || expression[currentIndex] == '-')
-                    && char.IsDigit(expression[currentIndex + 1]))))
+                        && (currentIndex + 1 >= expression.Length
+                        || !((expression[currentIndex] == '+' || expression[currentIndex] == '-')
+                        && char.IsDigit(expression[currentIndex + 1]))))
                 {
                     throw new ArgumentException("Begin of the new expression must to start with '(' ");
                 }
@@ -106,7 +106,7 @@ public class ParseTree
         }
 
         if (!ParseTreeUtils.AreParanthesisBalanced(expression)
-            || !expression.Any((x) => x == '('))
+                || !expression.Any((x) => x == '('))
         {
             throw new ArgumentException("Parenthesis are incorrectly placed");
         }
