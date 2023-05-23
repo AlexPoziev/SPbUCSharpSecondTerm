@@ -60,6 +60,7 @@
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/SimpleScript.cs" />
     <Compile Include="Assets/Mobile/Scripts/VirtualInputs/UIVirtualButton.cs" />
     <Compile Include="Assets/InputSystem/StarterAssetsInputs.cs" />
+    <Compile Include="Assets/Scripts/QuitButtonScript.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_A.cs" />
     <Compile Include="Assets/Sketchfab For Unity/Scripts/SketchfabLogger.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark04.cs" />
     <Compile Include="Assets/Sketchfab For Unity/Scripts/SketchfabPlugin.cs" />
     <Compile Include="Assets/Mobile/Scripts/CanvasInputs/UICanvasControllerInput.cs" />
+    <Compile Include="Assets/Scripts/EndGameTrigger.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/ChatController.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" />
     <Compile Include="Assets/Scripts/NextFloorTrigger.cs" />
