@@ -25,7 +25,7 @@ This repository contains Homework solutions from the <a href="https://github.com
 
 ### Homework 4
 
-* [Parse Tree](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/7) (not reviewed yet)
+* [Parse Tree](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/7)
 * [Unique List](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/6) (not reviewed yet)
 
 ### Homework 5
@@ -40,6 +40,12 @@ This repository contains Homework solutions from the <a href="https://github.com
 ### Homework 7
 
 * [Calculator](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/22) (not reviewed yet)
+
+### Homework 8
+* [Skip List](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/24)
+
+### SCP-087
+* [SCP-087](https://github.com/AlexPoziev/SPBUHomeworkCSharp/pull/27)
 
 <!-- LICENSE -->
 ## License
