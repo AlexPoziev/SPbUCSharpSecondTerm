@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriorityQueue", "PriorityQueue\PriorityQueue.csproj", "{0A9504E3-990C-4F68-8EB5-8149070D4A5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriorityQueueTest", "PriorityQueueTest\PriorityQueueTest.csproj", "{471AED0C-8FC5-4C65-963F-245E59E24415}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A9504E3-990C-4F68-8EB5-8149070D4A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9504E3-990C-4F68-8EB5-8149070D4A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9504E3-990C-4F68-8EB5-8149070D4A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9504E3-990C-4F68-8EB5-8149070D4A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{471AED0C-8FC5-4C65-963F-245E59E24415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{471AED0C-8FC5-4C65-963F-245E59E24415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{471AED0C-8FC5-4C65-963F-245E59E24415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{471AED0C-8FC5-4C65-963F-245E59E24415}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED665BB3-213D-4350-AC72-ED03FA707FDA}
+	EndGlobalSection
+EndGlobal
